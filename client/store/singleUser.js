@@ -12,7 +12,7 @@ function getUser(user) {
 export function fetchSingleUser(id) {
   return async (dispatch) => {
     try {
-      const { data } = axios.get(`/api/users/${id}`)
+      const { data } = await axios.get(`/api/users/${id}`)
       dispatch(getUser(data))
     } catch (error) {
       console.log(error)
@@ -20,7 +20,9 @@ export function fetchSingleUser(id) {
   }
 }
 
-const defaultState = {}
+const defaultState = {
+  // user: "hihi",
+}
 
 export default function singleUserReducer(state = defaultState, action) {
   switch (action.type) {
