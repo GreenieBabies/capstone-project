@@ -1,8 +1,8 @@
-const router = require("express").Router();
+const router = require("express").Router()
 const {
   models: { User, Project },
-} = require("../db");
-module.exports = router;
+} = require("../db")
+module.exports = router
 
 // GET single user and all associated boards
 router.get("/:id", async (req, res, next) => {
@@ -12,19 +12,20 @@ router.get("/:id", async (req, res, next) => {
         id: req.params.id,
       },
       // attributes?
-      include: {
-        model: Project,
-        where: {
-          userId: req.params.id,
-        },
-      },
-    });
+      // include: {
+      //   model: Project,
+      //   // required: false,
+      //   where: {
+      //     userId: req.params.id,
+      //   },
+      // },
+    })
 
-    res.send(user);
+    res.send(user)
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
 // GET all users. Useful later for admin accounts
 // NEED AUTH CHECK FOR SECURITY
@@ -35,9 +36,9 @@ router.get("/", async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ["id", "username"],
-    });
-    res.json(users);
+    })
+    res.json(users)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
