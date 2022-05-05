@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, Project },
+  models: { User, List },
 } = require("../db")
 module.exports = router
 
@@ -12,13 +12,9 @@ router.get("/:id", async (req, res, next) => {
         id: req.params.id,
       },
       // attributes?
-      // include: {
-      //   model: Project,
-      //   // required: false,
-      //   where: {
-      //     userId: req.params.id,
-      //   },
-      // },
+      include: {
+        model: List,
+      },
     })
 
     res.send(user)
