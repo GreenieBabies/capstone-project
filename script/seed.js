@@ -63,12 +63,11 @@ async function seed() {
   await user2.setLists([list1, list2, list3])
 
 
-  console.log(`seeded ${users.length} users`);
+  // console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
     users: {
-      cody: users[0],
-      murphy: users[1],
+      user1, user2
     },
   };
 }
