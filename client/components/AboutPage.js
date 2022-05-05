@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
 const team = [
   {
@@ -17,7 +17,7 @@ const team = [
     aboutMe: "",
   },
   { firstName: "Tony", lastName: "Li", imageUrl: "", id: 4, aboutMe: "" },
-];
+]
 
 const AboutPage = () => {
   return (
@@ -59,5 +59,5 @@ const AboutPage = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
