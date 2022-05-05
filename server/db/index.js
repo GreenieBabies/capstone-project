@@ -5,6 +5,7 @@ const db = require("./db");
 const User = require("./models/User");
 const List = require("./models/List");
 const Project = require("./models/Project");
+
 const Task = require("./models/Task");
 
 User.belongsToMany(List, { through: Project });

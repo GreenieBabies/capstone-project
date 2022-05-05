@@ -22,3 +22,5 @@ const Task = db.define("task", {
     defaultValue: false,
   },
 });
+
+module.exports = Task;

@@ -6,3 +6,5 @@ const List = db.define("list", {
     type: Sequelize.STRING,
   },
 });
+
+module.exports = List;
