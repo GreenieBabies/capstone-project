@@ -8,3 +8,5 @@ const Project = db.define("project", {
     unique: true,
   },
 });
+
+module.exports = Project;
