@@ -6,10 +6,17 @@ const team = [
     lastName: "Lupton",
     imageUrl: "",
     id: 1,
+    aboutMe: "",
   },
-  { firstName: "Ethan", lastName: "S", imageUrl: "", id: 2 },
-  { firstName: "Michael", lastName: "Mnatsakanian", imageUrl: "", id: 3 },
-  { firstName: "Tony", lastName: "Li", imageUrl: "", id: 4 },
+  { firstName: "Ethan", lastName: "S", imageUrl: "", id: 2, aboutMe: "" },
+  {
+    firstName: "Michael",
+    lastName: "Mnatsakanian",
+    imageUrl: "",
+    id: 3,
+    aboutMe: "",
+  },
+  { firstName: "Tony", lastName: "Li", imageUrl: "", id: 4, aboutMe: "" },
 ];
 
 const AboutPage = () => {

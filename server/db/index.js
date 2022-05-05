@@ -3,20 +3,20 @@
 const db = require("./db");
 
 const User = require("./models/User");
-const Column = require("./models/Column");
+const List = require("./models/List");
 const Project = require("./models/Project");
 const Task = require("./models/Task");
 
-User.belongsToMany(Column, { through: Project });
-Column.belongsToMany(User, { through: Project });
-Column.hasMany(Task);
-Task.belongsTo(Column);
+User.belongsToMany(List, { through: Project });
+List.belongsToMany(User, { through: Project });
+List.hasMany(Task);
+Task.belongsTo(List);
 
 module.exports = {
   db,
   models: {
     User,
-    Column,
+    List,
     Project,
     Task,
   },
