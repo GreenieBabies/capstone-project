@@ -27,7 +27,7 @@ const defaultState = {
 export default function singleUserReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_SINGLE_USER:
-      return { ...action.user }
+      return { ...action.user, ...action.auth }
     default:
       return state
   }
