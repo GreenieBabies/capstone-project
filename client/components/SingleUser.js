@@ -7,15 +7,15 @@ const SingleUser = (props) => {
   const user = useSelector((state) => state.user)
   const auth = useSelector((state) => state.auth)
   const { isAdmin } = auth
-  //   console.log(user)
+  console.log(user)
 
-  const projects = {}
-  user.lists &&
-    user.lists.map((x) => {
-      !Object.keys(projects).includes(x.project.boardName)
-        ? (projects[x.project.boardName] = [x])
-        : projects[x.project.boardName].push(x)
-    })
+  // const projects = {}
+  // user.lists &&
+  //   user.lists.map((x) => {
+  //     !Object.keys(projects).includes(x.project.boardName)
+  //       ? (projects[x.project.boardName] = [x])
+  //       : projects[x.project.boardName].push(x)
+  //   })
 
   useEffect(() => {
     const { id } = props.match.params
@@ -28,7 +28,17 @@ const SingleUser = (props) => {
         <div>
           <p>Welcome {user.username}!</p>
           <h1>Projects</h1>
-          {Object.keys(projects).map((x, i) => {
+          <ul className="container">
+            {user.projects &&
+              user.projects.map((x, i) => {
+                return (
+                  <div key={i} className="allProjectsBox">
+                    <h2>{x.boardName}</h2>
+                  </div>
+                )
+              })}
+          </ul>
+          {/* {Object.keys(projects).map((x, i) => {
             return (
               <div key={i} className="allProjectsBox">
                 <h2>{x}</h2>
@@ -45,7 +55,7 @@ const SingleUser = (props) => {
                 </ul>
               </div>
             )
-          })}
+          })} */}
         </div>
       ) : (
         <p>Unauthorized</p>
