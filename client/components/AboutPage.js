@@ -52,7 +52,7 @@ const AboutPage = () => {
         <div className="member" key={member.id}>
           <img src={member.imageUrl} className="photo" />
           <h2>
-            <Link className="listingInfo" to={`/team/${member.id}/`}>
+            <Link className="moreInfo" to={`/team/${member.id}/`}>
               {member.firstName} {member.lastName}
             </Link>
           </h2>
