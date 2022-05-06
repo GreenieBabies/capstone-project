@@ -1,31 +1,18 @@
-import React from "react"
-import { connect } from "react-redux"
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { fetchSingleUser } from "../store/singleUser"
 
-class SingleUser extends React.Component {
-  componentDidMount() {
-    const { id } = this.props.match.params
-    this.props.getUser(id)
-    // console.log(this.props)
-  }
+const SingleUser = props => {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
 
-  render() {
-    const { user } = this.props
-    return <div>hello {user.username}</div>
-  }
+  useEffect(() => {
+    const { id } = props.match.params
+    dispatch(fetchSingleUser(id))
+  }, [])
+
+  return <div>hello {user.username}</div>
 }
 
-function mapState(state) {
-  return {
-    user: state.user,
-    auth: state.auth,
-  }
-}
-
-function mapDispatch(dispatch) {
-  return {
-    getUser: (id) => dispatch(fetchSingleUser(id)),
-  }
-}
-
-export default connect(mapState, mapDispatch)(SingleUser)
+export default SingleUser
