@@ -12,8 +12,7 @@ function getUser(user) {
   }
 }
 
-
-function getProject(project) {
+function newProject(project) {
   return {
     type: CREATE_NEW_PROJECT,
     project,
@@ -59,7 +58,7 @@ export function createProject(id) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`/api/users/${id}`)
-      dispatch(getProject(data))
+      dispatch(newProject(data))
     } catch (error) {
       console.log(error)
     }
@@ -103,8 +102,12 @@ export default function singleUserReducer(state = defaultState, action) {
     case GET_SINGLE_USER:
       return { ...action.user, ...action.auth }
     case CREATE_NEW_PROJECT:
-      return { ...state, ...action.project }
+      state.projects.push(action.project)
+      return { ...state }
     case DELETE_PROJECT:
+      state.projects = state.projects.filter((x) => {
+        return x.id !== action.project.id && x
+      })
       return { ...state }
     case UPDATE_PROJECT:
       return { ...state, ...action.project }

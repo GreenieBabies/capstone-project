@@ -8,6 +8,7 @@ module.exports = router
 router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findOne({
+      attributes: ["id", "username", "email", "address", "isAdmin"],
       where: {
         id: req.params.id,
       },
@@ -23,6 +24,8 @@ router.get("/:id", async (req, res, next) => {
   }
 })
 
+// could be /projects/:id
+// now we have req.user! don't need userId
 router.get("/:userId/projects/:projectId", async (req, res, next) => {
   try {
     const project = await Project.findOne({
