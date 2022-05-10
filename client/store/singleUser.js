@@ -12,6 +12,7 @@ function getUser(user) {
   }
 }
 
+
 function getProject(project) {
   return {
     type: CREATE_NEW_PROJECT,
@@ -30,6 +31,16 @@ function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
     project,
+  }
+}
+
+export function createUserThunk(form) {
+  return async () => {
+    try {
+      await axios.post(`auth/signup`, form)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

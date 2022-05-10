@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, Project },
+  models: { User, Project, List, Task },
 } = require("../db")
 module.exports = router
 
@@ -21,6 +21,27 @@ router.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+router.get("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findOne({
+      attributes: ["id", "boardName"],
+      where: {
+        id: req.params.projectId,
+      },
+      include: {
+        model: List,
+        // through: {
+        //   attributes: ["id", "columnName", "projectId"],
+        // },
+        include: {
+          model: Task,
+        },
+      },
+    })
+    res.send(project)
+  } catch (error) {}
 })
 
 // GET all users. Useful later for admin accounts
