@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchSingleProject } from "../store/singleProject"
 
-const singleProject = (props) => {
+const SingleProject = (props) => {
   const dispatch = useDispatch()
   const project = useSelector((state) => state.project)
   const auth = useSelector((state) => state.auth)
@@ -40,4 +40,4 @@ const singleProject = (props) => {
   )
 }
 
-export default SingleUser
+export default SingleProject
