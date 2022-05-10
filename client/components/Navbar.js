@@ -3,14 +3,16 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { logout } from "../store"
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, id }) => (
   <div>
-    <h1>FS-App-Template</h1>
+    <h1>Trello + Voice</h1>
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to={`/users/${id}`}>Project Boards</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -19,7 +21,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
+          <Link to="/home">Home</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/about">About</Link>
         </div>
       )}
     </nav>
@@ -33,6 +37,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    id: state.auth.id,
   }
 }
 
