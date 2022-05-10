@@ -9,7 +9,7 @@ const Task = db.define("task", {
       notEmpty: true,
     },
   },
-  Notes: { type: Sequelize.TEXT },
+  notes: { type: Sequelize.TEXT },
   isComplete: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,

@@ -66,14 +66,14 @@ const listsData = [
 const tasksData = [
   {
     taskName: "Seed database",
-    Notes: "",
+    notes: "",
     isComplete: false,
     imageUrl: "",
     requiresApproval: true,
   },
   {
     taskName: "",
-    Notes: "",
+    notes: "",
     isComplete: false,
     imageUrl: "",
     requiresApproval: true,
@@ -110,6 +110,10 @@ async function seed() {
     isAdmin: false,
   })
 
+  const board1 = await Project.create({ boardName: "Capstone" })
+  const board2 = await Project.create({ boardName: "Cold Stone" })
+  const board3 = await Project.create({ boardName: "Key Stone" })
+
   const list1 = await List.create({ columnName: "Alpha" })
   const list2 = await List.create({ columnName: "Beta" })
   const list3 = await List.create({ columnName: "Gamma" })
@@ -117,37 +121,49 @@ async function seed() {
 
   const task1 = await Task.create({
     taskName: "Create title",
-    Notes: "Come up with title for project",
+    notes: "Come up with title for project",
     isComplete: false,
     imageUrl: "",
     requiresApproval: true,
   })
   const task2 = await Task.create({
     taskName: "Touch button",
-    Notes: "hello",
+    notes: "hello",
     isComplete: true,
     imageUrl: "",
     requiresApproval: true,
   })
   const task3 = await Task.create({
     taskName: "Turn page",
-    Notes: "Page turn",
+    notes: "Page turn",
     isComplete: false,
     imageUrl: "",
     requiresApproval: false,
   })
   const task4 = await Task.create({
     taskName: "Type key",
-    Notes: "Hit the key button",
+    notes: "Hit the key button",
     isComplete: true,
+    imageUrl: "",
+    requiresApproval: false,
+  })
+  const task5 = await Task.create({
+    taskName: "Jump twice",
+    notes: "Probably go outside first",
+    isComplete: false,
     imageUrl: "",
     requiresApproval: false,
   })
 
   await list1.setTasks([task1, task2])
   await list2.setTasks([task3, task4])
-  await user1.setLists([list1, list2])
-  await user2.setLists([list1, list2, list3])
+  await list3.setTasks([task5])
+
+  await board1.setLists([list1, list2])
+  await board2.setLists([list3])
+
+  await user1.setProjects([board1])
+  await user2.setProjects([board1, board2])
 
   // console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`)
