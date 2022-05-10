@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, List },
+  models: { User, Project, List, Task },
 } = require("../db")
 module.exports = router
 
@@ -13,7 +13,7 @@ router.get("/:id", async (req, res, next) => {
       },
       // attributes?
       include: {
-        model: List,
+        model: Project,
       },
     })
 
@@ -21,6 +21,27 @@ router.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+router.get("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findOne({
+      attributes: ["id", "boardName"],
+      where: {
+        id: req.params.projectId,
+      },
+      include: {
+        model: List,
+        // through: {
+        //   attributes: ["id", "columnName", "projectId"],
+        // },
+        include: {
+          model: Task,
+        },
+      },
+    })
+    res.send(project)
+  } catch (error) {}
 })
 
 // GET all users. Useful later for admin accounts
@@ -36,5 +57,36 @@ router.get("/", async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
+  }
+})
+
+router.post("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    const newProject = await Project.create(req.body)
+    await newProject.addUser(user)
+    res.send(newProject)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId)
+    await project.destroy()
+    res.send(project)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId)
+    await project.update(req.body)
+    res.send(project)
+  } catch (error) {
+    next(error)
   }
 })

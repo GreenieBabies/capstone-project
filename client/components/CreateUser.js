@@ -2,7 +2,8 @@ import { createUserThunk } from "../store/singleUser"
 import React, { useState, useDispatch } from "react"
 import { Link } from "react-router-dom"
 
-const CreateUser = () => {
+const CreateUser = (props) => {
+
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -18,7 +19,10 @@ const CreateUser = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(createUserThunk(form))
+    try {
+      dispatch(createUserThunk(form))
+    } catch (err) {}
+    props.history.push("/login")
   }
   return (
     <div>
@@ -51,7 +55,9 @@ const CreateUser = () => {
           value={form.address}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" onSubmit={handleSubmit}>
+          Submit
+        </button>
         <Link to="/">Cancel</Link>
       </form>
     </div>

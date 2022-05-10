@@ -19,3 +19,54 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.container{
+  margin: 0 2vw
+}
+.allProjectsBox{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 10px;
+  display:flex;
+  align-items: center;
+}
+
+.createNewProject{
+  width: 150px;
+  height: 150px;
+  background: #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 10px;
+  transition: .2s
+}
+
+.createNewProject:hover{
+  opacity: .5;
+}
+
+.deleteProject{
+  width: 30px;
+  height: 30px;
+  background: #f22;
+  border-radius: 2px;
+  margin-left: 50px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 2em;
+}
+
+ul{
+  margin:0;
+  padding: 0;
+  list-style-type: none
+}
