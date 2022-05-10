@@ -5,6 +5,9 @@ import { Login, Signup } from "./components/AuthForm"
 import CreateUser from "./components/CreateUser"
 import Home from "./components/Home"
 import SingleUser from "./components/SingleUser"
+import AboutPage from "./components/AboutPage"
+import SingleFounder from "./components/SingleFounder"
+import SingleProject from "./components/SingleProject"
 import { me } from "./store"
 
 /**
@@ -32,6 +35,12 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={CreateUser} />
             <Route path="/users/:id" component={SingleUser} />
+            <Route
+              path="/users/:userId/projects/:projectId"
+              component={SingleProject}
+            />
+            <Route path="/about" component={AboutPage} />
+            <Route path="/team/:memberId/" component={SingleFounder} />
           </Switch>
         )}
       </div>

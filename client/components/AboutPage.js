@@ -69,7 +69,6 @@ const AboutPage = (team) => {
         <div className="member" key={member.id}>
           <img src={member.imageUrl} className="photo" />
           <h2>
-            <Link className="moreInfo" to={`/team/${member.id}/`}>
             <Link
               className="listingInfo"
               to={{
