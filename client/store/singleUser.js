@@ -9,6 +9,16 @@ function getUser(user) {
   }
 }
 
+export function createUserThunk(form) {
+  return async () => {
+    try {
+      await axios.post(`auth/signup`, form)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export function fetchSingleUser(id) {
   return async (dispatch) => {
     try {
@@ -27,7 +37,7 @@ const defaultState = {
 export default function singleUserReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_SINGLE_USER:
-      return { ...action.user, ...action.auth }
+      return { ...action.user }
     default:
       return state
   }
