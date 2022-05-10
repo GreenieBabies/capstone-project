@@ -8,33 +8,33 @@ const ADD_SINGLE_TASK = "ADD_SINGLE_TASK"
 function getProject(project) {
   return {
     type: GET_SINGLE_PROJECT,
-    project
+    project,
   }
 }
 
 function getTask(task) {
   return {
     type: ADD_SINGLE_TASK,
-    task
+    task,
   }
 }
 
 function deleteTask(task) {
   return {
     type: DELETE_SINGLE_TASK,
-    task
+    task,
   }
 }
 
 function editTask(task) {
   return {
     type: EDIT_SINGLE_TASK,
-    task
+    task,
   }
 }
 
 export function fetchSingleProject(userId, projectId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const { data } = await axios.get(
         `/api/users/${userId}/projects/${projectId}`
@@ -47,11 +47,12 @@ export function fetchSingleProject(userId, projectId) {
 }
 
 export function addSingleTask(userId, projectId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const { data } = await axios.post(
         `/api/users/${userId}/projects/${projectId}`
       )
+      console.log(data)
       dispatch(getTask(data))
     } catch (error) {
       console.log(error)
@@ -60,7 +61,7 @@ export function addSingleTask(userId, projectId) {
 }
 
 export function deleteSingleTask(userId, projectId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const { data } = await axios.delete(
         `/api/users/${userId}/projects/${projectId}`
@@ -73,7 +74,7 @@ export function deleteSingleTask(userId, projectId) {
 }
 
 export function editSingleTask(userId, projectId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const payload = { boardName: newName }
       const { data } = await axios.put(
