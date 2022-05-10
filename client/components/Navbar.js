@@ -5,7 +5,7 @@ import { logout } from "../store"
 
 const Navbar = ({ handleClick, isLoggedIn, id }) => (
   <div>
-    <h1>FS-App-Template</h1>
+    <h1>Trello + Voice</h1>
     <nav>
       {isLoggedIn ? (
         <div>
