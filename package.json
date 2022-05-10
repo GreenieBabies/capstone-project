@@ -9,8 +9,8 @@
     "seed": "node script/seed.js",
     "start": "node server",
     "setGoog":"export GOOGLE_APPLICATION_CREDENTIALS=\"C:\\Users\\ersch\\Downloads\\robotic-parsec-252900-cd782202f5a5.json\"",
-
-    "start:dev": "npm run setGoog & npm run build:dev & npm run start-server",
+    "start:dev:Ethan": "npm run setGoog & npm run build:dev & npm run start-server",
+    "start:dev": "npm run build:dev & npm run start-server",
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client",
