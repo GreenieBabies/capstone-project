@@ -3,13 +3,12 @@ import { useLocation } from "react-router-dom"
 
 const SingleFounder = () => {
   const location = useLocation()
-  const { member } = location.state
 
   return (
     <div className="SingleFounder">
-      <img src={member.imageUrl} />
-      <p>{`Name: ${member.firstName} ${member.lastName}`}</p>
-      <p>{`About Me: ${member.aboutMe}`}</p>
+      <img src={location.state.imageUrl} />
+      <p>{`Name: ${location.state.firstName} ${location.state.lastName}`}</p>
+      <p>{`About Me: ${location.state.aboutMe}`}</p>
     </div>
   )
 }
