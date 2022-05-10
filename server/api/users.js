@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, Project, List, Task },
+  models: { User, Project, List, Task }
 } = require("../db")
 module.exports = router
 
@@ -9,12 +9,12 @@ router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
-        id: req.params.id,
+        id: req.params.id
       },
       // attributes?
       include: {
-        model: Project,
-      },
+        model: Project
+      }
     })
 
     res.send(user)
@@ -28,7 +28,7 @@ router.get("/:userId/projects/:projectId", async (req, res, next) => {
     const project = await Project.findOne({
       attributes: ["id", "boardName"],
       where: {
-        id: req.params.projectId,
+        id: req.params.projectId
       },
       include: {
         model: List,
@@ -36,12 +36,14 @@ router.get("/:userId/projects/:projectId", async (req, res, next) => {
         //   attributes: ["id", "columnName", "projectId"],
         // },
         include: {
-          model: Task,
-        },
-      },
+          model: Task
+        }
+      }
     })
     res.send(project)
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 // GET all users. Useful later for admin accounts
@@ -52,7 +54,7 @@ router.get("/", async (req, res, next) => {
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ["id", "username"],
+      attributes: ["id", "username"]
     })
     res.json(users)
   } catch (err) {

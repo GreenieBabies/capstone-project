@@ -3,21 +3,21 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 
-const CreateUser = (props) => {
+const CreateUser = props => {
   const [form, setForm] = useState({
     username: "",
     password: "",
     email: "",
-    address: "",
+    address: ""
   })
   const dispatch = useDispatch()
-  const handleChange = (event) => {
+  const handleChange = event => {
     setForm({
       ...form,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     })
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     try {
       dispatch(createUserThunk(form))
