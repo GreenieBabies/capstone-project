@@ -1,9 +1,9 @@
 import { createUserThunk } from "../store/singleUser"
-import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import React, { useState, useDispatch } from "react"
 import { Link } from "react-router-dom"
 
 const CreateUser = (props) => {
+
   const [form, setForm] = useState({
     username: "",
     password: "",
