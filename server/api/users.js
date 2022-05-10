@@ -38,3 +38,34 @@ router.get("/", async (req, res, next) => {
     next(err)
   }
 })
+
+router.post("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    const newProject = await Project.create(req.body)
+    await newProject.addUser(user)
+    res.send(newProject)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId)
+    await project.destroy()
+    res.send(project)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId)
+    await project.update(req.body)
+    res.send(project)
+  } catch (error) {
+    next(error)
+  }
+})
