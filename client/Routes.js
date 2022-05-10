@@ -27,6 +27,13 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/users/:id" component={SingleUser} />
+            <Route path="/users/:id" component={SingleUser} />
+            <Route
+              path="/users/:userId/projects/:projectId"
+              component={SingleProject}
+            />
+            <Route path="/about" component={AboutPage} />
+            <Route path="/team/:memberId/" component={SingleFounder} />
             {/* <Redirect to="/home" /> */}
           </Switch>
         ) : (
@@ -34,11 +41,6 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={CreateUser} />
-            <Route path="/users/:id" component={SingleUser} />
-            <Route
-              path="/users/:userId/projects/:projectId"
-              component={SingleProject}
-            />
             <Route path="/about" component={AboutPage} />
             <Route path="/team/:memberId/" component={SingleFounder} />
           </Switch>
