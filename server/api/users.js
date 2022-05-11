@@ -95,3 +95,14 @@ router.put("/:userId/projects/:projectId", async (req, res, next) => {
     next(error)
   }
 })
+
+router.post("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    const newProject = await Project.create(req.body)
+    await newProject.addUser(user)
+    res.send(newProject)
+  } catch (error) {
+    next(error)
+  }
+})
