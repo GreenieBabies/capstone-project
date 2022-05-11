@@ -44,12 +44,11 @@ form div {
   border-radius: 20px;
   cursor: pointer;
   margin: 10px;
-
-  transition: .2s;
-  opacity: .75;
+  transition: 0.2s;
+  opacity: 0.75;
 }
 
-.createNewProject:hover{
+.createNewProject:hover {
   opacity: 1;
 
 }
@@ -81,7 +80,9 @@ ul {
 .exampleImages img:not(:last-of-type) {
   margin-right: 2em;
 }
-*/ lh {
+
+
+lh {
   font-weight: bold;
   font-size: larger;
 }
