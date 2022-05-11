@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import EditProjectName from "./EditProjectName"
+import InlineInput from "./InlineInput"
 import {
   fetchSingleUser,
   createProject,
@@ -13,7 +13,10 @@ const SingleUser = (props) => {
   const auth = useSelector((state) => state.auth)
   const [projects, setProjects] = useState([])
   const { isAdmin } = auth
-  // console.log(user)
+  const [storedHeading, setStoredHeading] = useState(
+    "Click here to start editing the text!"
+  )
+  const [storedText, setStoredText] = useState("Here's some more, edit away!")
 
   useEffect(() => {
     const { id } = props.match.params
@@ -52,7 +55,15 @@ const SingleUser = (props) => {
                     .map((x) => {
                       return (
                         <div key={x.id} className="allProjectsBox">
-                          <EditProjectName x={x} />
+                          {/* for fully-routed version, delete InlineInputs and add EditProjectName */}
+                          <InlineInput
+                            text={storedHeading}
+                            onSetText={(text) => setStoredHeading(text)}
+                          />
+                          <InlineInput
+                            text={storedText}
+                            onSetText={(text) => setStoredText(text)}
+                          />
 
                           <button
                             className="deleteProject"

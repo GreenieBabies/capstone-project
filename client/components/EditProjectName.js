@@ -5,7 +5,6 @@ import { updateProject } from "../store/singleUser"
 const EditProjectName = (props) => {
   const dispatch = useDispatch()
   const [projectName, setProjectName] = useState("")
-  // console.log(user)
 
   useEffect(() => {}, [projectName])
 
@@ -18,10 +17,7 @@ const EditProjectName = (props) => {
 
   return (
     <div>
-      <form
-        action=""
-        onSubmit={(e) => handleSubmit(e, props.x.id, projectName)}
-      >
+      <form onSubmit={(e) => handleSubmit(e, props.x.id, projectName)}>
         <input
           type="text"
           placeholder={props.x.boardName}
