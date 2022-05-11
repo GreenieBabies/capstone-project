@@ -26,11 +26,8 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route exact path="/users/:id" component={SingleUser} />
-            <Route
-              path="/users/:userId/projects/:projectId"
-              component={SingleProject}
-            />
+            <Route path="/users/:id" component={SingleUser} />
+            <Route path="/projects/:id" component={SingleProject} />
             <Route path="/about" component={AboutPage} />
             <Route path="/team/:memberId/" component={SingleFounder} />
             {/* <Redirect to="/users/:id" /> */}

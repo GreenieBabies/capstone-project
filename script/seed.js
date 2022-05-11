@@ -162,7 +162,7 @@ async function seed() {
   await board1.setLists([list1, list2])
   await board2.setLists([list3])
 
-  await user1.setProjects([board1])
+  await user1.setProjects([board1, board2, board3])
   await user2.setProjects([board1, board2])
 
   // console.log(`seeded ${users.length} users`);
