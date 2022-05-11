@@ -1,6 +1,12 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { fetchSingleProject } from "../store/singleProject"
+import {
+  fetchSingleProject,
+  addSingleTask,
+  deleteSingleTask,
+  editSingleTask,
+} from "../store/singleProject"
+// import { Grid, makeStyles, Button } from "@material-ui/core"
 
 const SingleProject = (props) => {
   const dispatch = useDispatch()
@@ -11,22 +17,48 @@ const SingleProject = (props) => {
 
   //have it when someone clicks on a project on the single user page, the projectId is returned
   useEffect(() => {
-    const { userId } = props.match.params
+    const { userId, projectId } = props.match.params
+    console.log(props)
     dispatch(fetchSingleProject(userId, projectId))
   }, [])
 
+  const handleAddTask = (e, itemId) => {
+    e.preventDefault()
+    dispatch(addSingleTask(itemId))
+  }
+
+  // const handleDeleteTask = (event, itemId) => {
+  //   dispatch(deleteSingleTask(itemId))
+  // }
+
+  // const handleSubmit = (event, projectId, newName) => {
+  //   event.preventDefault()
+  //   const { userId } = props.match.params
+  //   dispatch(editSingleTask(userId, projectId, newName))
+  //   setProjects([...projects, {}])
+  // }
+
   return (
+    // <Grid>
+    //   <Button>
+    //     onClick={() => dispatch(remove)}
+    //   </Button>
+    // </Grid>
     <div className="container">
       {isAdmin || user.id === auth.id ? (
         <div>
-          <p>Welcome {project.boardName}!</p>
+          <p>Welcome jbjlk!</p>
           <h1>Lists</h1>
           <ul className="container">
-            {project.columnName &&
-              //Stopped
+            <div className="createSingleTask" onClick={handleAddTask}>
+              +
+            </div>
+            {project &&
+              // Stopped
+              //
               user.projects.map((x, i) => {
                 return (
-                  <div key={i} className="allProjectsBox">
+                  <div key={i} className="allTasksBox">
                     <h2>{x.boardName}</h2>
                   </div>
                 )
