@@ -9,6 +9,8 @@ const AboutPage = () => {
       imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 1,
       aboutMe: "",
+      linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
+      gitHub: "https://github.com/Jlups76",
     },
     {
       firstName: "Ethan",
@@ -16,6 +18,8 @@ const AboutPage = () => {
       imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 2,
       aboutMe: "",
+      linkedin: "https://www.linkedin.com/in/ethanschindel/",
+      gitHub: "https://github.com/Erschindel",
     },
     {
       firstName: "Michael",
@@ -23,6 +27,8 @@ const AboutPage = () => {
       imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 3,
       aboutMe: "",
+      linkedin: "https://www.linkedin.com/in/michaelmnat/",
+      gitHub: "https://github.com/MichaelMnatsakanian",
     },
     {
       firstName: "Tony",
@@ -30,6 +36,8 @@ const AboutPage = () => {
       imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 4,
       aboutMe: "",
+      linkedin: "https://www.linkedin.com/in/tony-x-li/",
+      gitHub: "https://github.com/tonyxli21",
     },
   ]
 
