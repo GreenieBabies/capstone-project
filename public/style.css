@@ -20,20 +20,20 @@ form div {
   display: inline-block;
 }
 
-.container{
-  margin: 0 2vw
+.container {
+  margin: 0 2vw;
 }
-.allProjectsBox{
+.allProjectsBox {
   border: 1px solid black;
   border-radius: 10px;
   padding: 20px;
   max-width: 400px;
   margin: 10px;
-  display:flex;
+  display: flex;
   align-items: center;
 }
 
-.createNewProject{
+.createNewProject {
   width: 150px;
   height: 150px;
   background: #bbb;
@@ -44,14 +44,14 @@ form div {
   border-radius: 20px;
   cursor: pointer;
   margin: 10px;
-  transition: .2s
+  transition: 0.2s;
 }
 
-.createNewProject:hover{
-  opacity: .5;
+.createNewProject:hover {
+  opacity: 0.5;
 }
 
-.deleteProject{
+.deleteProject {
   width: 30px;
   height: 30px;
   background: #f22;
@@ -65,8 +65,20 @@ form div {
   font-size: 2em;
 }
 
-ul{
-  margin:0;
+ul {
+  margin: 0;
   padding: 0;
-  list-style-type: none
+  list-style-type: none;
+}
+
+#homePage {
+  text-align: center;
+}
+
+.exampleImages img:not(:last-of-type) {
+  margin-right: 2em;
+}
+*/ lh {
+  font-weight: bold;
+  font-size: larger;
 }
