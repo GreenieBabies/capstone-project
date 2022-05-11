@@ -50,6 +50,7 @@ form div {
 
 .createNewProject:hover {
   opacity: 1;
+
 }
 
 .deleteProject {
@@ -79,6 +80,7 @@ ul {
 .exampleImages img:not(:last-of-type) {
   margin-right: 2em;
 }
+
 
 lh {
   font-weight: bold;
