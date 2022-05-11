@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
+import { useDispatch } from "react-redux"
+import { updateProject } from "../store/singleProject"
+import DOMPurify from "dompurify"
 import useKeypress from "./hooks/useKeypress"
 import useOnClickOutside from "./hooks/useOnClickOutside"
 
 function InlineInput(props) {
+  const dispatch = useDispatch()
   const [isInputActive, setIsInputActive] = useState(false)
   const [inputValue, setInputValue] = useState(props.text)
+  // const [projectName, setProjectName] = useState("")
 
   const wrapperRef = useRef(null)
   const textRef = useRef(null)
@@ -16,14 +21,20 @@ function InlineInput(props) {
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
     if (isInputActive) {
-      props.onSetText(inputValue)
+      if (inputValue.length) {
+        props.onSetText(inputValue)
+        dispatch(updateProject(props.projectId, inputValue))
+      }
       setIsInputActive(false)
     }
   })
 
   const onEnter = useCallback(() => {
     if (enter) {
-      props.onSetText(inputValue)
+      if (inputValue.length) {
+        props.onSetText(inputValue)
+        dispatch(updateProject(props.projectId, inputValue))
+      }
       setIsInputActive(false)
     }
   }, [enter, inputValue, props.onSetText])
@@ -34,6 +45,8 @@ function InlineInput(props) {
       setIsInputActive(false)
     }
   }, [esc, props.text])
+
+  // useEffect(() => {}, [projectName])
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
@@ -73,7 +86,7 @@ function InlineInput(props) {
           !isInputActive ? "active" : "hidden"
         }`}
       >
-        {props.text}
+        <h1>{props.text}</h1>
       </span>
       <input
         ref={inputRef}
