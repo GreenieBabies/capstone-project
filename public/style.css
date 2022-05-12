@@ -50,7 +50,6 @@ form div {
 
 .createNewProject:hover {
   opacity: 1;
-
 }
 
 .deleteProject {
@@ -100,20 +99,18 @@ ul {
   margin-right: 2em;
 }
 
-
-lh {
+h4 {
   font-weight: bold;
   font-size: larger;
-
 }
-.deleteList{
+.deleteList {
   width: 20px;
   height: 20px;
   background: red;
-  cursor: pointer
+  cursor: pointer;
 }
 
-.allLists{
+.allLists {
   display: flex;
 }
 
