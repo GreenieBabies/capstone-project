@@ -35,7 +35,7 @@ form div {
   z-index: 10
 }
 
-.createNewProject {
+/* .createNewProject {
   width: 150px;
   height: 150px;
   background: #bbb;
@@ -48,7 +48,7 @@ form div {
   margin: 10px;
   transition: 0.2s;
   opacity: 0.75;
-}
+} */
 
 .createNewProject:hover {
   opacity: 1;
@@ -101,6 +101,7 @@ ul {
 .exampleImages img:not(:last-of-type) {
   margin-right: 2em;
 }
+
 
 h4 {
   font-weight: bold;

@@ -27,6 +27,9 @@
     "semi": false
   },
   "dependencies": {
+    "@chakra-ui/button": "^1.5.10",
+    "@chakra-ui/color-mode": "^1.4.8",
+    "@chakra-ui/layout": "^1.8.0",
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
