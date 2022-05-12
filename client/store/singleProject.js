@@ -3,6 +3,7 @@ import axios from "axios"
 const GET_SINGLE_PROJECT = "GET_SINGLE_PROJECT"
 const ADD_SINGLE_LIST = "ADD_SINGLE_LIST"
 const DELETE_SINGLE_LIST = "DELETE_SINGLE_LIST"
+const UPDATE_PROJECT = "UPDATE_PROJECT"
 
 const DELETE_SINGLE_TASK = "DELETE_SINGLE_TASK"
 const EDIT_SINGLE_TASK = "EDIT_SINGLE_TASK"
@@ -29,6 +30,13 @@ function deleteList(list) {
   }
 }
 
+function updateProj(project) {
+  return {
+    type: UPDATE_PROJECT,
+    project,
+  }
+}
+
 function editTask(task) {
   return {
     type: EDIT_SINGLE_TASK,
@@ -40,7 +48,6 @@ export function fetchSingleProject(projectId) {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/projects/${projectId}`)
-      // console.log(data)
       dispatch(getProject(data))
     } catch (error) {
       console.log(error)
@@ -86,6 +93,18 @@ export function editSingleTask(userId, projectId) {
   }
 }
 
+export function updateProject(projectId, newName) {
+  return async (dispatch) => {
+    try {
+      const payload = { boardName: newName }
+      const { data } = await axios.put(`/api/projects/${projectId}`, payload)
+      dispatch(updateProj(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 const defaultState = {}
 
 export default function singleProjectReducer(state = defaultState, action) {
@@ -101,6 +120,8 @@ export default function singleProjectReducer(state = defaultState, action) {
         return x.id !== action.list.id && x
       })
       return { ...state }
+    case UPDATE_PROJECT:
+      return { ...state, ...action.project }
     default:
       return state
   }
