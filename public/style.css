@@ -4,6 +4,7 @@ body {
 
 a {
   text-decoration: none;
+  color:inherit
 }
 
 label {
@@ -31,6 +32,7 @@ form div {
   margin: 10px;
   display: flex;
   align-items: center;
+  z-index: 10
 }
 
 .createNewProject {
@@ -56,9 +58,10 @@ form div {
   width: 30px;
   height: 30px;
   background: #f22;
-  border-radius: 2px;
+  /* border-radius: 2px; */
   margin-left: 50px;
   border: none;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

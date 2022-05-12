@@ -48,12 +48,14 @@ router.delete("/:projectId/lists/:listId", async (req, res, next) => {
   }
 })
 
-// router.put("/:userId/projects/:projectId", async (req, res, next) => {
-//   try {
-//     const project = await Project.findByPk(req.params.projectId)
-//     await project.update(req.body)
-//     res.send(project)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+router.put("/:id", async (req, res, next) => {
+  try {
+    console.log(req.params)
+    console.log("hello")
+    const project = await Project.findByPk(req.params.id)
+    await project.update(req.body)
+    res.send(project)
+  } catch (error) {
+    next(error)
+  }
+})
