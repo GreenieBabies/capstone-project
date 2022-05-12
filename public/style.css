@@ -33,7 +33,7 @@ form div {
   align-items: center;
 }
 
-.createNewProject {
+/* .createNewProject {
   width: 150px;
   height: 150px;
   background: #bbb;
@@ -46,11 +46,10 @@ form div {
   margin: 10px;
   transition: 0.2s;
   opacity: 0.75;
-}
+} */
 
 .createNewProject:hover {
   opacity: 1;
-
 }
 
 .deleteProject {
@@ -100,20 +99,18 @@ ul {
   margin-right: 2em;
 }
 
-
 lh {
   font-weight: bold;
   font-size: larger;
-
 }
-.deleteList{
+.deleteList {
   width: 20px;
   height: 20px;
   background: red;
-  cursor: pointer
+  cursor: pointer;
 }
 
-.allLists{
+.allLists {
   display: flex;
 }
 

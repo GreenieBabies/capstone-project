@@ -4,14 +4,15 @@ import {
   fetchSingleProject,
   addSingleList,
   deleteSingleList,
-  editSingleTask,
+  editSingleTask
 } from "../store/singleProject"
+// import { useToast } from '@chakra-ui/react'
 
-const SingleProject = (props) => {
+const SingleProject = props => {
   const dispatch = useDispatch()
-  const project = useSelector((state) => state.project)
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const project = useSelector(state => state.project)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
   // console.log(project)
@@ -23,7 +24,7 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [tasks])
 
-  const handleAddList = (e) => {
+  const handleAddList = e => {
     e.preventDefault()
     const { id } = props.match.params
     dispatch(addSingleList(id))
@@ -47,13 +48,13 @@ const SingleProject = (props) => {
               +
             </div>
             {project.lists &&
-              project.lists.map((x) => {
+              project.lists.map(x => {
                 return (
                   <div key={x.id} className="listBox">
                     <h2>{x.columnName}</h2>
                     <ul>
                       {x.tasks &&
-                        x.tasks.map((task) => {
+                        x.tasks.map(task => {
                           return (
                             <div key={task.id}>
                               <h3>{task.taskName}</h3>
@@ -64,7 +65,7 @@ const SingleProject = (props) => {
                     </ul>
                     <div
                       className="deleteList"
-                      onClick={(e) => handleDeleteList(e, x.id)}
+                      onClick={e => handleDeleteList(e, x.id)}
                     >
                       X
                     </div>

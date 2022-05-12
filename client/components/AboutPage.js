@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { Heading, Box } from "@chakra-ui/react"
+import { SimpleGrid } from "@chakra-ui/react"
+
+// import { Text } from "@chakra-ui/react"
 
 const AboutPage = () => {
   const team = [
@@ -10,7 +14,7 @@ const AboutPage = () => {
       id: 1,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
-      gitHub: "https://github.com/Jlups76",
+      gitHub: "https://github.com/Jlups76"
     },
     {
       firstName: "Ethan",
@@ -19,7 +23,7 @@ const AboutPage = () => {
       id: 2,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/ethanschindel/",
-      gitHub: "https://github.com/Erschindel",
+      gitHub: "https://github.com/Erschindel"
     },
     {
       firstName: "Michael",
@@ -28,7 +32,7 @@ const AboutPage = () => {
       id: 3,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/michaelmnat/",
-      gitHub: "https://github.com/MichaelMnatsakanian",
+      gitHub: "https://github.com/MichaelMnatsakanian"
     },
     {
       firstName: "Tony",
@@ -37,13 +41,15 @@ const AboutPage = () => {
       id: 4,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/tony-x-li/",
-      gitHub: "https://github.com/tonyxli21",
-    },
+      gitHub: "https://github.com/tonyxli21"
+    }
   ]
 
   return (
     <div>
-      <h2>Overview</h2>
+      <Heading>
+        <h2>Overview</h2>
+      </Heading>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -53,37 +59,105 @@ const AboutPage = () => {
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
       </p>
-      <h3>Tools</h3>
-      <ul>
-        <li>React</li>
-        <li>React Hooks</li>
-        <li>d3</li>
-        <li>NextJS</li>
-        <li>TensorFlow</li>
-        <li>GraphQL</li>
-        <li>socket.io</li>
-      </ul>
-      <h3>APIs</h3>
+      <Heading>
+        <h3>Tools</h3>
+      </Heading>
+      <SimpleGrid columns={2} spacing={10}>
+        {/* <ul> */}
+
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="50px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>React</div>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="100px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>React Hooks</div>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="50px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>d3</div>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="70px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>NextJS</div>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="100px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>TensorFlow</div>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="70px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>GraphQL</div>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="30px"
+          width="70px"
+          fontWeight="semibold"
+          borderRadius="md"
+        >
+          <div>socket.io</div>
+        </Box>
+
+        {/* </ul> */}
+      </SimpleGrid>
+      <Heading>
+        <h3>APIs</h3>
+      </Heading>
       <ul>
         <li>Twitter API</li>
         <li>HTML Drag and Drop API</li>
       </ul>
-      <h2>Meet the Team!</h2>
-      {team.map((member) => (
-        <div className="member" key={member.id}>
-          <img src={member.imageUrl} className="photo" />
-          <h2>
-            <Link
-              className="listingInfo"
-              to={{
-                pathname: `/team/${member.id}/`,
-                state: member,
-              }}
-            >
-              {member.firstName} {member.lastName}
-            </Link>
-          </h2>
-        </div>
+      <Heading>
+        <h2>Meet the Team!</h2>
+      </Heading>
+      {team.map(member => (
+        <SimpleGrid columns={2} spacing={10}>
+          <div className="member" key={member.id}>
+            <img src={member.imageUrl} className="photo" />
+            <h2>
+              <Link
+                className="listingInfo"
+                to={{
+                  pathname: `/team/${member.id}/`,
+                  state: member
+                }}
+              >
+                {member.firstName} {member.lastName}
+              </Link>
+            </h2>
+          </div>
+        </SimpleGrid>
       ))}
     </div>
   )
