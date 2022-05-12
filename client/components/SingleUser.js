@@ -4,15 +4,13 @@ import { Link } from "react-router-dom"
 import {
   fetchSingleUser,
   createProject,
-  deleteProject
+  deleteProject,
 } from "../store/singleUser"
-import { useToast } from "@chakra-ui/react"
-import { Button } from "@chakra-ui/button"
 
-const SingleUser = props => {
+const SingleUser = (props) => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
-  const auth = useSelector(state => state.auth)
+  const user = useSelector((state) => state.user)
+  const auth = useSelector((state) => state.auth)
   const [projects, setProjects] = useState([])
   const { isAdmin } = auth
 
@@ -21,7 +19,7 @@ const SingleUser = props => {
     dispatch(fetchSingleUser(id))
   }, [projects])
 
-  const handleAddProject = e => {
+  const handleAddProject = (e) => {
     e.preventDefault()
     const { id } = props.match.params
     dispatch(createProject(id))
@@ -34,11 +32,6 @@ const SingleUser = props => {
     dispatch(deleteProject(userId, itemId))
     setProjects([...projects, {}])
   }
-  const toast = useToast()
-  const toastIdRef = React.useRef()
-  function addToast() {
-    toastIdRef.current = toast({ description: "Project successfully added!" })
-  }
 
   return (
     <div className="container">
@@ -49,40 +42,23 @@ const SingleUser = props => {
               <p>Home page of {user.username}</p>
               <ul className="container">
                 <h2>Projects</h2>
-
-                <Button onClick={addToast} type="button">
-                  <div className="createNewProject" onClick={handleAddProject}>
-                    +
-                  </div>
-                </Button>
+                <div className="createNewProject" onClick={handleAddProject}>
+                  +
+                </div>
                 {user.projects &&
                   user.projects
                     .sort((a, b) => a.id - b.id)
-                    .map(x => {
+                    .map((x) => {
                       return (
-
-                        <div key={x.id} className="allProjectsBox">
-                          {/* for fully-routed version, delete InlineInputs and add EditProjectName */}
-                          <InlineInput
-                            text={storedHeading}
-                            onSetText={text => setStoredHeading(text)}
-                          />
-                          <InlineInput
-                            text={storedText}
-                            onSetText={text => setStoredText(text)}
-                          />
-
-
                         <Link
                           className="allProjectsBox"
                           key={x.id}
                           to={`/projects/${x.id}`}
                         >
                           <h2>{x.boardName}</h2>
-
                           <button
                             className="deleteProject"
-                            onClick={e => handleDeleteProject(e, x.id)}
+                            onClick={(e) => handleDeleteProject(e, x.id)}
                           >
                             x
                           </button>
