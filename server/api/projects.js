@@ -86,12 +86,32 @@ router.delete(
 
 //add post, delete, and put for tasks, get tasks is already complete
 
-// router.put("/:userId/projects/:projectId", async (req, res, next) => {
-//   try {
-//     const project = await Project.findByPk(req.params.projectId)
-//     await project.update(req.body)
-//     res.send(project)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+router.put("/:userId/projects/:projectId", async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId)
+    await project.update(req.body)
+    res.send(project)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put("/:userId/lists/:listId", async (req, res, next) => {
+  try {
+    const list = await List.findByPk(req.params.listId)
+    await list.update(req.body)
+    res.send(list)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put("/:userId/tasks/:taskId", async (req, res, next) => {
+  try {
+    const task = await Task.findByPk(req.params.taskId)
+    await task.update(req.body)
+    res.send(task)
+  } catch (error) {
+    next(error)
+  }
+})
