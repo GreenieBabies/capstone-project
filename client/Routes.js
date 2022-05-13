@@ -8,6 +8,7 @@ import SingleUser from "./components/SingleUser"
 import AboutPage from "./components/AboutPage"
 import SingleFounder from "./components/SingleFounder"
 import SingleProject from "./components/SingleProject"
+import { fetchSingleUser } from "./store/singleUser"
 import { me } from "./store"
 
 /**
@@ -25,13 +26,13 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
+            {this.props.getUser(this.props.id)}
             <Route path="/home" component={Home} />
             <Route path="/users/:id" component={SingleUser} />
             <Route path="/projects/:id" component={SingleProject} />
             <Route path="/about" component={AboutPage} />
             <Route path="/team/:memberId/" component={SingleFounder} />
-
-            {/* <Redirect to="/users/:id" /> */}
+            <Redirect to={`/users/${this.props.id}`} />
           </Switch>
         ) : (
           <Switch>
@@ -56,6 +57,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    id: state.auth.id,
   }
 }
 
@@ -63,6 +65,9 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    getUser(id) {
+      dispatch(fetchSingleUser(id))
     },
   }
 }
