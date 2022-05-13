@@ -89,7 +89,7 @@ const SingleProject = (props) => {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  <div className="createTask" onClick={handleAddList}>
+                  <div className="createList" onClick={handleAddList}>
                     +
                   </div>
                   {/* {project.lists &&

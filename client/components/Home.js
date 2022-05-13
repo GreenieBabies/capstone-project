@@ -1,31 +1,31 @@
 import React from "react"
 import { connect, useSelector } from "react-redux"
 import { Link } from "@chakra-ui/react"
+import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
 import { Button } from "@chakra-ui/button"
 
 export const Home = (props) => {
   let auth = useSelector((store) => store.auth)
-  const { username } = auth
-
+  const { username, id } = auth
   return (
     <div id="homePage">
       <div id="header">
-        {/* <h3>Welcome, {username ? username : ""}</h3> */}
         <h1>Welcome to Trello + Voice!</h1>
         <p>
           The most interactive and effective project management app out there!
         </p>
       </div>
       <br />
-      <br />
-      <div id="signUp">
+      <div id="loginUserButtons">
         {username ? (
-          ""
+          <RouteLink to={`/users/${id}`}>
+            <Button>Let's Go To Your Projects!</Button>
+          </RouteLink>
         ) : (
-          <Link to="/signup">
+          <RouteLink to="/signup">
             <Button>Sign up for Trello+Voice for free!</Button>
-          </Link>
+          </RouteLink>
         )}
       </div>
       <br />
