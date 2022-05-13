@@ -145,13 +145,31 @@ const SingleProject = (props) => {
                               ref={provided.innerRef}
                             >
                               <h3>{x.columnName}</h3>
+                              <div
+                                className="createTask"
+                                onClick={(e) => handleAddTask(e, x.id)}
+                              >
+                                +
+                              </div>
                               <ul>
                                 {x.tasks &&
                                   x.tasks.map((task) => {
                                     return (
-                                      <div key={task.id}>
+                                      <div className="taskBox" key={task.id}>
                                         <h3>{task.taskName}</h3>
                                         <p>{task.notes}</p>
+                                        <div
+                                          className="deleteTask"
+                                          onClick={(e) =>
+                                            handleDeleteTask(
+                                              e,
+                                              task.listId,
+                                              task.id
+                                            )
+                                          }
+                                        >
+                                          X
+                                        </div>
                                       </div>
                                     )
                                   })}

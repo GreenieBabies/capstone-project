@@ -154,33 +154,31 @@ export function deleteSingleTask(projectId, listId, taskId) {
 const defaultState = {}
 
 export default function singleProjectReducer(state = defaultState, action) {
+  let copiedList = []
+  state.lists && (copiedList = JSON.parse(JSON.stringify(state.lists)))
   switch (action.type) {
     case GET_SINGLE_PROJECT:
-      //is auth necessary for projects? YES
       return { ...action.project, ...action.auth }
     case ADD_SINGLE_LIST:
-      state.lists.push(action.list)
-      return { ...state }
+      return { ...state, lists: action.list }
     case DELETE_SINGLE_LIST:
-      state.lists = state.lists.filter((x) => {
+      const deletedList = state.lists.filter((x) => {
         return x.id !== action.list.id && x
       })
+      return { ...state, lists: deletedList }
     case ADD_SINGLE_TASK:
-      const list1 = state.lists
-        .filter((x) => {
-          return x.id === action.task.listId && x
-        })
-        .pop()
+      const list1 = copiedList.filter((x) => {
+        return x.id === action.task.listId && x
+      })[0]
       list1.tasks.push(action.task)
-      state.lists.map((x) => {
+      const allLists1 = copiedList.map((x) => {
         if (x.id === list1.id) {
           return list1
         }
         return x
       })
-      return { ...state }
+      return { ...state, lists: allLists1 }
     case DELETE_SINGLE_TASK:
-      const copiedList = JSON.parse(JSON.stringify(state.lists))
       const list2 = copiedList
         .filter((x) => {
           return x.id === action.task.listId
@@ -188,14 +186,13 @@ export default function singleProjectReducer(state = defaultState, action) {
         .tasks.filter((x) => {
           return x.id !== action.task.id
         })
-      const allLists = copiedList.map((x) => {
+      const allLists2 = copiedList.map((x) => {
         if (x.id === action.task.listId) {
           x.tasks = list2
         }
         return x
       })
-      // console.log(state)
-      return { ...state, lists: allLists }
+      return { ...state, lists: allLists2 }
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
     default:

@@ -100,7 +100,8 @@ const defaultState = {
 export default function singleUserReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_SINGLE_USER:
-      return { ...action.user, ...action.auth }
+      console.log(state.projects)
+      return { proj: state.projects, ...action.user, ...action.auth }
     case CREATE_NEW_PROJECT:
       state.projects.push(action.project)
       return { ...state }
