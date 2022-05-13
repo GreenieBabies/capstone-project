@@ -50,26 +50,43 @@ const SingleProject = (props) => {
     dispatch(deleteSingleList(projectId, listId))
   }
 
+<<<<<<< Updated upstream
   const { id } = props.match.params
 
   const handleAddTask = (e, listId) => {
     e.preventDefault()
     const { id: projectId } = props.match.params
+=======
+  const handleAddTask = (e) => {
+    e.preventDefault()
+    const { projectId, listId } = props.match.params
+>>>>>>> Stashed changes
     dispatch(addSingleTask(projectId, listId))
     setTasks([...tasks, {}])
   }
 
+<<<<<<< Updated upstream
   const handleDeleteTask = (e, listId, taskId) => {
     e.preventDefault()
     const { id: projectId } = props.match.params
     dispatch(deleteSingleTask(projectId, listId, taskId))
   }
 
+=======
+  // const handleDeleteTask = (e, taskId) => {
+  //   e.preventDefault()
+  //   const { projectId, listId } = props.match.params
+  //   dispatch(deleteSingleList(projectId, listId, taskId))
+  // }
+  // Add buttons for adding/deleting columns and task
+  //
+>>>>>>> Stashed changes
   return (
     <div className="container">
       {console.log(project)}
       {isAdmin || user.id === auth.id ? (
         <div>
+<<<<<<< Updated upstream
           <InlineInput
             text={
               storedHeading
@@ -91,6 +108,47 @@ const SingleProject = (props) => {
                 >
                   <div className="createList" onClick={handleAddList}>
                     +
+=======
+          <h1>{project.boardName}</h1>
+          <div className="allLists">
+            <div className="createTask" onClick={handleAddList}>
+              +
+            </div>
+            {project.lists &&
+              project.lists.map((x) => {
+                return (
+                  <div key={x.id} className="listBox">
+                    <h2>{x.columnName}</h2>
+                    <ul>
+                      {x.tasks &&
+                        x.tasks.map((task) => {
+                          return (
+                            <div key={task.id}>
+                              <h3>{task.taskName}</h3>
+                              <p>{task.notes}</p>
+                              <div
+                                className="createTask"
+                                onClick={handleAddTask}
+                              >
+                                +
+                              </div>
+                              {/* <div
+                                className="deleteTask"
+                                onClick={(e) => handleDeleteTask(e, task.id)}
+                              >
+                                X
+                              </div> */}
+                            </div>
+                          )
+                        })}
+                    </ul>
+                    <div
+                      className="deleteList"
+                      onClick={(e) => handleDeleteList(e, x.id)}
+                    >
+                      X
+                    </div>
+>>>>>>> Stashed changes
                   </div>
                   {/* {project.lists &&
                   project.lists.map((x) => {
