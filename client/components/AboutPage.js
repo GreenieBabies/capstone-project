@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Heading, Box } from "@chakra-ui/react"
 import { SimpleGrid } from "@chakra-ui/react"
-
+import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
 
 const AboutPage = () => {
@@ -14,7 +14,7 @@ const AboutPage = () => {
       id: 1,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
-      gitHub: "https://github.com/Jlups76"
+      gitHub: "https://github.com/Jlups76",
     },
     {
       firstName: "Ethan",
@@ -23,7 +23,7 @@ const AboutPage = () => {
       id: 2,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/ethanschindel/",
-      gitHub: "https://github.com/Erschindel"
+      gitHub: "https://github.com/Erschindel",
     },
     {
       firstName: "Michael",
@@ -32,7 +32,7 @@ const AboutPage = () => {
       id: 3,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/michaelmnat/",
-      gitHub: "https://github.com/MichaelMnatsakanian"
+      gitHub: "https://github.com/MichaelMnatsakanian",
     },
     {
       firstName: "Tony",
@@ -41,8 +41,8 @@ const AboutPage = () => {
       id: 4,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/tony-x-li/",
-      gitHub: "https://github.com/tonyxli21"
-    }
+      gitHub: "https://github.com/tonyxli21",
+    },
   ]
 
   return (
@@ -59,6 +59,29 @@ const AboutPage = () => {
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
       </p>
+      <Heading>
+        <h2>Meet the Team!</h2>
+      </Heading>
+      {team.map((member) => (
+        <SimpleGrid columns={2} spacing={10}>
+          <div className="member" key={member.id}>
+            <img src={member.imageUrl} className="photo" />
+            <h2>
+              <Link
+                className="listingInfo"
+                to={{
+                  pathname: `/team/${member.id}/`,
+                  state: member,
+                }}
+              >
+                <Button>
+                  {member.firstName} {member.lastName}
+                </Button>
+              </Link>
+            </h2>
+          </div>
+        </SimpleGrid>
+      ))}
       <Heading>
         <h3>Tools</h3>
       </Heading>
@@ -138,27 +161,6 @@ const AboutPage = () => {
         <li>Twitter API</li>
         <li>HTML Drag and Drop API</li>
       </ul>
-      <Heading>
-        <h2>Meet the Team!</h2>
-      </Heading>
-      {team.map(member => (
-        <SimpleGrid columns={2} spacing={10}>
-          <div className="member" key={member.id}>
-            <img src={member.imageUrl} className="photo" />
-            <h2>
-              <Link
-                className="listingInfo"
-                to={{
-                  pathname: `/team/${member.id}/`,
-                  state: member
-                }}
-              >
-                {member.firstName} {member.lastName}
-              </Link>
-            </h2>
-          </div>
-        </SimpleGrid>
-      ))}
     </div>
   )
 }
