@@ -6,6 +6,8 @@ import {
   addSingleList,
   deleteSingleList,
   editSingleTask,
+  addSingleTask,
+  deleteSingleTask,
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
@@ -51,8 +53,20 @@ const SingleProject = (props) => {
   }
 
   const { id } = props.match.params
-  // Add buttons for adding/deleting columns and task
-  //
+
+  const handleAddTask = (e, listId) => {
+    e.preventDefault()
+    const { id: projectId } = props.match.params
+    dispatch(addSingleTask(projectId, listId))
+    setTasks([...tasks, {}])
+  }
+
+  const handleDeleteTask = (e, listId, taskId) => {
+    e.preventDefault()
+    const { id: projectId } = props.match.params
+    dispatch(deleteSingleTask(projectId, listId, taskId))
+  }
+
   return (
     <div className="container">
       {isAdmin || user.id === auth.id ? (
@@ -78,6 +92,44 @@ const SingleProject = (props) => {
                 >
                   <div className="createTask" onClick={handleAddList}>
                     +
+
+            </div>
+            {project.lists &&
+              project.lists.map((x) => {
+                return (
+                  <div key={x.id} className="listBox">
+                    <h2>{x.columnName}</h2>
+                    <div
+                      className="createTask"
+                      onClick={(e) => handleAddTask(e, x.id)}
+                    >
+                      +
+                    </div>
+                    <ul>
+                      {x.tasks &&
+                        x.tasks.map((task) => {
+                          return (
+                            <div className="taskBox" key={task.id}>
+                              <h3>{task.taskName}</h3>
+                              <p>{task.notes}</p>
+                              <div
+                                className="deleteTask"
+                                onClick={(e) =>
+                                  handleDeleteTask(e, task.listId, task.id)
+                                }
+                              >
+                                X
+                              </div>
+                            </div>
+                          )
+                        })}
+                    </ul>
+                    <div
+                      className="deleteList"
+                      onClick={(e) => handleDeleteList(e, x.id)}
+                    >
+                      X
+                    </div>
                   </div>
                   {lists &&
                     lists.map((x, index) => {

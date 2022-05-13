@@ -38,6 +38,17 @@ router.post("/:id", async (req, res, next) => {
   }
 })
 
+router.post("/:projectId/lists/:listId", async (req, res, next) => {
+  try {
+    const list = await List.findByPk(req.params.listId)
+    const newTask = await Task.create(req.body)
+    await newTask.setList(list)
+    res.send(newTask)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.delete("/:projectId/lists/:listId", async (req, res, next) => {
   try {
     const list = await List.findByPk(req.params.listId)
@@ -59,3 +70,28 @@ router.put("/:id", async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete(
+  "/:projectId/lists/:listId/tasks/:taskId",
+  async (req, res, next) => {
+    try {
+      const task = await Task.findByPk(req.params.taskId)
+      await task.destroy()
+      res.send(task)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+//add post, delete, and put for tasks, get tasks is already complete
+
+// router.put("/:userId/projects/:projectId", async (req, res, next) => {
+//   try {
+//     const project = await Project.findByPk(req.params.projectId)
+//     await project.update(req.body)
+//     res.send(project)
+//   } catch (error) {
+//     next(error)
+//   }
+// })

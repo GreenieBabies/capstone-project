@@ -44,6 +44,20 @@ function editTask(task) {
   }
 }
 
+function deleteTask(task) {
+  return {
+    type: DELETE_SINGLE_TASK,
+    task,
+  }
+}
+
+function addTask(task) {
+  return {
+    type: ADD_SINGLE_TASK,
+    task,
+  }
+}
+
 export function fetchSingleProject(projectId) {
   return async (dispatch) => {
     try {
@@ -105,6 +119,38 @@ export function updateProject(projectId, newName) {
   }
 }
 
+export function addSingleTask(projectId, listId) {
+  return async (dispatch) => {
+    try {
+      const payload = {
+        taskName: "--Add Task Name--",
+        notes: "--Add Task Notes--",
+        imageUrl: "",
+      }
+      const { data } = await axios.post(
+        `/api/projects/${projectId}/lists/${listId}`,
+        payload
+      )
+      dispatch(addTask(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function deleteSingleTask(projectId, listId, taskId) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/projects/${projectId}/lists/${listId}/tasks/${taskId}`
+      )
+      dispatch(deleteTask(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 const defaultState = {}
 
 export default function singleProjectReducer(state = defaultState, action) {
@@ -118,6 +164,35 @@ export default function singleProjectReducer(state = defaultState, action) {
     case DELETE_SINGLE_LIST:
       state.lists = state.lists.filter((x) => {
         return x.id !== action.list.id && x
+      })
+    case ADD_SINGLE_TASK:
+      const list1 = state.lists
+        .filter((x) => {
+          return x.id === action.task.listId && x
+        })
+        .pop()
+      console.log(list1)
+      list1.tasks.push(action.task)
+      state.lists.map((x) => {
+        if (x.id === list1.id) {
+          return list1
+        }
+        return x
+      })
+      return { ...state }
+    case DELETE_SINGLE_TASK:
+      const list2 = state.lists
+        .filter((x) => {
+          return x.id === action.task.listId && x
+        })
+        .pop()
+      const list3 = list2.tasks.filter((x) => {
+        return x.id !== action.task.id && x
+      })
+      state.lists = state.lists.map((x) => {
+        console.log(x)
+        console.log(list3)
+        return x.id === list3.id ? list3 : x
       })
       return { ...state }
     case UPDATE_PROJECT:
