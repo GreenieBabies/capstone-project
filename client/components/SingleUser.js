@@ -8,12 +8,15 @@ import {
 } from "../store/singleUser"
 import { useToast } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const SingleUser = props => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const auth = useSelector(state => state.auth)
   const [projects, setProjects] = useState([])
+  const [Projects, updateProjects] = useState(user.projects)
+
   const { isAdmin } = auth
 
   useEffect(() => {
@@ -34,6 +37,16 @@ const SingleUser = props => {
     dispatch(deleteProject(userId, itemId))
     setProjects([...projects, {}])
   }
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return
+    let items = Array.from(Projects)
+    console.log(items, "before splice")
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    console.log(reorderedItem, "moved item")
+    items.splice(result.destination.index, 0, reorderedItem)
+    console.log(items, "after splice")
+    updateProjects(items)
+  }
 
   const toast = useToast()
   const toastIdRef = React.useRef()
@@ -48,34 +61,57 @@ const SingleUser = props => {
           {user.username ? (
             <div>
               <p>Home page of {user.username}</p>
-              <ul className="container">
-                <h2>Projects</h2>
-                <Button onClick={addToast} type="button">
-                  <div className="createNewProject" onClick={handleAddProject}>
-                    +
-                  </div>
-                </Button>
-                {user.projects &&
-                  user.projects
-                    .sort((a, b) => a.id - b.id)
-                    .map(x => {
-                      return (
-                        <Link
-                          className="allProjectsBox"
-                          key={x.id}
-                          to={`/projects/${x.id}`}
-                        >
-                          <h2>{x.boardName}</h2>
-                          <button
-                            className="deleteProject"
-                            onClick={e => handleDeleteProject(e, x.id)}
-                          >
-                            x
-                          </button>
-                        </Link>
-                      )
-                    })}
-              </ul>
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="projects">
+                  {(provided) => (
+                    <ul
+                      className="container"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      <h2>Projects</h2>
+                      <Button onClick={addToast} type="button">
+                        <div className="createNewProject" onClick={handleAddProject}>
+                          +
+                        </div>
+                      </Button>
+                      
+                      {Projects &&
+                        //need to sort by number other than id sort((a, b) => a.id - b.id)
+                        Projects.map((x, index) => {
+                          return (
+                            <Draggable
+                              key={x.id}
+                              draggableId={x.id.toString()}
+                              index={index}
+                            >
+                              {(provided) => (
+                                <Link
+                                  className="allProjectsBox"
+                                  to={`/projects/${x.id}`}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  ref={provided.innerRef}
+                                >
+                                  <h3>{x.boardName}</h3>
+                                  <button
+                                    className="deleteProject"
+                                    onClick={(e) =>
+                                      handleDeleteProject(e, x.id)
+                                    }
+                                  >
+                                    x
+                                  </button>
+                                </Link>
+                              )}
+                            </Draggable>
+                          )
+                        })}
+                      {provided.placeholder}
+                    </ul>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
           ) : (
             <p>No user.</p>

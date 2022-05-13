@@ -1,7 +1,8 @@
 import React from "react"
 import { connect, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link } from "@chakra-ui/react"
 import AuthForm from "./AuthForm"
+import { Button } from "@chakra-ui/button"
 
 export const Home = (props) => {
   let auth = useSelector((store) => store.auth)
@@ -23,7 +24,7 @@ export const Home = (props) => {
           ""
         ) : (
           <Link to="/signup">
-            <button type="button">Sign up for Trello+Voice for free!</button>
+            <Button>Sign up for Trello+Voice for free!</Button>
           </Link>
         )}
       </div>
@@ -67,9 +68,7 @@ export const Home = (props) => {
       </div>
       <div className="aboutTeam">
         <Link to="/about">
-          <button type="button">
-            Click Here to Learn More About Our Awesome Team!
-          </button>
+          <Button>Click Here to Learn More About Our Awesome Team!</Button>
         </Link>
       </div>
     </div>
