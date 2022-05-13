@@ -1,17 +1,29 @@
 import React from "react"
 import { connect, useSelector } from "react-redux"
-import { Link } from "@chakra-ui/react"
+import {
+  Link,
+  Heading,
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList
+} from "@chakra-ui/react"
 import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
 import { Button } from "@chakra-ui/button"
 
-export const Home = (props) => {
-  let auth = useSelector((store) => store.auth)
+export const Home = props => {
+  let auth = useSelector(store => store.auth)
   const { username, id } = auth
+
   return (
     <div id="homePage">
       <div id="header">
-        <h1>Welcome to Trello + Voice!</h1>
+        {/* <h3>Welcome, {username ? username : ""}</h3> */}
+        <Heading>
+          <h1>Welcome to Trello + Voice!</h1>
+        </Heading>
         <p>
           The most interactive and effective project management app out there!
         </p>
@@ -38,14 +50,16 @@ export const Home = (props) => {
         </h3>
         <br />
         <br />
-        <h4>Voice Commands Include:</h4>
-        <ul>
-          <li>List Projects</li>
-          <li>List Columns</li>
-          <li>List Tasks</li>
-          <li>How Many Active Tasks Remaining?</li>
-          <li>Speech-To-Text Note Taking</li>
-        </ul>
+        <Heading>
+          <h4>Voice Commands Include:</h4>
+        </Heading>
+        <UnorderedList>
+          <ListItem>List Projects</ListItem>
+          <ListItem>List Columns</ListItem>
+          <ListItem>List Tasks</ListItem>
+          <ListItem>How Many Active Tasks Remaining?</ListItem>
+          <ListItem>Speech-To-Text Note Taking</ListItem>
+        </UnorderedList>
         <br />
         <br />
         <h4>Sample Images</h4>

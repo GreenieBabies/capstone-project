@@ -7,16 +7,16 @@ import {
   deleteSingleList,
   editSingleTask,
   addSingleTask,
-  deleteSingleTask,
+  deleteSingleTask
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const SingleProject = (props) => {
+const SingleProject = props => {
   const dispatch = useDispatch()
-  const project = useSelector((state) => state.project)
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const project = useSelector(state => state.project)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
   const [storedHeading, setStoredHeading] = project.boardName
@@ -30,13 +30,13 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [tasks, storedHeading, lists])
 
-  const handleAddList = (e) => {
+  const handleAddList = e => {
     e.preventDefault()
     const { id } = props.match.params
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
   }
-  const handleOnDragEnd = (result) => {
+  const handleOnDragEnd = result => {
     if (!result.destination) return
     let items = Array.from(lists)
     const [reorderedItem] = items.splice(result.source.index, 1)
@@ -50,43 +50,26 @@ const SingleProject = (props) => {
     dispatch(deleteSingleList(projectId, listId))
   }
 
-<<<<<<< Updated upstream
   const { id } = props.match.params
 
   const handleAddTask = (e, listId) => {
     e.preventDefault()
     const { id: projectId } = props.match.params
-=======
-  const handleAddTask = (e) => {
-    e.preventDefault()
-    const { projectId, listId } = props.match.params
->>>>>>> Stashed changes
     dispatch(addSingleTask(projectId, listId))
     setTasks([...tasks, {}])
   }
 
-<<<<<<< Updated upstream
   const handleDeleteTask = (e, listId, taskId) => {
     e.preventDefault()
     const { id: projectId } = props.match.params
     dispatch(deleteSingleTask(projectId, listId, taskId))
   }
 
-=======
-  // const handleDeleteTask = (e, taskId) => {
-  //   e.preventDefault()
-  //   const { projectId, listId } = props.match.params
-  //   dispatch(deleteSingleList(projectId, listId, taskId))
-  // }
-  // Add buttons for adding/deleting columns and task
-  //
->>>>>>> Stashed changes
   return (
     <div className="container">
       {console.log(project)}
       {isAdmin || user.id === auth.id ? (
         <div>
-<<<<<<< Updated upstream
           <InlineInput
             text={
               storedHeading
@@ -96,59 +79,18 @@ const SingleProject = (props) => {
                 : ""
             }
             projectId={id}
-            onSetText={(text) => setStoredHeading(text)}
+            onSetText={text => setStoredHeading(text)}
           />
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="lists" direction="horizontal">
-              {(provided) => (
+              {provided => (
                 <div
                   className="allLists"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  <div className="createList" onClick={handleAddList}>
+                  <div className="createTask" onClick={handleAddList}>
                     +
-=======
-          <h1>{project.boardName}</h1>
-          <div className="allLists">
-            <div className="createTask" onClick={handleAddList}>
-              +
-            </div>
-            {project.lists &&
-              project.lists.map((x) => {
-                return (
-                  <div key={x.id} className="listBox">
-                    <h2>{x.columnName}</h2>
-                    <ul>
-                      {x.tasks &&
-                        x.tasks.map((task) => {
-                          return (
-                            <div key={task.id}>
-                              <h3>{task.taskName}</h3>
-                              <p>{task.notes}</p>
-                              <div
-                                className="createTask"
-                                onClick={handleAddTask}
-                              >
-                                +
-                              </div>
-                              {/* <div
-                                className="deleteTask"
-                                onClick={(e) => handleDeleteTask(e, task.id)}
-                              >
-                                X
-                              </div> */}
-                            </div>
-                          )
-                        })}
-                    </ul>
-                    <div
-                      className="deleteList"
-                      onClick={(e) => handleDeleteList(e, x.id)}
-                    >
-                      X
-                    </div>
->>>>>>> Stashed changes
                   </div>
                   {/* {project.lists &&
                   project.lists.map((x) => {
@@ -195,7 +137,7 @@ const SingleProject = (props) => {
                           draggableId={x.id.toString()}
                           index={index}
                         >
-                          {(provided) => (
+                          {provided => (
                             <div
                               className="listBox"
                               {...provided.draggableProps}
@@ -203,20 +145,38 @@ const SingleProject = (props) => {
                               ref={provided.innerRef}
                             >
                               <h3>{x.columnName}</h3>
+                              <div
+                                className="createTask"
+                                onClick={e => handleAddTask(e, x.id)}
+                              >
+                                +
+                              </div>
                               <ul>
                                 {x.tasks &&
-                                  x.tasks.map((task) => {
+                                  x.tasks.map(task => {
                                     return (
-                                      <div key={task.id}>
+                                      <div className="taskBox" key={task.id}>
                                         <h3>{task.taskName}</h3>
                                         <p>{task.notes}</p>
+                                        <div
+                                          className="deleteTask"
+                                          onClick={e =>
+                                            handleDeleteTask(
+                                              e,
+                                              task.listId,
+                                              task.id
+                                            )
+                                          }
+                                        >
+                                          X
+                                        </div>
                                       </div>
                                     )
                                   })}
                               </ul>
                               <div
                                 className="deleteList"
-                                onClick={(e) => handleDeleteList(e, x.id)}
+                                onClick={e => handleDeleteList(e, x.id)}
                               >
                                 X
                               </div>

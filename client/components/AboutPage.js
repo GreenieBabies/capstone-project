@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Heading, Box } from "@chakra-ui/react"
+import { Heading, Box, Image } from "@chakra-ui/react"
 import { SimpleGrid } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
@@ -14,7 +14,7 @@ const AboutPage = () => {
       id: 1,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
-      gitHub: "https://github.com/Jlups76",
+      gitHub: "https://github.com/Jlups76"
     },
     {
       firstName: "Ethan",
@@ -23,7 +23,7 @@ const AboutPage = () => {
       id: 2,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/ethanschindel/",
-      gitHub: "https://github.com/Erschindel",
+      gitHub: "https://github.com/Erschindel"
     },
     {
       firstName: "Michael",
@@ -32,7 +32,7 @@ const AboutPage = () => {
       id: 3,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/michaelmnat/",
-      gitHub: "https://github.com/MichaelMnatsakanian",
+      gitHub: "https://github.com/MichaelMnatsakanian"
     },
     {
       firstName: "Tony",
@@ -41,8 +41,8 @@ const AboutPage = () => {
       id: 4,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/tony-x-li/",
-      gitHub: "https://github.com/tonyxli21",
-    },
+      gitHub: "https://github.com/tonyxli21"
+    }
   ]
 
   return (
@@ -62,26 +62,28 @@ const AboutPage = () => {
       <Heading>
         <h2>Meet the Team!</h2>
       </Heading>
-      {team.map((member) => (
-        <SimpleGrid columns={2} spacing={10}>
-          <div className="member" key={member.id}>
-            <img src={member.imageUrl} className="photo" />
-            <h2>
-              <Link
-                className="listingInfo"
-                to={{
-                  pathname: `/team/${member.id}/`,
-                  state: member,
-                }}
-              >
-                <Button>
-                  {member.firstName} {member.lastName}
-                </Button>
-              </Link>
-            </h2>
-          </div>
-        </SimpleGrid>
-      ))}
+      <SimpleGrid columns={2} spacing={10}>
+        {team.map(member => (
+          <Box bg="lightblue" boxSize="100px" borderRadius="md">
+            <div className="member" key={member.id}>
+              <Image src={member.imageUrl} className="photo" />
+              <h2>
+                <Link
+                  className="listingInfo"
+                  to={{
+                    pathname: `/team/${member.id}/`,
+                    state: member
+                  }}
+                >
+                  <Button>
+                    {member.firstName} {member.lastName}
+                  </Button>
+                </Link>
+              </h2>
+            </div>
+          </Box>
+        ))}
+      </SimpleGrid>
       <Heading>
         <h3>Tools</h3>
       </Heading>
