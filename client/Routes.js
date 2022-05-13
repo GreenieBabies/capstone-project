@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react"
-import { connect, useDispatch } from "react-redux"
+import { connect } from "react-redux"
 import { withRouter, Route, Switch, Redirect } from "react-router-dom"
 import { Login, Signup } from "./components/AuthForm"
 import CreateUser from "./components/CreateUser"
@@ -20,7 +20,6 @@ class Routes extends Component {
   }
 
   render() {
-    // const dispatch = useDispatch()
     const { isLoggedIn } = this.props
 
     return (

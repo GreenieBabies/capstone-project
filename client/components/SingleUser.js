@@ -6,7 +6,7 @@ import {
   createProject,
   deleteProject,
 } from "../store/singleUser"
-import { useRangeSlider, useToast } from "@chakra-ui/react"
+import { useToast, CloseButton } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
@@ -101,14 +101,12 @@ const SingleUser = (props) => {
                                   ref={provided.innerRef}
                                 >
                                   <h3>{x.boardName}</h3>
-                                  <button
+                                  <CloseButton
                                     className="deleteProject"
                                     onClick={(e) =>
                                       handleDeleteProject(e, x.id)
                                     }
-                                  >
-                                    x
-                                  </button>
+                                  />
                                 </Link>
                               )}
                             </Draggable>

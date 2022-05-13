@@ -3,11 +3,12 @@ import axios from "axios"
 const GET_SINGLE_PROJECT = "GET_SINGLE_PROJECT"
 const ADD_SINGLE_LIST = "ADD_SINGLE_LIST"
 const DELETE_SINGLE_LIST = "DELETE_SINGLE_LIST"
+const UPDATE_SINGLE_LIST = "UPDATE_SINGLE_LIST"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
 
 const DELETE_SINGLE_TASK = "DELETE_SINGLE_TASK"
-const EDIT_SINGLE_TASK = "EDIT_SINGLE_TASK"
 const ADD_SINGLE_TASK = "ADD_SINGLE_TASK"
+const UPDATE_SINGLE_TASK = "UPDATE_SINGLE_TASK"
 
 function getProject(project) {
   return {
@@ -37,9 +38,9 @@ function updateProj(project) {
   }
 }
 
-function editTask(task) {
+function updateTask(task) {
   return {
-    type: EDIT_SINGLE_TASK,
+    type: UPDATE_SINGLE_TASK,
     task,
   }
 }
@@ -58,13 +59,20 @@ function addTask(task) {
   }
 }
 
+function updateList(list) {
+  return {
+    type: UPDATE_SINGLE_LIST,
+    list,
+  }
+}
+
 export function fetchSingleProject(projectId) {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/projects/${projectId}`)
       dispatch(getProject(data))
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
 }
@@ -75,7 +83,7 @@ export function addSingleList(id) {
       const { data } = await axios.post(`/api/projects/${id}`)
       dispatch(addList(data))
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
 }
@@ -88,24 +96,24 @@ export function deleteSingleList(projectId, listId) {
       )
       dispatch(deleteList(data))
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
 }
 
-export function editSingleTask(userId, projectId) {
-  return async (dispatch) => {
-    try {
-      const payload = { boardName: newName }
-      const { data } = await axios.put(
-        `/api/users/${userId}/projects/${projectId}`
-      )
-      dispatch(editTask(data))
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
+// export function editSingleTask(userId, projectId) {
+//   return async (dispatch) => {
+//     try {
+//       const payload = { boardName: newName }
+//       const { data } = await axios.put(
+//         `/api/users/${userId}/projects/${projectId}`
+//       )
+//       dispatch(editTask(data))
+//     } catch (error) {
+//       next(error)
+//     }
+//   }
+// }
 
 export function updateProject(projectId, newName) {
   return async (dispatch) => {
@@ -114,7 +122,7 @@ export function updateProject(projectId, newName) {
       const { data } = await axios.put(`/api/projects/${projectId}`, payload)
       dispatch(updateProj(data))
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
 }
@@ -133,7 +141,7 @@ export function addSingleTask(projectId, listId) {
       )
       dispatch(addTask(data))
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
 }
@@ -146,7 +154,35 @@ export function deleteSingleTask(projectId, listId, taskId) {
       )
       dispatch(deleteTask(data))
     } catch (error) {
-      console.log(error)
+      next(error)
+    }
+  }
+}
+
+export function updateListThunk(userId, listId, list) {
+  return async (dispatch) => {
+    try {
+      const { data: list } = await axios.put(
+        `/api/projects/${userId}/lists/${listId}`,
+        list
+      )
+      dispatch(updateList(list))
+    } catch (error) {
+      next(error)
+    }
+  }
+}
+
+export function updateTaskThunk(userId, taskId, task) {
+  return async (dispatch) => {
+    try {
+      const { data: task } = await axios.put(
+        `/api/projects/${userId}/tasks/${taskId}`,
+        task
+      )
+      dispatch(updateTask(task))
+    } catch (error) {
+      next(error)
     }
   }
 }
@@ -195,6 +231,10 @@ export default function singleProjectReducer(state = defaultState, action) {
       return { ...state, lists: allLists2 }
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
+    case UPDATE_SINGLE_TASK:
+      return { ...state, ...action.task }
+    case UPDATE_SINGLE_LIST:
+      return { ...state, ...action.list }
     default:
       return state
   }
