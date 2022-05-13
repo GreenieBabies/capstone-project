@@ -11,6 +11,7 @@ import {
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import TasksSingleProject from "./TasksSingleProject"
 
 const SingleProject = (props) => {
   const dispatch = useDispatch()
@@ -59,12 +60,6 @@ const SingleProject = (props) => {
     const { id: projectId } = props.match.params
     dispatch(addSingleTask(projectId, listId))
     setTasks([...tasks, {}])
-  }
-
-  const handleDeleteTask = (e, listId, taskId) => {
-    e.preventDefault()
-    const { id: projectId } = props.match.params
-    dispatch(deleteSingleTask(projectId, listId, taskId))
   }
 
   return (
@@ -119,22 +114,10 @@ const SingleProject = (props) => {
                                 {x.tasks &&
                                   x.tasks.map((task) => {
                                     return (
-                                      <div className="taskBox" key={task.id}>
-                                        <h3>{task.taskName}</h3>
-                                        <p>{task.notes}</p>
-                                        <div
-                                          className="deleteTask"
-                                          onClick={(e) =>
-                                            handleDeleteTask(
-                                              e,
-                                              task.listId,
-                                              task.id
-                                            )
-                                          }
-                                        >
-                                          X
-                                        </div>
-                                      </div>
+                                      <TasksSingleProject
+                                        state={task}
+                                        id={props.match.params}
+                                      />
                                     )
                                   })}
                               </ul>
