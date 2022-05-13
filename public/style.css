@@ -81,6 +81,19 @@ ul {
   margin: 10px;
 }
 
+.createList {
+  width: 100px;
+  height: 100px;
+  background: #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 10px;
+}
+
 .createTask {
   width: 100px;
   height: 100px;

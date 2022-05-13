@@ -30,6 +30,7 @@ class Routes extends Component {
             <Route path="/projects/:id" component={SingleProject} />
             <Route path="/about" component={AboutPage} />
             <Route path="/team/:memberId/" component={SingleFounder} />
+
             {/* <Redirect to="/users/:id" /> */}
           </Switch>
         ) : (
