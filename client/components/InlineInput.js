@@ -9,7 +9,6 @@ function InlineInput(props) {
   const dispatch = useDispatch()
   const [isInputActive, setIsInputActive] = useState(false)
   const [inputValue, setInputValue] = useState(props.text)
-  // const [projectName, setProjectName] = useState("")
 
   const wrapperRef = useRef(null)
   const textRef = useRef(null)
@@ -45,8 +44,6 @@ function InlineInput(props) {
       setIsInputActive(false)
     }
   }, [esc, props.text])
-
-  // useEffect(() => {}, [projectName])
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
