@@ -23,12 +23,14 @@ const SingleProject = (props) => {
     ? useState(project.boardName)
     : useState("")
   const [lists, updateLists] = useState(project.lists)
+  // const [storedText, setStoredText] = useState("Here's some more, edit away!")
+  // console.log(project)
 
   //have it when someone clicks on a project on the single user page, the projectId is returned
   useEffect(() => {
     const { id } = props.match.params
     dispatch(fetchSingleProject(id))
-  }, [tasks, storedHeading, lists])
+  }, [tasks, storedHeading])
 
   const handleAddList = (e) => {
     e.preventDefault()
@@ -67,7 +69,6 @@ const SingleProject = (props) => {
 
   return (
     <div className="container">
-      {console.log(project)}
       {isAdmin || user.id === auth.id ? (
         <div>
           <InlineInput
@@ -92,43 +93,6 @@ const SingleProject = (props) => {
                   <div className="createTask" onClick={handleAddList}>
                     +
                   </div>
-                  {/* {project.lists &&
-                  project.lists.map((x) => {
-                    return (
-                      <div key={x.id} className="listBox">
-                        <h2>{x.columnName}</h2>
-                        <div
-                          className="createTask"
-                          onClick={(e) => handleAddTask(e, x.id)}
-                        >
-                          +
-                        </div>
-                        <ul>
-                          {x.tasks &&
-                            x.tasks.map((task) => {
-                              return (
-                                <div className="taskBox" key={task.id}>
-                                  <h3>{task.taskName}</h3>
-                                  <p>{task.notes}</p>
-                                  <div
-                                    className="deleteTask"
-                                    onClick={(e) =>
-                                      handleDeleteTask(e, task.listId, task.id)
-                                    }
-                                  >
-                                    X
-                                  </div>
-                                </div>
-                              )
-                            })}
-                        </ul>
-                        <div
-                          className="deleteList"
-                          onClick={(e) => handleDeleteList(e, x.id)}
-                        >
-                          X
-                        </div>
-                      </div> */}
                   {lists &&
                     lists.map((x, index) => {
                       return (
