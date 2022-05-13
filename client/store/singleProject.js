@@ -171,7 +171,6 @@ export default function singleProjectReducer(state = defaultState, action) {
           return x.id === action.task.listId && x
         })
         .pop()
-      console.log(list1)
       list1.tasks.push(action.task)
       state.lists.map((x) => {
         if (x.id === list1.id) {
@@ -181,20 +180,22 @@ export default function singleProjectReducer(state = defaultState, action) {
       })
       return { ...state }
     case DELETE_SINGLE_TASK:
-      const list2 = state.lists
+      const copiedList = JSON.parse(JSON.stringify(state.lists))
+      const list2 = copiedList
         .filter((x) => {
-          return x.id === action.task.listId && x
+          return x.id === action.task.listId
+        })[0]
+        .tasks.filter((x) => {
+          return x.id !== action.task.id
         })
-        .pop()
-      const list3 = list2.tasks.filter((x) => {
-        return x.id !== action.task.id && x
+      const allLists = copiedList.map((x) => {
+        if (x.id === action.task.listId) {
+          x.tasks = list2
+        }
+        return x
       })
-      state.lists = state.lists.map((x) => {
-        console.log(x)
-        console.log(list3)
-        return x.id === list3.id ? list3 : x
-      })
-      return { ...state }
+      // console.log(state)
+      return { ...state, lists: allLists }
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
     default:

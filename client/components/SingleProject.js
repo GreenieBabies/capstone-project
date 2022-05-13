@@ -48,7 +48,7 @@ const SingleProject = (props) => {
 
   const handleDeleteList = (e, listId) => {
     e.preventDefault()
-    const { projectId } = props.match.params
+    const { id: projectId } = props.match.params
     dispatch(deleteSingleList(projectId, listId))
   }
 
@@ -75,7 +75,7 @@ const SingleProject = (props) => {
             text={
               storedHeading
                 ? storedHeading
-                : project.boardName
+                : project.boardName // here?
                 ? project.boardName
                 : ""
             }

@@ -61,8 +61,8 @@ router.delete("/:projectId/lists/:listId", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    console.log(req.params)
-    console.log("hello")
+    // console.log(req.params)
+    // console.log("hello")
     const project = await Project.findByPk(req.params.id)
     await project.update(req.body)
     res.send(project)
