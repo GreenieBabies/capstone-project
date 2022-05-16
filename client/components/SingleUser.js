@@ -31,6 +31,7 @@ const SingleUser = (props) => {
 
   const handleAddProject = (e) => {
     e.preventDefault()
+    addToast()
     const { id } = props.match.params
     dispatch(createProject(id))
     setProjects([...projects, {}])
@@ -52,11 +53,10 @@ const SingleUser = (props) => {
 
   const toast = useToast()
   const toastIdRef = React.useRef()
+
   function addToast() {
     toastIdRef.current = toast({ description: "Project successfully added!" })
   }
-
-  // setTimeout( ()=> {}, 1000)
 
   return (
     <div className="container">
@@ -75,13 +75,8 @@ const SingleUser = (props) => {
                       ref={provided.innerRef}
                     >
                       <h2>Projects</h2>
-                      <Button onClick={addToast} type="button">
-                        <div
-                          className="createNewProject"
-                          onClick={handleAddProject}
-                        >
-                          +
-                        </div>
+                      <Button onClick={handleAddProject} type="button">
+                        <div className="createNewProject">+</div>
                       </Button>
                       {Projects &&
                         //need to sort by number other than id

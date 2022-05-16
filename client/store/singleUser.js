@@ -106,21 +106,29 @@ const defaultState = {
 }
 
 export default function singleUserReducer(state = defaultState, action) {
+  let copiedProjects = []
+  state.projects &&
+    (copiedProjects = JSON.parse(JSON.stringify(state.projects)))
+  let projects_
+
   switch (action.type) {
-    case GET_SINGLE_USER:
-      console.log(state.projects)
+    case GET_SINGLE_USER: // projects are inside of action.user
       return { ...action.user, ...action.auth }
-    case CREATE_NEW_USER:
-      state.users.push(action.user)
-      return { ...state }
+
+    // OBSOLETE??
+    // case CREATE_NEW_USER:
+    //   copiedUser.push(action.user)
+    //   console.log(state)
+    //   return { ...state, users: copiedUser }
+
     case CREATE_NEW_PROJECT:
-      state.projects.push(action.project)
-      return { ...state }
+      copiedProjects.push(action.project)
+      return { ...state, projects: copiedProjects }
+
     case DELETE_PROJECT:
-      state.projects = state.projects.filter((x) => {
-        return x.id !== action.project.id && x
-      })
-      return { ...state }
+      projects_ = copiedProjects.filter((x) => x.id !== action.project.id)
+      return { ...state, projects: projects_ }
+
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
     default:
