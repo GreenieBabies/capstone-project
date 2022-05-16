@@ -19,6 +19,7 @@ const SingleProject = (props) => {
   const user = useSelector((state) => state.user)
   const auth = useSelector((state) => state.auth)
   const [tasks, setTasks] = useState([])
+  // const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
   const [storedHeading, setStoredHeading] = project.boardName
     ? useState(project.boardName)
@@ -31,7 +32,11 @@ const SingleProject = (props) => {
   useEffect(() => {
     const { id } = props.match.params
     dispatch(fetchSingleProject(id))
-  }, [tasks, storedHeading])
+  }, [])
+
+  useEffect(() => {
+    updateLists(project.lists)
+  }, [project])
 
   const handleAddList = (e) => {
     e.preventDefault()
@@ -69,8 +74,10 @@ const SingleProject = (props) => {
           <InlineInput
             text={
               storedHeading
-                ? storedHeading
-                : project.boardName // here?
+                ? storedHeading === project.boardName
+                  ? storedHeading
+                  : project.boardName
+                : project.boardName
                 ? project.boardName
                 : ""
             }
@@ -110,17 +117,10 @@ const SingleProject = (props) => {
                               >
                                 +
                               </div>
-                              <ul>
-                                {x.tasks &&
-                                  x.tasks.map((task) => {
-                                    return (
-                                      <TasksSingleProject
-                                        state={task}
-                                        id={props.match.params}
-                                      />
-                                    )
-                                  })}
-                              </ul>
+                              <TasksSingleProject
+                                state={x.tasks}
+                                id={props.match.params}
+                              />
                               <div
                                 className="deleteList"
                                 onClick={(e) => handleDeleteList(e, x.id)}

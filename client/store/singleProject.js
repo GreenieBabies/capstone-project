@@ -72,7 +72,7 @@ export function fetchSingleProject(projectId) {
       const { data } = await axios.get(`/api/projects/${projectId}`)
       dispatch(getProject(data))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -83,7 +83,7 @@ export function addSingleList(id) {
       const { data } = await axios.post(`/api/projects/${id}`)
       dispatch(addList(data))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -96,7 +96,7 @@ export function deleteSingleList(projectId, listId) {
       )
       dispatch(deleteList(data))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -122,7 +122,7 @@ export function updateProject(projectId, newName) {
       const { data } = await axios.put(`/api/projects/${projectId}`, payload)
       dispatch(updateProj(data))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -141,7 +141,7 @@ export function addSingleTask(projectId, listId) {
       )
       dispatch(addTask(data))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -154,7 +154,7 @@ export function deleteSingleTask(projectId, listId, taskId) {
       )
       dispatch(deleteTask(data))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -168,7 +168,7 @@ export function updateListThunk(userId, listId, list) {
       )
       dispatch(updateList(list))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -182,7 +182,7 @@ export function updateTaskThunk(userId, taskId, task) {
       )
       dispatch(updateTask(task))
     } catch (error) {
-      next(error)
+      console.log(error)
     }
   }
 }
@@ -192,36 +192,30 @@ const defaultState = {}
 export default function singleProjectReducer(state = defaultState, action) {
   let copiedList = []
   state.lists && (copiedList = JSON.parse(JSON.stringify(state.lists)))
+
   switch (action.type) {
     case GET_SINGLE_PROJECT:
       return { ...action.project, ...action.auth }
+
     case ADD_SINGLE_LIST:
-      return { ...state, lists: action.list }
+      copiedList.push(action.list)
+      return { ...state, lists: copiedList }
+
     case DELETE_SINGLE_LIST:
-      const deletedList = state.lists.filter((x) => {
-        return x.id !== action.list.id && x
-      })
+      const deletedList = copiedList.filter((x) => x.id !== action.list.id)
       return { ...state, lists: deletedList }
+
     case ADD_SINGLE_TASK:
-      const list1 = copiedList.filter((x) => {
-        return x.id === action.task.listId && x
-      })[0]
+      let list1 = copiedList.filter((x) => x.id === action.task.listId)[0]
+      !list1.tasks && (list1.tasks = [])
       list1.tasks.push(action.task)
-      const allLists1 = copiedList.map((x) => {
-        if (x.id === list1.id) {
-          return list1
-        }
-        return x
-      })
+      const allLists1 = copiedList.map((x) => (x.id === list1.id ? list1 : x))
       return { ...state, lists: allLists1 }
+
     case DELETE_SINGLE_TASK:
       const list2 = copiedList
-        .filter((x) => {
-          return x.id === action.task.listId
-        })[0]
-        .tasks.filter((x) => {
-          return x.id !== action.task.id
-        })
+        .filter((x) => x.id === action.task.listId)[0]
+        .tasks.filter((x) => x.id !== action.task.id)
       const allLists2 = copiedList.map((x) => {
         if (x.id === action.task.listId) {
           x.tasks = list2
@@ -229,10 +223,13 @@ export default function singleProjectReducer(state = defaultState, action) {
         return x
       })
       return { ...state, lists: allLists2 }
+
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
+
     case UPDATE_SINGLE_TASK:
       return { ...state, ...action.task }
+
     case UPDATE_SINGLE_LIST:
       return { ...state, ...action.list }
     default:

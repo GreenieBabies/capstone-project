@@ -1,6 +1,7 @@
 import axios from "axios"
 
 const GET_SINGLE_USER = "GET_SINGLE_USER"
+const CREATE_NEW_USER = "CREATE_NEW_USER"
 const CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT"
 const DELETE_PROJECT = "DELETE_PROJECT"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
@@ -11,6 +12,13 @@ function getUser(user) {
     user,
   }
 }
+
+// function createNewUser(project) {
+//   return {
+//     type: CREATE_NEW_PROJECT,
+//     project,
+//   }
+// }
 
 function newProject(project) {
   return {
@@ -101,7 +109,10 @@ export default function singleUserReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_SINGLE_USER:
       console.log(state.projects)
-      return { proj: state.projects, ...action.user, ...action.auth }
+      return { ...action.user, ...action.auth }
+    case CREATE_NEW_USER:
+      state.users.push(action.user)
+      return { ...state }
     case CREATE_NEW_PROJECT:
       state.projects.push(action.project)
       return { ...state }
