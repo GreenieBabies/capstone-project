@@ -117,17 +117,10 @@ const SingleProject = (props) => {
                               >
                                 +
                               </div>
-                              <ul>
-                                {x.tasks &&
-                                  x.tasks.map((task) => {
-                                    return (
-                                      <TasksSingleProject
-                                        state={task}
-                                        id={props.match.params}
-                                      />
-                                    )
-                                  })}
-                              </ul>
+                              <TasksSingleProject
+                                state={x.tasks}
+                                id={props.match.params}
+                              />
                               <div
                                 className="deleteList"
                                 onClick={(e) => handleDeleteList(e, x.id)}

@@ -12,14 +12,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const TasksSingleProject = (props) => {
   const dispatch = useDispatch()
-  const taskItem = props.state
+  const tasks = props.state
+  console.log(tasks)
   const id = props.id
-  const handleAddTask = (e, listId) => {
-    e.preventDefault()
-    const { id: projectId } = id
-    dispatch(addSingleTask(projectId, listId))
-    setTasks([...tasks, {}])
-  }
 
   const handleDeleteTask = (e, listId, taskId) => {
     e.preventDefault()
@@ -28,16 +23,21 @@ const TasksSingleProject = (props) => {
   }
 
   return (
-    <div className="taskBox" key={taskItem.id}>
-      <h3>{taskItem.taskName}</h3>
-      <p>{taskItem.notes}</p>
-      <div
-        className="deleteTask"
-        onClick={(e) => handleDeleteTask(e, taskItem.listId, taskItem.id)}
-      >
-        X
-      </div>
-    </div>
+    <ul>
+      {tasks &&
+        tasks.map((task) => (
+          <div className="taskBox" key={task.id}>
+            <h3>{task.taskName}</h3>
+            <p>{task.notes}</p>
+            <div
+              className="deleteTask"
+              onClick={(e) => handleDeleteTask(e, task.listId, task.id)}
+            >
+              X
+            </div>
+          </div>
+        ))}
+    </ul>
   )
 }
 
