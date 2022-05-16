@@ -9,7 +9,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
+  Button
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
@@ -19,7 +19,7 @@ import { Link } from "react-router-dom"
  * COMPONENT
  */
 
-const AuthForm = (props) => 
+const AuthForm = props => {
   const { register } = useForm()
   // const { username, email, address, displayName, handleSubmit, error } = props
 
@@ -30,13 +30,13 @@ const AuthForm = (props) =>
     address: ""
   })
   const dispatch = useDispatch()
-  const handleChange = (event) => {
+  const handleChange = event => {
     setForm({
       ...form,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     })
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     try {
       dispatch(createUserThunk(form))
@@ -68,7 +68,6 @@ const AuthForm = (props) =>
                   {...register("username")}
                   onChange={handleChange}
                   isRequired="true"
-
                 />
               </FormControl>
               <FormControl mt={6}>
@@ -80,7 +79,6 @@ const AuthForm = (props) =>
                   value={form.password}
                   onChange={handleChange}
                   isRequired="true"
-
                 />
               </FormControl>
               <FormControl>

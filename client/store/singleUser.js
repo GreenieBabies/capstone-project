@@ -9,7 +9,7 @@ const UPDATE_PROJECT = "UPDATE_PROJECT"
 function getUser(user) {
   return {
     type: GET_SINGLE_USER,
-    user,
+    user
   }
 }
 
@@ -23,21 +23,21 @@ function getUser(user) {
 function newProject(project) {
   return {
     type: CREATE_NEW_PROJECT,
-    project,
+    project
   }
 }
 
 function deleteProj(project) {
   return {
     type: DELETE_PROJECT,
-    project,
+    project
   }
 }
 
 function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
-    project,
+    project
   }
 }
 
@@ -52,7 +52,7 @@ export function createUserThunk(form) {
 }
 
 export function fetchSingleUser(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.get(`/api/users/${id}`)
       dispatch(getUser(data))
@@ -63,7 +63,7 @@ export function fetchSingleUser(id) {
 }
 
 export function createProject(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.post(`/api/users/${id}`)
       dispatch(newProject(data))
@@ -74,7 +74,7 @@ export function createProject(id) {
 }
 
 export function deleteProject(userId, projectId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.delete(
         `/api/users/${userId}/projects/${projectId}`
@@ -87,7 +87,7 @@ export function deleteProject(userId, projectId) {
 }
 
 export function updateProject(userId, projectId, newName) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const payload = { boardName: newName }
       const { data } = await axios.put(
@@ -126,7 +126,7 @@ export default function singleUserReducer(state = defaultState, action) {
       return { ...state, projects: copiedProjects }
 
     case DELETE_PROJECT:
-      projects_ = copiedProjects.filter((x) => x.id !== action.project.id)
+      projects_ = copiedProjects.filter(x => x.id !== action.project.id)
       return { ...state, projects: projects_ }
 
     case UPDATE_PROJECT:

@@ -13,61 +13,61 @@ const UPDATE_SINGLE_TASK = "UPDATE_SINGLE_TASK"
 function getProject(project) {
   return {
     type: GET_SINGLE_PROJECT,
-    project,
+    project
   }
 }
 
 function addList(list) {
   return {
     type: ADD_SINGLE_LIST,
-    list,
+    list
   }
 }
 
 function deleteList(list) {
   return {
     type: DELETE_SINGLE_LIST,
-    list,
+    list
   }
 }
 
 function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
-    project,
+    project
   }
 }
 
 function updateTask(task) {
   return {
     type: UPDATE_SINGLE_TASK,
-    task,
+    task
   }
 }
 
 function deleteTask(task) {
   return {
     type: DELETE_SINGLE_TASK,
-    task,
+    task
   }
 }
 
 function addTask(task) {
   return {
     type: ADD_SINGLE_TASK,
-    task,
+    task
   }
 }
 
 function updateList(list) {
   return {
     type: UPDATE_SINGLE_LIST,
-    list,
+    list
   }
 }
 
 export function fetchSingleProject(projectId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.get(`/api/projects/${projectId}`)
       dispatch(getProject(data))
@@ -78,7 +78,7 @@ export function fetchSingleProject(projectId) {
 }
 
 export function addSingleList(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.post(`/api/projects/${id}`)
       dispatch(addList(data))
@@ -89,7 +89,7 @@ export function addSingleList(id) {
 }
 
 export function deleteSingleList(projectId, listId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.delete(
         `/api/projects/${projectId}/lists/${listId}`
@@ -116,7 +116,7 @@ export function deleteSingleList(projectId, listId) {
 // }
 
 export function updateProject(projectId, newName) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const payload = { boardName: newName }
       const { data } = await axios.put(`/api/projects/${projectId}`, payload)
@@ -128,12 +128,12 @@ export function updateProject(projectId, newName) {
 }
 
 export function addSingleTask(projectId, listId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const payload = {
         taskName: "--Add Task Name--",
         notes: "--Add Task Notes--",
-        imageUrl: "",
+        imageUrl: ""
       }
       const { data } = await axios.post(
         `/api/projects/${projectId}/lists/${listId}`,
@@ -147,7 +147,7 @@ export function addSingleTask(projectId, listId) {
 }
 
 export function deleteSingleTask(projectId, listId, taskId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.delete(
         `/api/projects/${projectId}/lists/${listId}/tasks/${taskId}`
@@ -160,7 +160,7 @@ export function deleteSingleTask(projectId, listId, taskId) {
 }
 
 export function updateListThunk(userId, listId, list) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data: list1 } = await axios.put(
         `/api/projects/${userId}/lists/${listId}`,
@@ -174,7 +174,7 @@ export function updateListThunk(userId, listId, list) {
 }
 
 export function updateTaskThunk(userId, taskId, task) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data: task } = await axios.put(
         `/api/projects/${userId}/tasks/${taskId}`,
@@ -203,21 +203,21 @@ export default function singleProjectReducer(state = defaultState, action) {
       return { ...state, lists: copiedList }
 
     case DELETE_SINGLE_LIST:
-      allLists = copiedList.filter((x) => x.id !== action.list.id)
+      allLists = copiedList.filter(x => x.id !== action.list.id)
       return { ...state, lists: allLists }
 
     case ADD_SINGLE_TASK:
-      list_ = copiedList.filter((x) => x.id === action.task.listId)[0]
+      list_ = copiedList.filter(x => x.id === action.task.listId)[0]
       !list_.tasks && (list_.tasks = [])
       list_.tasks.push(action.task)
-      allLists = copiedList.map((x) => (x.id === list_.id ? list_ : x))
+      allLists = copiedList.map(x => (x.id === list_.id ? list_ : x))
       return { ...state, lists: allLists }
 
     case DELETE_SINGLE_TASK:
       list_ = copiedList
-        .filter((x) => x.id === action.task.listId)[0]
-        .tasks.filter((x) => x.id !== action.task.id)
-      allLists = copiedList.map((x) => {
+        .filter(x => x.id === action.task.listId)[0]
+        .tasks.filter(x => x.id !== action.task.id)
+      allLists = copiedList.map(x => {
         if (x.id === action.task.listId) {
           x.tasks = list_
         }
