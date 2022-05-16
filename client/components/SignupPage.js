@@ -18,6 +18,7 @@ import { Link } from "react-router-dom"
 /**
  * COMPONENT
  */
+
 const AuthForm = props => {
   const { register } = useForm()
   // const { username, email, address, displayName, handleSubmit, error } = props
