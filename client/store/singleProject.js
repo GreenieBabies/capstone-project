@@ -162,11 +162,11 @@ export function deleteSingleTask(projectId, listId, taskId) {
 export function updateListThunk(userId, listId, list) {
   return async (dispatch) => {
     try {
-      const { data: list } = await axios.put(
+      const { data: list1 } = await axios.put(
         `/api/projects/${userId}/lists/${listId}`,
         list
       )
-      dispatch(updateList(list))
+      dispatch(updateList(list1))
     } catch (error) {
       console.log(error)
     }
@@ -192,6 +192,7 @@ const defaultState = {}
 export default function singleProjectReducer(state = defaultState, action) {
   let copiedList = []
   state.lists && (copiedList = JSON.parse(JSON.stringify(state.lists)))
+  let list_, allLists
 
   switch (action.type) {
     case GET_SINGLE_PROJECT:
@@ -202,27 +203,27 @@ export default function singleProjectReducer(state = defaultState, action) {
       return { ...state, lists: copiedList }
 
     case DELETE_SINGLE_LIST:
-      const deletedList = copiedList.filter((x) => x.id !== action.list.id)
-      return { ...state, lists: deletedList }
+      allLists = copiedList.filter((x) => x.id !== action.list.id)
+      return { ...state, lists: allLists }
 
     case ADD_SINGLE_TASK:
-      let list1 = copiedList.filter((x) => x.id === action.task.listId)[0]
-      !list1.tasks && (list1.tasks = [])
-      list1.tasks.push(action.task)
-      const allLists1 = copiedList.map((x) => (x.id === list1.id ? list1 : x))
-      return { ...state, lists: allLists1 }
+      list_ = copiedList.filter((x) => x.id === action.task.listId)[0]
+      !list_.tasks && (list_.tasks = [])
+      list_.tasks.push(action.task)
+      allLists = copiedList.map((x) => (x.id === list_.id ? list_ : x))
+      return { ...state, lists: allLists }
 
     case DELETE_SINGLE_TASK:
-      const list2 = copiedList
+      list_ = copiedList
         .filter((x) => x.id === action.task.listId)[0]
         .tasks.filter((x) => x.id !== action.task.id)
-      const allLists2 = copiedList.map((x) => {
+      allLists = copiedList.map((x) => {
         if (x.id === action.task.listId) {
-          x.tasks = list2
+          x.tasks = list_
         }
         return x
       })
-      return { ...state, lists: allLists2 }
+      return { ...state, lists: allLists }
 
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
@@ -232,6 +233,7 @@ export default function singleProjectReducer(state = defaultState, action) {
 
     case UPDATE_SINGLE_LIST:
       return { ...state, ...action.list }
+
     default:
       return state
   }

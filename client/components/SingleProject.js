@@ -71,15 +71,23 @@ const SingleProject = (props) => {
     <div className="container">
       {isAdmin || user.id === auth.id ? (
         <div>
+          {project.boardName &&
+            storedHeading !== project.boardName &&
+            setStoredHeading(project.boardName)}
           <InlineInput
             text={
-              storedHeading
-                ? storedHeading === project.boardName
-                  ? storedHeading
-                  : project.boardName
-                : project.boardName
+              project.boardName
                 ? project.boardName
+                : storedHeading
+                ? storedHeading
                 : ""
+              // storedHeading
+              //   ? storedHeading === project.boardName
+              //     ? storedHeading
+              //     : project.boardName
+              //   : project.boardName
+              //   ? project.boardName
+              //   : ""
             }
             projectId={id}
             onSetText={(text) => setStoredHeading(text)}
