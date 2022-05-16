@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import { connect } from "react-redux"
 import { authenticate } from "../store"
+import { createUserThunk } from "../store/singleUser"
 import {
   Flex,
   Box,
@@ -11,13 +12,36 @@ import {
   Button,
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
   const { register } = useForm()
-  const { username, email, address, displayName, handleSubmit, error } = props
+  // const { username, email, address, displayName, handleSubmit, error } = props
+
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+    email: "",
+    address: "",
+  })
+  const dispatch = useDispatch()
+  const handleChange = (event) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    })
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    try {
+      dispatch(createUserThunk(form))
+    } catch (err) {}
+    props.history.push("/login")
+  }
 
   return (
     <div>
@@ -33,13 +57,15 @@ const AuthForm = (props) => {
             <Heading>Sign Up</Heading>
           </Box>
           <Box my={4} textAlign="left">
-            <form onSubmit={handleSubmit} name={username}>
+            <form onSubmit={handleSubmit} name="signupForm">
               <FormControl>
                 <FormLabel>Username</FormLabel>
                 <Input
                   type="username"
                   placeholder="username"
+                  value={form.username}
                   {...register("username")}
+                  onChange={handleChange}
                 />
               </FormControl>
               <FormControl mt={6}>
@@ -48,6 +74,8 @@ const AuthForm = (props) => {
                   type="password"
                   placeholder="*******"
                   {...register("password")}
+                  value={form.password}
+                  onChange={handleChange}
                 />
               </FormControl>
               <FormControl>
@@ -55,7 +83,9 @@ const AuthForm = (props) => {
                 <Input
                   type="email"
                   placeholder="email"
+                  value={form.email}
                   {...register("email")}
+                  onChange={handleChange}
                 />
               </FormControl>
               <FormControl>
@@ -63,7 +93,9 @@ const AuthForm = (props) => {
                 <Input
                   type="address"
                   placeholder="address"
+                  value={form.address}
                   {...register("address")}
+                  onChange={handleChange}
                 />
               </FormControl>
               <Button
@@ -75,6 +107,7 @@ const AuthForm = (props) => {
               >
                 Sign Up
               </Button>
+              <Link to="/home">Cancel</Link>
             </form>
           </Box>
         </Box>
@@ -83,25 +116,28 @@ const AuthForm = (props) => {
   )
 }
 
-const mapSignup = (state) => {
-  return {
-    name: "signup",
-    displayName: "Sign Up",
-    error: state.auth.error,
-  }
-}
+// const mapSignup = (state) => {
+//   return {
+//     name: "signup",
+//     displayName: "Sign Up",
+//     error: state.auth.error,
+//   }
+// }
 
-const mapDispatch = (dispatch) => {
-  return {
-    handleSubmit(evt) {
-      console.log(evt)
-      evt.preventDefault()
-      const formName = evt.target.name
-      const username = evt.target.username.value
-      const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
-    },
-  }
-}
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleSubmit(evt) {
+//       console.log(evt)
+//       evt.preventDefault()
+//       const formName = evt.target.name
+//       const username = evt.target.username.value
+//       const password = evt.target.password.value
+//       const email = evt.target.email.value
+//       const address = evt.target.address.value
+//       dispatch(authenticate(username, password, email, address, formName))
+//     },
+//   }
+// }
 
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+// export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Signup = connect(null)(AuthForm)
