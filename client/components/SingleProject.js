@@ -7,17 +7,17 @@ import {
   deleteSingleList,
   editSingleTask,
   addSingleTask,
-  deleteSingleTask,
+  deleteSingleTask
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import TasksSingleProject from "./TasksSingleProject"
 
-const SingleProject = (props) => {
+const SingleProject = props => {
   const dispatch = useDispatch()
-  const project = useSelector((state) => state.project)
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const project = useSelector(state => state.project)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   const [tasks, setTasks] = useState([])
   // const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
@@ -38,13 +38,13 @@ const SingleProject = (props) => {
     updateLists(project.lists)
   }, [project])
 
-  const handleAddList = (e) => {
+  const handleAddList = e => {
     e.preventDefault()
     const { id } = props.match.params
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
   }
-  const handleOnDragEnd = (result) => {
+  const handleOnDragEnd = result => {
     if (!result.destination) return
     let items = Array.from(lists)
     const [reorderedItem] = items.splice(result.source.index, 1)
@@ -71,22 +71,30 @@ const SingleProject = (props) => {
     <div className="container">
       {isAdmin || user.id === auth.id ? (
         <div>
+          {project.boardName &&
+            storedHeading !== project.boardName &&
+            setStoredHeading(project.boardName)}
           <InlineInput
             text={
-              storedHeading
-                ? storedHeading === project.boardName
-                  ? storedHeading
-                  : project.boardName
-                : project.boardName
+              project.boardName
                 ? project.boardName
+                : storedHeading
+                ? storedHeading
                 : ""
+              // storedHeading
+              //   ? storedHeading === project.boardName
+              //     ? storedHeading
+              //     : project.boardName
+              //   : project.boardName
+              //   ? project.boardName
+              //   : ""
             }
             projectId={id}
-            onSetText={(text) => setStoredHeading(text)}
+            onSetText={text => setStoredHeading(text)}
           />
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="lists" direction="horizontal">
-              {(provided) => (
+              {provided => (
                 <div
                   className="allLists"
                   {...provided.droppableProps}
@@ -103,7 +111,7 @@ const SingleProject = (props) => {
                           draggableId={x.id.toString()}
                           index={index}
                         >
-                          {(provided) => (
+                          {provided => (
                             <div
                               className="listBox"
                               {...provided.draggableProps}
@@ -113,7 +121,7 @@ const SingleProject = (props) => {
                               <h3>{x.columnName}</h3>
                               <div
                                 className="createTask"
-                                onClick={(e) => handleAddTask(e, x.id)}
+                                onClick={e => handleAddTask(e, x.id)}
                               >
                                 +
                               </div>
@@ -123,7 +131,7 @@ const SingleProject = (props) => {
                               />
                               <div
                                 className="deleteList"
-                                onClick={(e) => handleDeleteList(e, x.id)}
+                                onClick={e => handleDeleteList(e, x.id)}
                               >
                                 X
                               </div>

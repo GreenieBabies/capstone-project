@@ -9,7 +9,7 @@ const UPDATE_PROJECT = "UPDATE_PROJECT"
 function getUser(user) {
   return {
     type: GET_SINGLE_USER,
-    user,
+    user
   }
 }
 
@@ -23,21 +23,21 @@ function getUser(user) {
 function newProject(project) {
   return {
     type: CREATE_NEW_PROJECT,
-    project,
+    project
   }
 }
 
 function deleteProj(project) {
   return {
     type: DELETE_PROJECT,
-    project,
+    project
   }
 }
 
 function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
-    project,
+    project
   }
 }
 
@@ -52,7 +52,7 @@ export function createUserThunk(form) {
 }
 
 export function fetchSingleUser(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.get(`/api/users/${id}`)
       dispatch(getUser(data))
@@ -63,7 +63,7 @@ export function fetchSingleUser(id) {
 }
 
 export function createProject(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.post(`/api/users/${id}`)
       dispatch(newProject(data))
@@ -74,7 +74,7 @@ export function createProject(id) {
 }
 
 export function deleteProject(userId, projectId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const { data } = await axios.delete(
         `/api/users/${userId}/projects/${projectId}`
@@ -87,7 +87,7 @@ export function deleteProject(userId, projectId) {
 }
 
 export function updateProject(userId, projectId, newName) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const payload = { boardName: newName }
       const { data } = await axios.put(
@@ -106,21 +106,29 @@ const defaultState = {
 }
 
 export default function singleUserReducer(state = defaultState, action) {
+  let copiedProjects = []
+  state.projects &&
+    (copiedProjects = JSON.parse(JSON.stringify(state.projects)))
+  let projects_
+
   switch (action.type) {
-    case GET_SINGLE_USER:
-      console.log(state.projects)
+    case GET_SINGLE_USER: // projects are inside of action.user
       return { ...action.user, ...action.auth }
-    case CREATE_NEW_USER:
-      state.users.push(action.user)
-      return { ...state }
+
+    // OBSOLETE??
+    // case CREATE_NEW_USER:
+    //   copiedUser.push(action.user)
+    //   console.log(state)
+    //   return { ...state, users: copiedUser }
+
     case CREATE_NEW_PROJECT:
-      state.projects.push(action.project)
-      return { ...state }
+      copiedProjects.push(action.project)
+      return { ...state, projects: copiedProjects }
+
     case DELETE_PROJECT:
-      state.projects = state.projects.filter((x) => {
-        return x.id !== action.project.id && x
-      })
-      return { ...state }
+      projects_ = copiedProjects.filter(x => x.id !== action.project.id)
+      return { ...state, projects: projects_ }
+
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
     default:
