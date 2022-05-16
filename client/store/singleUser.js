@@ -13,12 +13,12 @@ function getUser(user) {
   }
 }
 
-function createNewUser(project) {
-  return {
-    type: CREATE_NEW_PROJECT,
-    project,
-  }
-}
+// function createNewUser(project) {
+//   return {
+//     type: CREATE_NEW_PROJECT,
+//     project,
+//   }
+// }
 
 function newProject(project) {
   return {
