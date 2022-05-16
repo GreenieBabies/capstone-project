@@ -34,9 +34,9 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [])
 
-  // useEffect(() => {
-  //   updateTasks(project.lists.map(x => (return x.tasks))) // this is bad
-  // }, [project])
+  useEffect(() => {
+    updateLists(project.lists)
+  }, [project])
 
   const handleAddList = (e) => {
     e.preventDefault()
