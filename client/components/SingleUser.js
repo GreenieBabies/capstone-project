@@ -14,16 +14,20 @@ const SingleUser = (props) => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const auth = useSelector((state) => state.auth)
-  const proj = useSelector((state) => state.proj)
+  // const proj = useSelector((state) => state.proj)
   const [projects, setProjects] = useState([])
-  const [Projects, updateProjects] = useState(user.projects)
+  const [Projects, updateProjects] = useState([])
 
   const { isAdmin } = auth
 
   useEffect(() => {
     const { id } = props.match.params
     dispatch(fetchSingleUser(id))
-  }, [projects, Projects])
+  }, [])
+
+  useEffect(() => {
+    updateProjects(user.projects)
+  }, [user])
 
   const handleAddProject = (e) => {
     e.preventDefault()
@@ -57,9 +61,6 @@ const SingleUser = (props) => {
   return (
     <div className="container">
       {console.log(user)}
-
-      {}
-
       {isAdmin || user.id === auth.id ? (
         <div>
           {user.username ? (
@@ -82,9 +83,9 @@ const SingleUser = (props) => {
                           +
                         </div>
                       </Button>
-
-                      {Projects && // user.proj
-                        //need to sort by number other than id sort((a, b) => a.id - b.id)
+                      {Projects &&
+                        //need to sort by number other than id
+                        //.sort((a, b) => a.index - b.index)
                         Projects.map((x, index) => {
                           return (
                             <Draggable
