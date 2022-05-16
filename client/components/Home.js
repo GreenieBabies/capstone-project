@@ -7,7 +7,11 @@ import {
   ListItem,
   ListIcon,
   OrderedList,
-  UnorderedList
+  UnorderedList,
+  Center,
+  Image,
+  Box,
+  Text
 } from "@chakra-ui/react"
 import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
@@ -24,9 +28,12 @@ export const Home = props => {
         <Heading>
           <h1>Welcome to Trello + Voice!</h1>
         </Heading>
-        <p>
-          The most interactive and effective project management app out there!
-        </p>
+
+        <Box>
+          <Text fontSize="xl">
+            The most interactive and effective project management app out there!
+          </Text>
+        </Box>
       </div>
       <br />
       <div id="loginUserButtons">
@@ -36,7 +43,9 @@ export const Home = props => {
           </RouteLink>
         ) : (
           <RouteLink to="/signup">
-            <Button>Sign up for Trello+Voice for free!</Button>
+            <Button size="lg" colorScheme="green" mt="24px">
+              Sign up for Trello+Voice for free!
+            </Button>
           </RouteLink>
         )}
       </div>
@@ -65,13 +74,13 @@ export const Home = props => {
         <h4>Sample Images</h4>
       </div>
       <div className="exampleImages">
-        <img
+        <Image
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/spirit/product/89d378b845766a8f0c48e955336266f8/board.png"
           alt="Project with list and task example"
           width="400"
           height="300"
         />
-        <img
+        <Image
           src="https://resources.dfuob.com/wp-content/uploads/2019/06/trello-boards-1280x960.jpg"
           alt="Project with list and task example 2"
           width="400"
