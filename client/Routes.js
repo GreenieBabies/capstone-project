@@ -27,7 +27,7 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            {this.props.getUser(this.props.id)}
+            {/* {this.props.getUser(this.props.id)} */}
             <Route path="/home" component={Home} />
             <Route path="/users/:id" component={SingleUser} />
             <Route path="/projects/:id" component={SingleProject} />
