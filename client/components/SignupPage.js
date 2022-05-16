@@ -18,7 +18,8 @@ import { Link } from "react-router-dom"
 /**
  * COMPONENT
  */
-const AuthForm = (props) => {
+
+const AuthForm = (props) => 
   const { register } = useForm()
   // const { username, email, address, displayName, handleSubmit, error } = props
 
@@ -26,7 +27,7 @@ const AuthForm = (props) => {
     username: "",
     password: "",
     email: "",
-    address: "",
+    address: ""
   })
   const dispatch = useDispatch()
   const handleChange = (event) => {
@@ -66,6 +67,8 @@ const AuthForm = (props) => {
                   value={form.username}
                   {...register("username")}
                   onChange={handleChange}
+                  isRequired="true"
+
                 />
               </FormControl>
               <FormControl mt={6}>
@@ -76,6 +79,8 @@ const AuthForm = (props) => {
                   {...register("password")}
                   value={form.password}
                   onChange={handleChange}
+                  isRequired="true"
+
                 />
               </FormControl>
               <FormControl>
@@ -86,6 +91,7 @@ const AuthForm = (props) => {
                   value={form.email}
                   {...register("email")}
                   onChange={handleChange}
+                  isRequired="true"
                 />
               </FormControl>
               <FormControl>

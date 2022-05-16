@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Heading, Box, Image } from "@chakra-ui/react"
-import { SimpleGrid } from "@chakra-ui/react"
+import { Heading, Box, Image, Container } from "@chakra-ui/react"
+import { SimpleGrid, Avatar, Wrap, WrapItem } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
 
@@ -10,7 +10,7 @@ const AboutPage = () => {
     {
       firstName: "Jeff",
       lastName: "Lupton",
-      imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
+      imageUrl: "https://bit.ly/dan-abramov",
       id: 1,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
@@ -50,7 +50,7 @@ const AboutPage = () => {
       <Heading>
         <h2>Overview</h2>
       </Heading>
-      <p>
+      <Container>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco l aboris nisi ut aliquip ex ea
@@ -58,7 +58,8 @@ const AboutPage = () => {
         velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
-      </p>
+      </Container>
+      <br />
       <Heading>
         <h2>Meet the Team!</h2>
       </Heading>
@@ -66,7 +67,15 @@ const AboutPage = () => {
         {team.map(member => (
           <Box bg="lightblue" boxSize="100px" borderRadius="md">
             <div className="member" key={member.id}>
-              <Image src={member.imageUrl} className="photo" />
+              {/* <Image
+                src="https://unsplash.com/photos/G4YV8aylNmw"
+                className="photo"
+              /> */}
+              <Wrap>
+                <WrapItem>
+                  <Avatar name="member" src="https://bit.ly/dan-abramov" />
+                </WrapItem>
+              </Wrap>
               <h2>
                 <Link
                   className="listingInfo"
@@ -74,20 +83,20 @@ const AboutPage = () => {
                     pathname: `/team/${member.id}/`,
                     state: member
                   }}
-                >
-                  <Button>
-                    {member.firstName} {member.lastName}
-                  </Button>
-                </Link>
+                ></Link>
               </h2>
             </div>
+            <Button>
+              {member.firstName} {member.lastName}
+            </Button>
           </Box>
         ))}
       </SimpleGrid>
+      <br />
       <Heading>
         <h3>Tools</h3>
       </Heading>
-      <SimpleGrid columns={2} spacing={10}>
+      <SimpleGrid columns={2} spacing={2}>
         {/* <ul> */}
 
         <Box
@@ -156,6 +165,7 @@ const AboutPage = () => {
 
         {/* </ul> */}
       </SimpleGrid>
+      <br />
       <Heading>
         <h3>APIs</h3>
       </Heading>

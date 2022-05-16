@@ -7,7 +7,12 @@ import {
   ListItem,
   ListIcon,
   OrderedList,
-  UnorderedList
+  UnorderedList,
+  Center,
+  Image,
+  Box,
+  Text,
+  HStack
 } from "@chakra-ui/react"
 import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
@@ -24,9 +29,12 @@ export const Home = props => {
         <Heading>
           <h1>Welcome to Trello + Voice!</h1>
         </Heading>
-        <p>
-          The most interactive and effective project management app out there!
-        </p>
+
+        <Box>
+          <Text fontSize="xl">
+            The most interactive and effective project management app out there!
+          </Text>
+        </Box>
       </div>
       <br />
       <div id="loginUserButtons">
@@ -36,7 +44,9 @@ export const Home = props => {
           </RouteLink>
         ) : (
           <RouteLink to="/signup">
-            <Button>Sign up for Trello+Voice for free!</Button>
+            <Button size="lg" colorScheme="green" mt="24px">
+              Sign up for Trello+Voice for free!
+            </Button>
           </RouteLink>
         )}
       </div>
@@ -53,25 +63,35 @@ export const Home = props => {
         <Heading>
           <h4>Voice Commands Include:</h4>
         </Heading>
-        <UnorderedList>
-          <ListItem>List Projects</ListItem>
-          <ListItem>List Columns</ListItem>
-          <ListItem>List Tasks</ListItem>
-          <ListItem>How Many Active Tasks Remaining?</ListItem>
-          <ListItem>Speech-To-Text Note Taking</ListItem>
-        </UnorderedList>
+        <HStack spacing="24px" justify="center">
+          <Box bg="lightblue" borderRadius="md">
+            List Projects
+          </Box>
+          <Box bg="lightblue" borderRadius="md">
+            List Columns
+          </Box>
+          <Box bg="lightblue" borderRadius="md">
+            List Tasks
+          </Box>
+          <Box bg="lightblue" borderRadius="md">
+            How Many Active Tasks Remaining?
+          </Box>
+          <Box bg="lightblue" borderRadius="md">
+            Speech-To-Text Note Taking
+          </Box>
+        </HStack>
         <br />
         <br />
         <h4>Sample Images</h4>
       </div>
       <div className="exampleImages">
-        <img
+        <Image
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/spirit/product/89d378b845766a8f0c48e955336266f8/board.png"
           alt="Project with list and task example"
           width="400"
           height="300"
         />
-        <img
+        <Image
           src="https://resources.dfuob.com/wp-content/uploads/2019/06/trello-boards-1280x960.jpg"
           alt="Project with list and task example 2"
           width="400"
