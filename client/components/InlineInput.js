@@ -69,10 +69,10 @@ function InlineInput(props) {
     [setInputValue]
   )
 
-  const handleSpanClick = useCallback(
-    () => setIsInputActive(true),
-    [setIsInputActive]
-  )
+  const handleSpanClick = useCallback(() => {
+    setIsInputActive(true), [setIsInputActive]
+    setInputValue("") // clear project name
+  })
 
   return (
     <span className="inline-text" ref={wrapperRef}>
