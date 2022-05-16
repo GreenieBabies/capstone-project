@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
 import { withRouter, Route, Switch, Redirect } from "react-router-dom"
-import { Login, Signup } from "./components/AuthForm"
-import CreateUser from "./components/CreateUser"
+import { Login } from "./components/AuthForm"
 import Home from "./components/Home"
 import SingleUser from "./components/SingleUser"
 import AboutPage from "./components/AboutPage"
 import SingleFounder from "./components/SingleFounder"
 import SingleProject from "./components/SingleProject"
+import { Signup } from "./components/SignupPage"
 import { fetchSingleUser } from "./store/singleUser"
 import { me } from "./store"
 
@@ -39,7 +39,7 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={CreateUser} />
+            <Route path="/signup" component={Signup} />
             <Route path="/about" component={AboutPage} />
             <Route path="/team/:memberId/" component={SingleFounder} />
           </Switch>
