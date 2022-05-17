@@ -54,7 +54,7 @@ router.post("/:id", async (req, res, next) => {
   }
 })
 
-router.put("/edit/:id", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     await user.update(req.body)
