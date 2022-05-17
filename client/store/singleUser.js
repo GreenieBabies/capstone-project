@@ -63,7 +63,10 @@ export function createUserThunk(form) {
 export function fetchSingleUser(id) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}`)
+      const token = window.localStorage.getItem("token")
+      const { data } = await axios.get(`/api/users/${id}`, {
+        headers: { authorization: token },
+      })
       dispatch(getUser(data))
     } catch (error) {
       console.log(error)
@@ -72,10 +75,13 @@ export function fetchSingleUser(id) {
 }
 
 //this needs to be reworked so it takes in a form and edits the form
-export function updateSingleUser(user) {
+export function updateSingleUser(user, id) {
   return async function (dispatch) {
     try {
-      let response = await axios.put(`/api/users/${user.id}`, user)
+      const token = window.localStorage.getItem("token")
+      let response = await axios.put(`/api/users/${id}`, user, {
+        headers: { authorization: token },
+      })
       let newUser = response.data
       dispatch(editSingleUser(newUser))
     } catch (err) {
@@ -130,7 +136,6 @@ const defaultState = {
 export default function singleUserReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_SINGLE_USER:
-      console.log(state.projects)
       return { ...action.user, ...action.auth }
     case CREATE_NEW_USER:
       state.users.push(action.user)
@@ -141,10 +146,8 @@ export default function singleUserReducer(state = defaultState, action) {
       state.projects.push(action.project)
       return { ...state }
     case DELETE_PROJECT:
-      state.projects = state.projects.filter((x) => {
-        return x.id !== action.project.id && x
-      })
-      return { ...state }
+      projects_ = copiedProjects.filter((x) => x.id !== action.project.id)
+      return { ...state, projects: projects_ }
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
     default:

@@ -36,9 +36,10 @@ const EditUserInfo = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      dispatch(updateSingleUser(form))
+      console.log(props)
+      dispatch(updateSingleUser(form, props.match.params.id))
     } catch (err) {}
-    props.history.push("/home")
+    props.history.push("/users")
   }
   // class EditUserInfo extends React.Component {
   //   constructor(props) {
@@ -93,7 +94,7 @@ const EditUserInfo = (props) => {
                 <FormLabel>Username</FormLabel>
                 <Input
                   type="username"
-                  placeholder="username"
+                  placeholder={"username"}
                   value={form.username}
                   {...register("username")}
                   onChange={handleChange}
