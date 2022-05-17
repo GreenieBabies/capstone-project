@@ -1,7 +1,6 @@
-import React, { useState } from "react"
 import { connect } from "react-redux"
+import React, { useState } from "react"
 import { authenticate } from "../store"
-import { createUserThunk } from "../store/singleUser"
 import {
   Flex,
   Box,
@@ -14,20 +13,19 @@ import {
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { fetchSingleUser, updateSingleUser, getUser } from "../store/singleUser"
 
-/**
- * COMPONENT
- */
-const Signup = (props) => {
+const EditUserInfo = (props) => {
   const { register } = useForm()
-  // const { username, email, address, displayName, handleSubmit, error } = props
-
+  //how do we change this to the actual user info - might be the issue
+  //Also, after changing info, doesn't seem to be making desired change
   const [form, setForm] = useState({
     username: "",
     password: "",
     email: "",
     address: "",
   })
+
   const dispatch = useDispatch()
   const handleChange = (event) => {
     setForm({
@@ -38,11 +36,44 @@ const Signup = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      dispatch(createUserThunk(form))
+      dispatch(updateSingleUser(form))
     } catch (err) {}
-    props.history.push("/login")
+    props.history.push("/home")
   }
+  // class EditUserInfo extends React.Component {
+  //   constructor(props) {
+  //     super(props)
 
+  //     this.state = {
+  //       username: "",
+  //       email: "",
+  //       address: "",
+  //     }
+
+  //     this.handleChange = this.handleChange.bind(this)
+  //     this.handleSubmit = this.handleSubmit.bind(this)
+  // }
+  // componentDidMount() {
+  //   this.props.loadUser(this.props.match.params.userId)
+  // }
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.user.id !== this.props.user.id) {
+  //     this.setState({
+  //       username: this.props.user.username,
+  //       email: this.props.user.email,
+  //       address: this.props.user.address,
+  //     })
+  //   }
+  // }
+  // componentWillUnmount() {
+  //   this.props.clearUser()
+  // }
+  // handleChange(evt) {
+  //   this.setState({
+  //     [evt.target.name]: evt.target.value,
+  //   })
+  // }
   return (
     <div>
       <Flex width="full" align="center" justifyContent="center">
@@ -54,10 +85,10 @@ const Signup = (props) => {
           boxShadow="lg"
         >
           <Box textAlign="center">
-            <Heading>Sign Up</Heading>
+            <Heading>Edit User Info</Heading>
           </Box>
           <Box my={4} textAlign="left">
-            <form onSubmit={handleSubmit} name="signupForm">
+            <form onSubmit={handleSubmit} name="editUserForm">
               <FormControl>
                 <FormLabel>Username</FormLabel>
                 <Input
@@ -66,7 +97,6 @@ const Signup = (props) => {
                   value={form.username}
                   {...register("username")}
                   onChange={handleChange}
-                  isRequired="true"
                 />
               </FormControl>
               <FormControl mt={6}>
@@ -77,7 +107,6 @@ const Signup = (props) => {
                   {...register("password")}
                   value={form.password}
                   onChange={handleChange}
-                  isRequired="true"
                 />
               </FormControl>
               <FormControl>
@@ -88,7 +117,6 @@ const Signup = (props) => {
                   value={form.email}
                   {...register("email")}
                   onChange={handleChange}
-                  isRequired="true"
                 />
               </FormControl>
               <FormControl>
@@ -108,7 +136,7 @@ const Signup = (props) => {
                 width="full"
                 mt={4}
               >
-                Sign Up
+                Save
               </Button>
               <Link to="/home">Cancel</Link>
             </form>
@@ -119,28 +147,18 @@ const Signup = (props) => {
   )
 }
 
-// const mapSignup = (state) => {
+// const mapState = (state) => {
 //   return {
-//     name: "signup",
-//     displayName: "Sign Up",
-//     error: state.auth.error,
+//     user: state.user,
 //   }
 // }
 
 // const mapDispatch = (dispatch) => {
 //   return {
-//     handleSubmit(evt) {
-//       console.log(evt)
-//       evt.preventDefault()
-//       const formName = evt.target.name
-//       const username = evt.target.username.value
-//       const password = evt.target.password.value
-//       const email = evt.target.email.value
-//       const address = evt.target.address.value
-//       dispatch(authenticate(username, password, email, address, formName))
-//     },
+//     loadUser: (id) => dispatch(fetchSingleUser(id)),
+//     updateUser: (user) => dispatch(updateSingleUser(user)),
+//     clearUser: () => dispatch(getUser({})),
 //   }
 // }
 
-// export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
-export default Signup
+export default EditUserInfo
