@@ -9,7 +9,7 @@ import {
   Avatar,
   Wrap,
   WrapItem,
-  Circle
+  Circle,
 } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
@@ -23,7 +23,7 @@ const AboutPage = () => {
       id: 1,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
-      gitHub: "https://github.com/Jlups76"
+      gitHub: "https://github.com/Jlups76",
     },
     {
       firstName: "Ethan",
@@ -32,7 +32,7 @@ const AboutPage = () => {
       id: 2,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/ethanschindel/",
-      gitHub: "https://github.com/Erschindel"
+      gitHub: "https://github.com/Erschindel",
     },
     {
       firstName: "Michael",
@@ -41,7 +41,7 @@ const AboutPage = () => {
       id: 3,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/michaelmnat/",
-      gitHub: "https://github.com/MichaelMnatsakanian"
+      gitHub: "https://github.com/MichaelMnatsakanian",
     },
     {
       firstName: "Tony",
@@ -50,14 +50,14 @@ const AboutPage = () => {
       id: 4,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/tony-x-li/",
-      gitHub: "https://github.com/tonyxli21"
-    }
+      gitHub: "https://github.com/tonyxli21",
+    },
   ]
 
   return (
     <div>
       <Heading>
-        <h2>Overview</h2>
+        <p>Overview</p>
       </Heading>
       <Container>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -70,11 +70,11 @@ const AboutPage = () => {
       </Container>
       <br />
       <Heading>
-        <h2>Meet the Team!</h2>
+        <p>Meet the Team!</p>
       </Heading>
       <SimpleGrid columns={2} spacing={10}>
-        {team.map(member => (
-          <Circle bg="lightblue" width="150px" height="150px">
+        {team.map((member) => (
+          <Circle key={member.id} bg="lightblue" width="150px" height="150px">
             <div className="member" key={member.id}>
               {/* <Image
                 src="https://unsplash.com/photos/G4YV8aylNmw"
@@ -86,15 +86,15 @@ const AboutPage = () => {
                 </WrapItem>
               </Wrap>
             </div>
-            <h2>
+            <Heading>
               <Link
                 className="listingInfo"
                 to={{
                   pathname: `/team/${member.id}/`,
-                  state: member
+                  state: member,
                 }}
               ></Link>
-            </h2>
+            </Heading>
             <Button>
               {member.firstName} {member.lastName}
             </Button>
@@ -103,7 +103,7 @@ const AboutPage = () => {
       </SimpleGrid>
       <br />
       <Heading>
-        <h3>Tools</h3>
+        <p>Tools</p>
       </Heading>
       <SimpleGrid columns={2} spacing={2}>
         {/* <ul> */}
@@ -176,7 +176,7 @@ const AboutPage = () => {
       </SimpleGrid>
       <br />
       <Heading>
-        <h3>APIs</h3>
+        <p>APIs</p>
       </Heading>
       <ul>
         <li>Twitter API</li>

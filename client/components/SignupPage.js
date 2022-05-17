@@ -66,7 +66,7 @@ const Signup = (props) => {
                   value={form.username}
                   {...register("username")}
                   onChange={handleChange}
-                  isRequired="true"
+                  isRequired={true}
                 />
               </FormControl>
               <FormControl mt={6}>
@@ -77,7 +77,7 @@ const Signup = (props) => {
                   {...register("password")}
                   value={form.password}
                   onChange={handleChange}
-                  isRequired="true"
+                  isRequired={true}
                 />
               </FormControl>
               <FormControl>
@@ -88,7 +88,7 @@ const Signup = (props) => {
                   value={form.email}
                   {...register("email")}
                   onChange={handleChange}
-                  isRequired="true"
+                  isRequired={true}
                 />
               </FormControl>
               <FormControl>
