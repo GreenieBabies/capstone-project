@@ -19,18 +19,16 @@ const SingleProject = props => {
   const user = useSelector(state => state.user)
   const auth = useSelector(state => state.auth)
   const [tasks, setTasks] = useState([])
-  // const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
   const [storedHeading, setStoredHeading] = project.boardName
     ? useState(project.boardName)
     : useState("")
   const [lists, updateLists] = useState(project.lists)
-  // const [storedText, setStoredText] = useState("Here's some more, edit away!")
-  // console.log(project)
 
   //have it when someone clicks on a project on the single user page, the projectId is returned
   useEffect(() => {
     const { id } = props.match.params
+    console.log(props)
     dispatch(fetchSingleProject(id))
   }, [])
 
@@ -69,6 +67,7 @@ const SingleProject = props => {
 
   return (
     <div className="container">
+      {console.log(user)}
       {isAdmin || user.id === auth.id ? (
         <div>
           {project.boardName &&
@@ -81,13 +80,6 @@ const SingleProject = props => {
                 : storedHeading
                 ? storedHeading
                 : ""
-              // storedHeading
-              //   ? storedHeading === project.boardName
-              //     ? storedHeading
-              //     : project.boardName
-              //   : project.boardName
-              //   ? project.boardName
-              //   : ""
             }
             projectId={id}
             onSetText={text => setStoredHeading(text)}
@@ -147,7 +139,11 @@ const SingleProject = props => {
           </DragDropContext>
         </div>
       ) : (
-        <p>Unauthorized</p>
+        <div>
+          <p>Unauthorized</p>
+          {console.log(user.id)}
+          {console.log(auth.id)}
+        </div>
       )}
     </div>
   )

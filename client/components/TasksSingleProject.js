@@ -13,7 +13,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 const TasksSingleProject = (props) => {
   const dispatch = useDispatch()
   const tasks = props.state
-  console.log(tasks)
+  // console.log(tasks)
   const id = props.id
 
   const handleDeleteTask = (e, listId, taskId) => {
