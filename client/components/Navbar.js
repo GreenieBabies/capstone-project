@@ -12,24 +12,25 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
           {/* The navbar will show these links after you log in */}
           <Tabs variant="soft-rounded" colorScheme="blue">
             <TabList>
+              <Link to="/home">
+                <Tab>Home</Tab>
+              </Link>
 
-              <Tab>
-                <Link to="/home">Home</Link>
-              </Tab>
-              <Tab>
-                <Link to="/about">About</Link>
-              </Tab>
-              <Tab>
-                <Link to={`/users/${id}`}>Project Boards</Link>
-              </Tab>
-              <Tab>
-                <Link to={`/users/edit/${id}`}>Settings</Link>
-              </Tab>
-              <Tab>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </Tab>
+              <Link to="/about">
+                <Tab>About</Tab>
+              </Link>
+
+              <Link to={`/users/${id}`}>
+                <Tab>Project Boards</Tab>
+              </Link>
+
+              <Link to={`/users/edit/${id}`}>
+                <Tab>Settings</Tab>
+              </Link>
+
+              <a href="#" onClick={handleClick}>
+                <Tab>Logout</Tab>
+              </a>
             </TabList>
           </Tabs>
         </div>
@@ -44,7 +45,7 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
 
               <NavLink
                 to="/login"
-                className={(isActive) =>
+                className={isActive =>
                   "nav-link" + (!isActive ? " unselected" : "")
                 }
               >
@@ -70,18 +71,18 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    id: state.auth.id,
+    id: state.auth.id
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    },
+    }
   }
 }
 
