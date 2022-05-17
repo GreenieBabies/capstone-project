@@ -12,6 +12,7 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
           {/* The navbar will show these links after you log in */}
           <Tabs variant="soft-rounded" colorScheme="blue">
             <TabList>
+
               <Tab>
                 <Link to="/home">Home</Link>
               </Tab>
