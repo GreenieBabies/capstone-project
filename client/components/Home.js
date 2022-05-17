@@ -3,16 +3,13 @@ import { connect, useSelector } from "react-redux"
 import {
   Link,
   Heading,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
+  Circle,
   Center,
   Image,
   Box,
   Text,
-  HStack
+  HStack,
+  SimpleGrid
 } from "@chakra-ui/react"
 import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
@@ -63,43 +60,50 @@ export const Home = props => {
         <Heading>
           <h4>Voice Commands Include:</h4>
         </Heading>
-        <HStack spacing="24px" justify="center">
-          <Box bg="lightblue" borderRadius="md">
-            List Projects
-          </Box>
-          <Box bg="lightblue" borderRadius="md">
-            List Columns
-          </Box>
-          <Box bg="lightblue" borderRadius="md">
-            List Tasks
-          </Box>
-          <Box bg="lightblue" borderRadius="md">
-            How Many Active Tasks Remaining?
-          </Box>
-          <Box bg="lightblue" borderRadius="md">
-            Speech-To-Text Note Taking
-          </Box>
-        </HStack>
+        <br />
+        <Center>
+          <SimpleGrid columns={[2, null, 3]} spacing="80px" justify="center">
+            <Circle bg="lightblue" width="150px" height="150px" padding="20px">
+              List Projects
+            </Circle>
+            <Circle bg="lightblue" width="150px" padding="20px">
+              List Columns
+            </Circle>
+            <Circle bg="lightblue" width="150px" height="150px" padding="20px">
+              List Tasks
+            </Circle>
+            <Circle bg="lightblue" width="150px" height="150px" padding="20px">
+              How Many Active Tasks Remaining?
+            </Circle>
+            <Circle bg="lightblue" width="150px" height="150px" padding="20px">
+              Speech-To-Text Note Taking
+            </Circle>
+          </SimpleGrid>
+        </Center>
         <br />
         <br />
-        <h4>Sample Images</h4>
+        <Heading>
+          <h4>Sample Images</h4>
+        </Heading>
       </div>
-      <div className="exampleImages">
-        <Image
-          src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/spirit/product/89d378b845766a8f0c48e955336266f8/board.png"
-          alt="Project with list and task example"
-          width="400"
-          height="300"
-        />
-        <Image
-          src="https://resources.dfuob.com/wp-content/uploads/2019/06/trello-boards-1280x960.jpg"
-          alt="Project with list and task example 2"
-          width="400"
-          height="300"
-        />
-        <br />
-        <br />
-      </div>
+      <Center>
+        <div className="exampleImages">
+          <Image
+            src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/spirit/product/89d378b845766a8f0c48e955336266f8/board.png"
+            alt="Project with list and task example"
+            width="400"
+            height="300"
+          />
+          <Image
+            src="https://resources.dfuob.com/wp-content/uploads/2019/06/trello-boards-1280x960.jpg"
+            alt="Project with list and task example 2"
+            width="400"
+            height="300"
+          />
+          <br />
+          <br />
+        </div>
+      </Center>
       <div className="aboutTeam">
         <Link to="/about">
           <Button>Click Here to Learn More About Our Awesome Team!</Button>

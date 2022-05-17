@@ -17,9 +17,15 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
                 <Tab>Home</Tab>
               </Link>
 
-              <Link to="/about">
+              <NavLink
+                to="/about"
+                activeStyle={{
+                  fontWeight: "bold",
+                  color: "red"
+                }}
+              >
                 <Tab>About</Tab>
-              </Link>
+              </NavLink>
 
               <Link to={`/users/${id}`}>
                 <Tab>Project Boards</Tab>
