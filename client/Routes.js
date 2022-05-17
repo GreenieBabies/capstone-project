@@ -9,6 +9,7 @@ import SingleFounder from "./components/SingleFounder"
 import SingleProject from "./components/SingleProject"
 import { Signup } from "./components/SignupPage"
 import { fetchSingleUser } from "./store/singleUser"
+import EditUserInfo from "./components/EditUserInfo"
 import { me } from "./store"
 
 /**
@@ -28,7 +29,8 @@ class Routes extends Component {
           <Switch>
             {/* {this.props.getUser(this.props.id)} */}
             <Route path="/home" component={Home} />
-            <Route path="/users/:id" component={SingleUser} />
+            <Route exact path="/users/:id" component={SingleUser} />
+            <Route path="/users/edit/:id" component={EditUserInfo} />
             <Route path="/projects/:id" component={SingleProject} />
             <Route path="/about" component={AboutPage} />
             <Route path="/team/:memberId/" component={SingleFounder} />

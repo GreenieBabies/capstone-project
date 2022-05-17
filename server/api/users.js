@@ -54,6 +54,16 @@ router.post("/:id", async (req, res, next) => {
   }
 })
 
+router.put("/edit/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    await user.update(req.body)
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.delete("/:userId/projects/:projectId", async (req, res, next) => {
   try {
     const project = await Project.findByPk(req.params.projectId)

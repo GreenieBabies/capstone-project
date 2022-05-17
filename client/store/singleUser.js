@@ -2,46 +2,54 @@ import axios from "axios"
 
 const GET_SINGLE_USER = "GET_SINGLE_USER"
 // const CREATE_NEW_USER = "CREATE_NEW_USER"
+const CREATE_NEW_USER = "CREATE_NEW_USER"
+const EDIT_SINGLE_USER = "EDIT_SINGLE_USER"
 const CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT"
 const DELETE_PROJECT = "DELETE_PROJECT"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
 
-function getUser(user) {
+export function getUser(user) {
   return {
     type: GET_SINGLE_USER,
-    user
+    user,
   }
 }
 
-// function createNewUser(project) {
+// function createNewUser(user) {
 //   return {
-//     type: CREATE_NEW_PROJECT,
-//     project,
+//     type: CREATE_NEW_USER,
+//     user,
 //   }
 // }
+
+function editSingleUser(user) {
+  return {
+    type: EDIT_SINGLE_USER,
+    user,
+  }
+}
 
 function newProject(project) {
   return {
     type: CREATE_NEW_PROJECT,
-    project
+    project,
   }
 }
 
 function deleteProj(project) {
   return {
     type: DELETE_PROJECT,
-    project
+    project,
   }
 }
 
 function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
-    project
+    project,
   }
 }
 
-// Obsolete?
 export function createUserThunk(form) {
   return async () => {
     try {
@@ -53,12 +61,9 @@ export function createUserThunk(form) {
 }
 
 export function fetchSingleUser(id) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token")
-      const { data } = await axios.get(`/api/users/${id}`, {
-        headers: { authorization: token },
-      })
+      const { data } = await axios.get(`/api/users/${id}`)
       dispatch(getUser(data))
     } catch (error) {
       console.log(error)
@@ -66,17 +71,23 @@ export function fetchSingleUser(id) {
   }
 }
 
-export function createProject(id) {
-  return async dispatch => {
+//this needs to be reworked so it takes in a form and edits the form
+export function updateSingleUser(user) {
+  return async function (dispatch) {
     try {
-      const token = window.localStorage.getItem("token")
-      const { data } = await axios.post(
-        `/api/users/${id}`,
-        {}, // post body; empty to initialize
-        {
-          headers: { authorization: token },
-        }
-      )
+      let response = await axios.put(`/api/users/${user.id}`, user)
+      let newUser = response.data
+      dispatch(editSingleUser(newUser))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export function createProject(id) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/users/${id}`)
       dispatch(newProject(data))
     } catch (error) {
       console.log(error)
@@ -85,14 +96,10 @@ export function createProject(id) {
 }
 
 export function deleteProject(userId, projectId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token")
       const { data } = await axios.delete(
-        `/api/users/${userId}/projects/${projectId}`,
-        {
-          headers: { authorization: token },
-        }
+        `/api/users/${userId}/projects/${projectId}`
       )
       dispatch(deleteProj(data))
     } catch (error) {
@@ -102,14 +109,12 @@ export function deleteProject(userId, projectId) {
 }
 
 export function updateProject(userId, projectId, newName) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token")
       const payload = { boardName: newName }
       const { data } = await axios.put(
         `/api/users/${userId}/projects/${projectId}`,
-        payload,
-        { headers: { authorization: token } }
+        payload
       )
       dispatch(updateProj(data))
     } catch (error) {
@@ -118,32 +123,28 @@ export function updateProject(userId, projectId, newName) {
   }
 }
 
-const defaultState = {}
+const defaultState = {
+  // user: "hihi",
+}
 
 export default function singleUserReducer(state = defaultState, action) {
-  let copiedProjects = []
-  state.projects &&
-    (copiedProjects = JSON.parse(JSON.stringify(state.projects)))
-  let projects_
-
   switch (action.type) {
-    case GET_SINGLE_USER: // projects are inside of action.user
+    case GET_SINGLE_USER:
+      console.log(state.projects)
       return { ...action.user, ...action.auth }
-
-    // Obsolete?
-    // case CREATE_NEW_USER:
-    //   copiedUser.push(action.user)
-    //   console.log(state)
-    //   return { ...state, users: copiedUser }
-
+    case CREATE_NEW_USER:
+      state.users.push(action.user)
+      return { ...state }
+    case EDIT_SINGLE_USER:
+      return action.user
     case CREATE_NEW_PROJECT:
-      copiedProjects.push(action.project)
-      return { ...state, projects: copiedProjects }
-
+      state.projects.push(action.project)
+      return { ...state }
     case DELETE_PROJECT:
-      projects_ = copiedProjects.filter(x => x.id !== action.project.id)
-      return { ...state, projects: projects_ }
-
+      state.projects = state.projects.filter((x) => {
+        return x.id !== action.project.id && x
+      })
+      return { ...state }
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
     default:
