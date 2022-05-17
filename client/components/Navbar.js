@@ -12,28 +12,24 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
           {/* The navbar will show these links after you log in */}
           <Tabs variant="soft-rounded" colorScheme="blue">
             <TabList>
-              <Link to="/home">
-                {" "}
-                <Tab>Home</Tab>
-              </Link>
 
-              <NavLink
-                to="/about"
-                activeStyle={{
-                  fontWeight: "bold",
-                  color: "red"
-                }}
-              >
-                <Tab>About</Tab>
-              </NavLink>
-
-              <Link to={`/users/${id}`}>
-                <Tab>Project Boards</Tab>
-              </Link>
-
-              <a href="#" onClick={handleClick}>
-                <Tab>Logout</Tab>
-              </a>
+              <Tab>
+                <Link to="/home">Home</Link>
+              </Tab>
+              <Tab>
+                <Link to="/about">About</Link>
+              </Tab>
+              <Tab>
+                <Link to={`/users/${id}`}>Project Boards</Link>
+              </Tab>
+              <Tab>
+                <Link to={`/users/edit/${id}`}>Settings</Link>
+              </Tab>
+              <Tab>
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </Tab>
             </TabList>
           </Tabs>
         </div>
@@ -48,7 +44,7 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
 
               <NavLink
                 to="/login"
-                className={isActive =>
+                className={(isActive) =>
                   "nav-link" + (!isActive ? " unselected" : "")
                 }
               >
@@ -74,18 +70,18 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-    id: state.auth.id
+    id: state.auth.id,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
   }
 }
 
