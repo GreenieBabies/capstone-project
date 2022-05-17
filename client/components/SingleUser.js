@@ -60,7 +60,7 @@ const SingleUser = (props) => {
 
   return (
     <div className="container">
-      {console.log(user)}
+      {/* {console.log(user)} */}
       {isAdmin || user.id === auth.id ? (
         <div>
           {user.username ? (

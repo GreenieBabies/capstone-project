@@ -69,7 +69,10 @@ function updateList(list) {
 export function fetchSingleProject(projectId) {
   return async dispatch => {
     try {
-      const { data } = await axios.get(`/api/projects/${projectId}`)
+      const token = window.localStorage.getItem("token")
+      const { data } = await axios.get(`/api/projects/${projectId}`, {
+        headers: { authorization: token },
+      })
       dispatch(getProject(data))
     } catch (error) {
       console.log(error)
@@ -80,7 +83,14 @@ export function fetchSingleProject(projectId) {
 export function addSingleList(id) {
   return async dispatch => {
     try {
-      const { data } = await axios.post(`/api/projects/${id}`)
+      const token = window.localStorage.getItem("token")
+      const { data } = await axios.post(
+        `/api/projects/${id}`,
+        {},
+        {
+          headers: { authorization: token },
+        }
+      )
       dispatch(addList(data))
     } catch (error) {
       console.log(error)
@@ -91,8 +101,12 @@ export function addSingleList(id) {
 export function deleteSingleList(projectId, listId) {
   return async dispatch => {
     try {
+      const token = window.localStorage.getItem("token")
       const { data } = await axios.delete(
-        `/api/projects/${projectId}/lists/${listId}`
+        `/api/projects/${projectId}/lists/${listId}`,
+        {
+          headers: { authorization: token },
+        }
       )
       dispatch(deleteList(data))
     } catch (error) {
@@ -118,8 +132,11 @@ export function deleteSingleList(projectId, listId) {
 export function updateProject(projectId, newName) {
   return async dispatch => {
     try {
+      const token = window.localStorage.getItem("token")
       const payload = { boardName: newName }
-      const { data } = await axios.put(`/api/projects/${projectId}`, payload)
+      const { data } = await axios.put(`/api/projects/${projectId}`, payload, {
+        headers: { authorization: token },
+      })
       dispatch(updateProj(data))
     } catch (error) {
       console.log(error)
@@ -130,6 +147,7 @@ export function updateProject(projectId, newName) {
 export function addSingleTask(projectId, listId) {
   return async dispatch => {
     try {
+      const token = window.localStorage.getItem("token")
       const payload = {
         taskName: "--Add Task Name--",
         notes: "--Add Task Notes--",
@@ -137,7 +155,8 @@ export function addSingleTask(projectId, listId) {
       }
       const { data } = await axios.post(
         `/api/projects/${projectId}/lists/${listId}`,
-        payload
+        payload,
+        { headers: { authorization: token } }
       )
       dispatch(addTask(data))
     } catch (error) {
@@ -149,8 +168,10 @@ export function addSingleTask(projectId, listId) {
 export function deleteSingleTask(projectId, listId, taskId) {
   return async dispatch => {
     try {
+      const token = window.localStorage.getItem("token")
       const { data } = await axios.delete(
-        `/api/projects/${projectId}/lists/${listId}/tasks/${taskId}`
+        `/api/projects/${projectId}/lists/${listId}/tasks/${taskId}`,
+        { headers: { authorization: token } }
       )
       dispatch(deleteTask(data))
     } catch (error) {
@@ -196,6 +217,7 @@ export default function singleProjectReducer(state = defaultState, action) {
 
   switch (action.type) {
     case GET_SINGLE_PROJECT:
+      console.log(action)
       return { ...action.project, ...action.auth }
 
     case ADD_SINGLE_LIST:
