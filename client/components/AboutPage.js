@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Heading, Box, Image, Container } from "@chakra-ui/react"
-import { SimpleGrid, Avatar, Wrap, WrapItem } from "@chakra-ui/react"
+import {
+  Heading,
+  Box,
+  Image,
+  Container,
+  SimpleGrid,
+  Avatar,
+  Wrap,
+  WrapItem,
+  Circle
+} from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
 
@@ -65,7 +74,7 @@ const AboutPage = () => {
       </Heading>
       <SimpleGrid columns={2} spacing={10}>
         {team.map(member => (
-          <Box bg="lightblue" boxSize="100px" borderRadius="md">
+          <Circle bg="lightblue" width="150px" height="150px">
             <div className="member" key={member.id}>
               {/* <Image
                 src="https://unsplash.com/photos/G4YV8aylNmw"
@@ -76,20 +85,20 @@ const AboutPage = () => {
                   <Avatar name="member" src="https://bit.ly/dan-abramov" />
                 </WrapItem>
               </Wrap>
-              <h2>
-                <Link
-                  className="listingInfo"
-                  to={{
-                    pathname: `/team/${member.id}/`,
-                    state: member
-                  }}
-                ></Link>
-              </h2>
             </div>
+            <h2>
+              <Link
+                className="listingInfo"
+                to={{
+                  pathname: `/team/${member.id}/`,
+                  state: member
+                }}
+              ></Link>
+            </h2>
             <Button>
               {member.firstName} {member.lastName}
             </Button>
-          </Box>
+          </Circle>
         ))}
       </SimpleGrid>
       <br />

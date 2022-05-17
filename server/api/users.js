@@ -28,38 +28,13 @@ router.get("/:id", async (req, res, next) => {
 // now we have req.user! don't need userId
 // KEEP ABOVE COMMENT FOR NOW
 
-// moved to api/projects
-// router.get("/:userId/projects/:projectId", async (req, res, next) => {
-//   try {
-//     const project = await Project.findOne({
-//       attributes: ["id", "boardName"],
-//       where: {
-//         id: req.params.projectId
-//       },
-//       include: {
-//         model: List,
-//         // through: {
-//         //   attributes: ["id", "columnName", "projectId"],
-//         // },
-//         include: {
-//           model: Task
-//         }
-//       }
-//     })
-//     res.send(project)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-
 // GET all users. Useful later for admin accounts
 // NEED AUTH CHECK FOR SECURITY
+// is this implemented with auth middleware?
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and username fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
+      // explicitly select only the id and username fields
       attributes: ["id", "username"],
     })
     res.json(users)
@@ -74,6 +49,16 @@ router.post("/:id", async (req, res, next) => {
     const newProject = await Project.create(req.body)
     await newProject.addUser(user)
     res.send(newProject)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put("/edit/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    await user.update(req.body)
+    res.json(user)
   } catch (error) {
     next(error)
   }
