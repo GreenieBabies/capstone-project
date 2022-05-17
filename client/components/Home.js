@@ -9,14 +9,14 @@ import {
   Box,
   Text,
   HStack,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react"
 import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
 import { Button } from "@chakra-ui/button"
 
-export const Home = props => {
-  let auth = useSelector(store => store.auth)
+export const Home = (props) => {
+  let auth = useSelector((store) => store.auth)
   const { username, id } = auth
 
   return (
@@ -24,7 +24,7 @@ export const Home = props => {
       <div id="header">
         {/* <h3>Welcome, {username ? username : ""}</h3> */}
         <Heading>
-          <h1>Welcome to Trello + Voice!</h1>
+          <p>Welcome to Trello + Voice!</p>
         </Heading>
 
         <Box>
@@ -58,7 +58,7 @@ export const Home = props => {
         <br />
         <br />
         <Heading>
-          <h4>Voice Commands Include:</h4>
+          <p>Voice Commands Include:</p>
         </Heading>
         <br />
         <Center>
@@ -83,7 +83,7 @@ export const Home = props => {
         <br />
         <br />
         <Heading>
-          <h4>Sample Images</h4>
+          <p>Sample Images</p>
         </Heading>
       </div>
       <Center>
