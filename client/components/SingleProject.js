@@ -43,7 +43,7 @@ const SingleProject = (props) => {
 
   useEffect(() => {
     setState(project.lists)
-  }, [user, tasks, project])
+  }, [user, tasks])
 
   useEffect(() => {})
 
