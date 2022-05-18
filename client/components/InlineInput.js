@@ -20,6 +20,7 @@ function InlineInput(props) {
 
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
+    console.log(props)
     if (isInputActive) {
       if (inputValue.length) {
         if (props.isProject) {

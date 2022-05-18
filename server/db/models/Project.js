@@ -6,6 +6,9 @@ const Project = db.define("project", {
     defaultValue: "-- Add Project Name --",
     type: Sequelize.STRING,
   },
+  index: {
+    type: Sequelize.INTEGER,
+  },
 })
 
 module.exports = Project

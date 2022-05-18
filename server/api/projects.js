@@ -11,15 +11,25 @@ router.get("/:id", async (req, res, next) => {
       where: {
         id: req.params.id,
       },
-      include: {
-        model: List,
-        // through: {
-        //   attributes: ["id", "columnName", "projectId"],
-        // },
-        include: {
-          model: Task,
+      include: [
+        {
+          model: List,
+          // through: {
+          //   attributes: ["id", "columnName", "projectId"],
+          // },
+          include: {
+            model: Task,
+          },
         },
-      },
+        {
+          model: User,
+
+          attributes: ["id", "username"],
+          include: {
+            model: Project,
+          },
+        },
+      ],
     })
     res.send(project)
   } catch (error) {
@@ -98,6 +108,7 @@ router.put("/:userId/projects/:projectId", async (req, res, next) => {
 
 router.put("/:userId/lists/:listId", async (req, res, next) => {
   try {
+    console.log(req.params.listId, "api")
     const list = await List.findByPk(req.params.listId)
     await list.update(req.body)
     res.send(list)
@@ -108,8 +119,27 @@ router.put("/:userId/lists/:listId", async (req, res, next) => {
 
 router.put("/:userId/tasks/:taskId", async (req, res, next) => {
   try {
+    let {
+      imageUrl,
+      isComplete,
+      listId,
+      notes,
+      requiresApproval,
+      taskName,
+      index,
+    } = req.body
+    let form = {
+      imageUrl: `${imageUrl}`,
+      isComplete: `${isComplete}`,
+      listId: `${listId}`,
+      notes: `${notes}`,
+      requiresApproval: `${requiresApproval}`,
+      taskName: `${taskName}`,
+      index: `${index}`,
+    }
+    console.log(form, "form in API")
     const task = await Task.findByPk(req.params.taskId)
-    await task.update(req.body)
+    await task.update(form)
     res.send(task)
   } catch (error) {
     next(error)

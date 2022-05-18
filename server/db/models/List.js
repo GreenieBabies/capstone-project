@@ -6,6 +6,9 @@ const List = db.define("list", {
     defaultValue: "-- Add List Name --",
     type: Sequelize.STRING,
   },
+  index: {
+    type: Sequelize.INTEGER,
+  },
 })
 
 module.exports = List
