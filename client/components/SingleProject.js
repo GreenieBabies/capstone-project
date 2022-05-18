@@ -128,6 +128,10 @@ const SingleProject = (props) => {
       let copy = JSON.parse(JSON.stringify(state))
       copy.forEach((list, index) => {
         if (Array.isArray(newState[index])) list.tasks = newState[index]
+        list.tasks.forEach((updateTask, index) => {
+          updateTask.index = index
+          dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+        })
       })
       setState(copy)
     } else {
