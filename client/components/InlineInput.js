@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
-import { useDispatch } from "react-redux"
-import { updateProject } from "../store/singleProject"
+import { useSelector, useDispatch } from "react-redux"
+import { updateListThunk, updateProject } from "../store/singleProject"
 import DOMPurify from "dompurify"
 import useKeypress from "./hooks/useKeypress"
 import useOnClickOutside from "./hooks/useOnClickOutside"
@@ -9,6 +9,7 @@ function InlineInput(props) {
   const dispatch = useDispatch()
   const [isInputActive, setIsInputActive] = useState(false)
   const [inputValue, setInputValue] = useState(props.text)
+  const auth = useSelector((state) => state.auth)
 
   const wrapperRef = useRef(null)
   const textRef = useRef(null)
@@ -21,8 +22,17 @@ function InlineInput(props) {
   useOnClickOutside(wrapperRef, () => {
     if (isInputActive) {
       if (inputValue.length) {
-        props.onSetText(inputValue)
-        dispatch(updateProject(props.projectId, inputValue))
+        if (props.isProject) {
+          props.onSetText(inputValue)
+          dispatch(updateProject(props.projectId, inputValue))
+        } else {
+          props.onSetText(inputValue)
+          dispatch(
+            updateListThunk(auth.id, props.projectId, {
+              columnName: inputValue,
+            })
+          )
+        }
       }
       setIsInputActive(false)
     }
@@ -31,11 +41,27 @@ function InlineInput(props) {
   const onEnter = useCallback(() => {
     if (enter) {
       if (inputValue.length) {
-        props.onSetText(inputValue)
-        dispatch(updateProject(props.projectId, inputValue))
+        //for projects
+        if (props.isProject) {
+          props.onSetText(inputValue)
+          dispatch(updateProject(props.projectId, inputValue))
+        } else {
+          props.onSetText(inputValue)
+          dispatch(
+            updateListThunk(auth.id, props.projectId, {
+              columnName: inputValue,
+            })
+          )
+        }
       }
       setIsInputActive(false)
     }
+    //   if (inputValue.length) {
+    //     props.onSetText(inputValue)
+    //     dispatch(updateProject(props.projectId, inputValue))
+    //   }
+    //   setIsInputActive(false)
+    // }
   }, [enter, inputValue, props.onSetText])
 
   const onEsc = useCallback(() => {
