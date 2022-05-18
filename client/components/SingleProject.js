@@ -10,6 +10,7 @@ import {
   deleteSingleTask,
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
+
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const SingleProject = (props) => {
@@ -19,6 +20,7 @@ const SingleProject = (props) => {
   const auth = useSelector((state) => state.auth)
   const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
+  const [lists, updateLists] = useState(project.lists)
   const [storedHeading, setStoredHeading] = project.boardName
     ? useState(project.boardName)
     : useState("")
@@ -26,6 +28,10 @@ const SingleProject = (props) => {
   const [state, setState] = useState(project.lists)
   // const [storedText, setStoredText] = useState("Here's some more, edit away!")
   // console.log(project)
+  const [listTitle, setListTitle] = useState("")
+  // list.columnName
+  // ? useState(list.columnName)
+  // : useState("")
 
   //have it when someone clicks on a project on the single user page, the projectId is returned
   useEffect(() => {
@@ -40,6 +46,13 @@ const SingleProject = (props) => {
     const { id } = props.match.params
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
+  }
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return
+    let items = Array.from(lists)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+    updateLists(items)
   }
 
   const handleDeleteList = (e, listId) => {
@@ -163,7 +176,18 @@ const SingleProject = (props) => {
                             style={getListStyle(snapshot.isDraggingOver)}
                             {...provided.droppableProps}
                           >
-                            <h3>{x.columnName}</h3>
+                            <InlineInput
+                              text={
+                                x.columnName
+                                  ? x.columnName
+                                  : listTitle
+                                  ? listTitle
+                                  : ""
+                              }
+                              projectId={x.id}
+                              isProject={false}
+                              onSetText={(text) => setListTitle(text)}
+                            />
                             <div
                               className="createTask"
                               onClick={(e) => handleAddTask(e, x.id)}
