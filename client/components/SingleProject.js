@@ -9,6 +9,7 @@ import {
   editSingleTask,
   addSingleTask,
   deleteSingleTask,
+  updateTaskThunk,
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 
@@ -28,7 +29,6 @@ const SingleProject = (props) => {
   // const [lists, updateLists] = useState(project.lists)
   const [state, setState] = useState(project.lists)
   // const [storedText, setStoredText] = useState("Here's some more, edit away!")
-  // console.log(project)
   const [listTitle, setListTitle] = useState("")
   // list.columnName
   // ? useState(list.columnName)
@@ -108,10 +108,9 @@ const SingleProject = (props) => {
     width: 250,
   })
   const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list)
+    const result = Array.from(list.tasks)
     const [removed] = result.splice(startIndex, 1)
     result.splice(endIndex, 0, removed)
-
     return result
   }
 
@@ -129,22 +128,29 @@ const SingleProject = (props) => {
       const items = reorder(state[sInd], source.index, destination.index)
       const newState = [...state]
       newState[sInd] = items
-      setState(newState)
+      let copy = JSON.parse(JSON.stringify(state))
+      copy.forEach((list, index) => {
+        if (Array.isArray(newState[index])) list.tasks = newState[index]
+      })
+      setState(copy)
     } else {
       const result = move(state[sInd], state[dInd], source, destination)
       const newState = [...state]
 
       newState[sInd] = result[sInd]
       newState[dInd] = result[dInd]
-      console.log(newState, "new State")
+
       let copy = JSON.parse(JSON.stringify(state))
       copy.forEach((list, index) => {
         if (Array.isArray(newState[index])) list.tasks = newState[index]
+        list.tasks.forEach((updateTask) => {
+          updateTask.listId = list.id
+          dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+        })
       })
       setState(copy)
     }
   }
-  console.log(state, "State after update")
   return (
     <div style={{ display: "flex" }}>
       <div className="container">
@@ -169,7 +175,6 @@ const SingleProject = (props) => {
               <DragDropContext onDragEnd={onDragEnd}>
                 {state &&
                   state.map((x, index) => {
-                    console.log(x, "list")
                     return (
                       <Droppable key={index} droppableId={`${index}`}>
                         {(provided, snapshot) => (

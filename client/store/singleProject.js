@@ -182,14 +182,17 @@ export function deleteSingleTask(projectId, listId, taskId) {
 
 export function updateListThunk(userId, listId, list) {
   return async (dispatch) => {
+    console.log(userId, "userID")
+    console.log(listId, "listId")
+    console.log(list, "list4API")
     try {
       const token = window.localStorage.getItem("token")
-      const { data: list1 } = await axios.put(
+      const { data: newList } = await axios.put(
         `/api/projects/${userId}/lists/${listId}`,
         list,
         { headers: { authorization: token } }
       )
-      dispatch(updateList(list1))
+      dispatch(updateList(newList))
     } catch (error) {
       console.log(error)
     }
@@ -198,12 +201,16 @@ export function updateListThunk(userId, listId, list) {
 
 export function updateTaskThunk(userId, taskId, task) {
   return async (dispatch) => {
+    console.log(task, "task for update")
     try {
-      const { data: task } = await axios.put(
+      const token = window.localStorage.getItem("token")
+      const { data: updatedtask } = await axios.put(
         `/api/projects/${userId}/tasks/${taskId}`,
-        task
+        task,
+        { headers: { authorization: token } }
       )
-      dispatch(updateTask(task))
+      console.log(updatedtask, "new Task")
+      dispatch(updateTask(updatedtask))
     } catch (error) {
       console.log(error)
     }
