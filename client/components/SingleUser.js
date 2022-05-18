@@ -72,7 +72,9 @@ const SingleUser = props => {
         <div>
           {user.username ? (
             <div>
-              <p>Home page of {user.username}</p>
+              <p className="allProjectBoard">
+                All Projects for {user.username}
+              </p>
               <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="projects">
                   {provided => (
@@ -81,7 +83,6 @@ const SingleUser = props => {
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                     >
-                      <h2>Projects</h2>
                       <Button onClick={handleAddProject} type="button">
                         <div className="createNewProject">+</div>
                       </Button>

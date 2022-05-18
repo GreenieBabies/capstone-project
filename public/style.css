@@ -131,6 +131,11 @@ h4 {
   font-weight: bold;
   font-size: larger;
 }
+
+.bottom-two {
+  margin-left: 70%;
+}
+
 .deleteList {
   width: 200px;
   height: 25px;
@@ -278,4 +283,10 @@ h4 {
 .listTitle {
   text-align: center;
   font-weight: bold;
+}
+
+.allProjectBoard {
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
 }
