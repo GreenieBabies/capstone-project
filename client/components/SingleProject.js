@@ -22,7 +22,8 @@ const SingleProject = (props) => {
   const [storedHeading, setStoredHeading] = project.boardName
     ? useState(project.boardName)
     : useState("")
-  const [lists, updateLists] = useState(project.lists)
+  // const [lists, updateLists] = useState(project.lists)
+  const [state, setState] = useState(project.lists)
   // const [storedText, setStoredText] = useState("Here's some more, edit away!")
   // console.log(project)
 
@@ -32,18 +33,13 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [tasks, storedHeading])
 
+  useEffect(() => {})
+
   const handleAddList = (e) => {
     e.preventDefault()
     const { id } = props.match.params
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
-  }
-  const handleOnDragEnd = (result) => {
-    if (!result.destination) return
-    let items = Array.from(lists)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-    updateLists(items)
   }
 
   const handleDeleteList = (e, listId) => {
@@ -68,18 +64,15 @@ const SingleProject = (props) => {
   }
 
   const move = (source, destination, droppableSource, droppableDestination) => {
-    console.log(droppableSource)
     const sourceClone = Array.from(source.tasks)
     const destClone = Array.from(destination.tasks)
     const [removed] = sourceClone.splice(droppableSource.index, 1)
     destClone.splice(droppableDestination.index, 0, removed)
-
     const result = {}
     result[droppableSource.droppableId] = sourceClone
     result[droppableDestination.droppableId] = destClone
 
     return result
-    console.log(result)
   }
   const grid = 8
 
@@ -100,11 +93,16 @@ const SingleProject = (props) => {
     padding: grid,
     width: 250,
   })
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list)
+    const [removed] = result.splice(startIndex, 1)
+    result.splice(endIndex, 0, removed)
+
+    return result
+  }
 
   function onDragEnd(result) {
-    console.log(result)
     const { source, destination } = result
-    console.log
 
     // dropped outside the list
     if (!destination) {
@@ -114,20 +112,25 @@ const SingleProject = (props) => {
     const dInd = +destination.droppableId
 
     if (sInd === dInd) {
-      const items = reorder(lists[sInd], source.index, destination.index)
-      const newState = [...lists]
+      const items = reorder(state[sInd], source.index, destination.index)
+      const newState = [...state]
       newState[sInd] = items
-      updateLists(newState)
+      setState(newState)
     } else {
-      const result = move(lists[sInd], lists[dInd], source, destination)
-      const newState = [...lists]
+      const result = move(state[sInd], state[dInd], source, destination)
+      const newState = [...state]
+
       newState[sInd] = result[sInd]
       newState[dInd] = result[dInd]
-
-      updateLists(newState.filter((group) => group.length))
+      console.log(newState, "new State")
+      let copy = JSON.parse(JSON.stringify(state))
+      copy.forEach((list, index) => {
+        if (Array.isArray(newState[index])) list.tasks = newState[index]
+      })
+      setState(copy)
     }
   }
-
+  console.log(state, "State after update")
   return (
     <div style={{ display: "flex" }}>
       <div className="container">
@@ -149,8 +152,9 @@ const SingleProject = (props) => {
                 +
               </div>
               <DragDropContext onDragEnd={onDragEnd}>
-                {lists &&
-                  lists.map((x, index) => {
+                {state &&
+                  state.map((x, index) => {
+                    console.log(x, "list")
                     return (
                       <Droppable key={index} droppableId={`${index}`}>
                         {(provided, snapshot) => (
@@ -168,7 +172,7 @@ const SingleProject = (props) => {
                             </div>
                             <ul>
                               {x.tasks &&
-                                x.tasks.map((task) => {
+                                x.tasks.map((task, index) => {
                                   return (
                                     <Draggable
                                       key={task.id}
