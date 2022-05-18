@@ -199,7 +199,7 @@ export function updateListThunk(userId, listId, list) {
   }
 }
 
-export function updateTaskThunk(userId, taskId, task) {
+export function updateTaskThunk(projectId, taskId, task) {
   return async (dispatch) => {
     console.log(task, "task for update")
     try {

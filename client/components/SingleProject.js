@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import InlineInput from "./InlineInput"
 import AddCollaborators from "./AddCollaborators"
+import EditTask from "./EditTask"
 import {
   fetchSingleProject,
   addSingleList,
@@ -222,6 +223,7 @@ const SingleProject = (props) => {
                                         >
                                           <h3>{task.taskName}</h3>
                                           <p>{task.notes}</p>
+                                          <EditTask id={task.id} />
                                           <div
                                             className="deleteTask"
                                             onClick={(e) =>

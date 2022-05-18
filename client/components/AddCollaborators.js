@@ -127,6 +127,7 @@ const AddCollaborators = (props) => {
   return (
     <div>
       <br />
+      {/* {console.log(project)} */}
       <p>Current collaborators</p>
       {collaborators && collaborators.length !== 0 && (
         <ul>
