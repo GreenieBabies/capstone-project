@@ -77,21 +77,21 @@ const AboutPage = () => {
       </Heading>
       <br />
       <SimpleGrid columns={2} spacing={10}>
-        {team.map(member => (
-          <div className="member" key={member.id}>
-            <LinkBox>
-              <LinkOverlay href="/team/1" target="_blank">
-                <Circle key={member.id} width="200px" height="200px">
-                  <Image
-                    src="https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA"
-                    className="photo"
-                    borderRadius="full"
-                  />
-                </Circle>
-              </LinkOverlay>
-            </LinkBox>
-          </div>
-        ))}
+        {/* {team.map(member => ( */}
+        {/* <div className="member" key={member.id}> */}
+        <LinkBox>
+          <LinkOverlay href="/team/1" target="_blank">
+            <Circle key={member.id} width="200px" height="200px">
+              <Image
+                src="https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA"
+                className="photo"
+                borderRadius="full"
+              />
+            </Circle>
+          </LinkOverlay>
+        </LinkBox>
+        {/* </div> */}
+        {/* ))} */}
         <Heading>
           <RouteLink
             className="listingInfo"
