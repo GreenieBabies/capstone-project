@@ -127,10 +127,7 @@ const AddCollaborators = (props) => {
   return (
     <div>
       <br />
-<<<<<<< Updated upstream
-=======
       {/* {console.log(project)} */}
->>>>>>> Stashed changes
       <p>Current collaborators</p>
       {collaborators && collaborators.length !== 0 && (
         <ul>
