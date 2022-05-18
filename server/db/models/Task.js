@@ -21,6 +21,9 @@ const Task = db.define("task", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  index: {
+    type: Sequelize.INTEGER,
+  },
 })
 
 module.exports = Task

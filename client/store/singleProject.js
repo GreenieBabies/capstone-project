@@ -205,7 +205,7 @@ export function updateTaskThunk(projectId, taskId, task) {
     try {
       const token = window.localStorage.getItem("token")
       const { data: updatedtask } = await axios.put(
-        `/api/projects/${userId}/tasks/${taskId}`,
+        `/api/projects/${projectId}/tasks/${taskId}`,
         task,
         { headers: { authorization: token } }
       )
