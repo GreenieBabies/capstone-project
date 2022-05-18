@@ -11,15 +11,25 @@ router.get("/:id", async (req, res, next) => {
       where: {
         id: req.params.id,
       },
-      include: {
-        model: List,
-        // through: {
-        //   attributes: ["id", "columnName", "projectId"],
-        // },
-        include: {
-          model: Task,
+      include: [
+        {
+          model: List,
+          // through: {
+          //   attributes: ["id", "columnName", "projectId"],
+          // },
+          include: {
+            model: Task,
+          },
         },
-      },
+        {
+          model: User,
+
+          attributes: ["id", "username"],
+          include: {
+            model: Project,
+          },
+        },
+      ],
     })
     res.send(project)
   } catch (error) {

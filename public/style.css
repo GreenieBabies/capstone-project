@@ -174,3 +174,66 @@ h4 {
   padding: 5px;
   border: 1px solid blue;
 }
+
+.addCollabButton{
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+  background: rgb(120, 215, 247);
+  border-radius: 10px;
+}
+
+.submitCollabButton{
+  width: 150px;
+  height: 50px;
+  padding: 10px;
+  background: rgb(120, 250, 120);
+  border-radius: 10px;
+}
+
+.hidden{
+  display:none;
+}
+
+.activeForm {
+  width: 300px;
+  /* background: lightgreen; */
+}
+
+.collabInput{
+  
+  border: 1px solid #666666;
+}
+
+
+.no-suggestions {
+  color: #999;
+  padding: 0.5rem;
+}
+
+.suggestions {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+  width: calc(300px + 1rem);
+}
+
+.suggestions li {
+  padding: 0.5rem;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+  background-color: #008f68;
+  color: #fae042;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
+}

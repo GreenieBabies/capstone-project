@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import InlineInput from "./InlineInput"
+import AddCollaborators from "./AddCollaborators"
 import {
   fetchSingleProject,
   addSingleList,
@@ -160,6 +161,7 @@ const SingleProject = (props) => {
               projectId={id}
               onSetText={(text) => setStoredHeading(text)}
             />
+            <AddCollaborators />
             <div className="allLists">
               <div className="createTask" onClick={handleAddList}>
                 +
@@ -236,9 +238,7 @@ const SingleProject = (props) => {
                             <div
                               className="deleteList"
                               onClick={(e) => handleDeleteList(e, x.id)}
-                            >
-                              X
-                            </div>
+                            ></div>
                             {provided.placeholder}
                           </div>
                         )}

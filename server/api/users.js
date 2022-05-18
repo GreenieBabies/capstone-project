@@ -24,13 +24,7 @@ router.get("/:id", async (req, res, next) => {
   }
 })
 
-// could be /projects/:id
-// now we have req.user! don't need userId
-// KEEP ABOVE COMMENT FOR NOW
-
-// GET all users. Useful later for admin accounts
-// NEED AUTH CHECK FOR SECURITY
-// is this implemented with auth middleware?
+// GET all users
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -43,6 +37,7 @@ router.get("/", async (req, res, next) => {
   }
 })
 
+// CREATE a project and associate it to a user
 router.post("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
@@ -54,6 +49,7 @@ router.post("/:id", async (req, res, next) => {
   }
 })
 
+// UPDATE a user
 router.put("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
@@ -64,6 +60,7 @@ router.put("/:id", async (req, res, next) => {
   }
 })
 
+// DELETE a project
 router.delete("/:userId/projects/:projectId", async (req, res, next) => {
   try {
     const project = await Project.findByPk(req.params.projectId)
@@ -74,6 +71,7 @@ router.delete("/:userId/projects/:projectId", async (req, res, next) => {
   }
 })
 
+// UPDATE a project
 router.put("/:userId/projects/:projectId", async (req, res, next) => {
   try {
     const project = await Project.findByPk(req.params.projectId)
@@ -84,10 +82,11 @@ router.put("/:userId/projects/:projectId", async (req, res, next) => {
   }
 })
 
+// CREATE a new row in the through table (add another user to a project)
 router.post("/:userId/projects/:projectId", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    const newProject = await Project.create(req.body)
+    const user = await User.findByPk(req.params.userId)
+    const newProject = await Project.findByPk(req.params.projectId)
     await newProject.addUser(user)
     res.send(newProject)
   } catch (error) {
