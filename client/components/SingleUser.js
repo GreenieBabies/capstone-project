@@ -4,16 +4,16 @@ import { Link } from "react-router-dom"
 import {
   fetchSingleUser,
   createProject,
-  deleteProject,
+  deleteProject
 } from "../store/singleUser"
 import { useToast, CloseButton } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const SingleUser = (props) => {
+const SingleUser = props => {
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   // const proj = useSelector((state) => state.proj)
   const [projects, setProjects] = useState([])
   const [Projects, updateProjects] = useState([])
@@ -29,21 +29,25 @@ const SingleUser = (props) => {
     updateProjects(user.projects)
   }, [user])
 
-  const handleAddProject = (e) => {
+  const handleAddProject = e => {
     e.preventDefault()
-    addToast()
     const { id } = props.match.params
+    // try {
     dispatch(createProject(id))
+    addToast()
+    // } catch (error) {
+    //   console.log(error)
+    // }
     setProjects([...projects, {}])
   }
 
   const handleDeleteProject = (e, itemId) => {
     e.preventDefault()
-    const { userId } = props.match.params
     dispatch(deleteProject(userId, itemId))
+    const { userId } = props.match.params
     setProjects([...projects, {}])
   }
-  const handleOnDragEnd = (result) => {
+  const handleOnDragEnd = result => {
     if (!result.destination) return
     let items = Array.from(Projects)
     const [reorderedItem] = items.splice(result.source.index, 1)
@@ -68,7 +72,7 @@ const SingleUser = (props) => {
               <p>Home page of {user.username}</p>
               <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="projects">
-                  {(provided) => (
+                  {provided => (
                     <ul
                       className="container"
                       {...provided.droppableProps}
@@ -88,7 +92,7 @@ const SingleUser = (props) => {
                               draggableId={x.id.toString()}
                               index={index}
                             >
-                              {(provided) => (
+                              {provided => (
                                 <Link
                                   className="allProjectsBox"
                                   to={`/projects/${x.id}`}
@@ -99,9 +103,7 @@ const SingleUser = (props) => {
                                   <h3>{x.boardName}</h3>
                                   <CloseButton
                                     className="deleteProject"
-                                    onClick={(e) =>
-                                      handleDeleteProject(e, x.id)
-                                    }
+                                    onClick={e => handleDeleteProject(e, x.id)}
                                   />
                                 </Link>
                               )}

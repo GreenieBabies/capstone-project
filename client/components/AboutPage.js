@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link as RouteLink } from "react-router-dom"
 import {
   Heading,
   Box,
   Image,
   Container,
   SimpleGrid,
-  Avatar,
-  Wrap,
-  WrapItem,
-  Circle,
+  LinkBox,
+  LinkOverlay,
+  Circle
 } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
@@ -19,11 +18,12 @@ const AboutPage = () => {
     {
       firstName: "Jeff",
       lastName: "Lupton",
-      imageUrl: "https://bit.ly/dan-abramov",
+      imageUrl:
+        "https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA",
       id: 1,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/jeffrey-lupton/",
-      gitHub: "https://github.com/Jlups76",
+      gitHub: "https://github.com/Jlups76"
     },
     {
       firstName: "Ethan",
@@ -32,7 +32,7 @@ const AboutPage = () => {
       id: 2,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/ethanschindel/",
-      gitHub: "https://github.com/Erschindel",
+      gitHub: "https://github.com/Erschindel"
     },
     {
       firstName: "Michael",
@@ -41,7 +41,7 @@ const AboutPage = () => {
       id: 3,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/michaelmnat/",
-      gitHub: "https://github.com/MichaelMnatsakanian",
+      gitHub: "https://github.com/MichaelMnatsakanian"
     },
     {
       firstName: "Tony",
@@ -50,8 +50,8 @@ const AboutPage = () => {
       id: 4,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/tony-x-li/",
-      gitHub: "https://github.com/tonyxli21",
-    },
+      gitHub: "https://github.com/tonyxli21"
+    }
   ]
 
   return (
@@ -72,34 +72,91 @@ const AboutPage = () => {
       <Heading>
         <p>Meet the Team!</p>
       </Heading>
+      <br />
       <SimpleGrid columns={2} spacing={10}>
-        {team.map((member) => (
-          <Circle key={member.id} bg="lightblue" width="150px" height="150px">
-            <div className="member" key={member.id}>
-              {/* <Image
-                src="https://unsplash.com/photos/G4YV8aylNmw"
+        {/* {team.map(member => ( */}
+        {/* <Circle key={member.id} bg="lightblue" width="150px" height="150px"> */}
+
+        {/* <div className="member" key={member.id}> */}
+        {/* <div className="member"> */}
+        <LinkBox>
+          <LinkOverlay
+            href="https://www.linkedin.com/in/jeffrey-lupton/"
+            target="_blank"
+          >
+            <Circle width="200px" height="200px">
+              <Image
+                src="https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA"
                 className="photo"
-              /> */}
-              <Wrap>
+                borderRadius="full"
+              />
+            </Circle>
+          </LinkOverlay>
+        </LinkBox>
+        {/* <Wrap>
                 <WrapItem>
-                  <Avatar name="member" src="https://bit.ly/dan-abramov" />
+                  <Avatar
+                    name="member"
+                    src="https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA"
+                  />
                 </WrapItem>
-              </Wrap>
-            </div>
-            <Heading>
-              <Link
-                className="listingInfo"
-                to={{
-                  pathname: `/team/${member.id}/`,
-                  state: member,
-                }}
-              ></Link>
-            </Heading>
-            <Button>
-              {member.firstName} {member.lastName}
-            </Button>
-          </Circle>
-        ))}
+              </Wrap> */}
+        {/* </div> */}
+        {/* <Heading> */}
+        {/* <RouteLink
+              className="listingInfo"
+              to={{
+                pathname: `/team/${member.id}/`,
+                state: member
+              }}
+            ></RouteLink>
+          </Heading> */}
+
+        {/* </Button>  */}
+
+        {/* )} */}
+        <LinkBox>
+          <LinkOverlay
+            href="https://www.linkedin.com/in/michaelmnat/"
+            target="_blank"
+          >
+            <Circle width="200px" height="200px">
+              <Image
+                src="https://media-exp1.licdn.com/dms/image/C5603AQE8NmF-wTlEEA/profile-displayphoto-shrink_800_800/0/1652826749289?e=1658361600&v=beta&t=VvJcMSYGLixxmGjRUNiaw8XuESCVNHD9koWuJa4Tqb0"
+                className="photo"
+                borderRadius="full"
+              />
+            </Circle>
+          </LinkOverlay>
+        </LinkBox>
+        <LinkBox>
+          <LinkOverlay
+            href="https://www.linkedin.com/in/ethanschindel/"
+            target="_blank"
+          >
+            <Circle width="200px" height="200px">
+              <Image
+                src="https://media-exp1.licdn.com/dms/image/D4E35AQG0hj5PF9yXqA/profile-framedphoto-shrink_800_800/0/1647104780261?e=1653465600&v=beta&t=T2QbIlGNiK-GwsHUQ3uAdmh09O1Rxk1MIEO01Elj5bM"
+                className="photo"
+                borderRadius="full"
+              />
+            </Circle>
+          </LinkOverlay>
+        </LinkBox>
+        <LinkBox>
+          <LinkOverlay
+            href="https://www.linkedin.com/in/tony-x-li/"
+            target="_blank"
+          >
+            <Circle width="200px" height="200px">
+              <Image
+                src="https://media-exp1.licdn.com/dms/image/C4E03AQG2GI-_OqFYCw/profile-displayphoto-shrink_800_800/0/1636849048317?e=1658361600&v=beta&t=A8rPf5iMnOceh3yDJQUdD60N5Q39ckcWSdJ5-l7lny8"
+                className="photo"
+                borderRadius="full"
+              />
+            </Circle>
+          </LinkOverlay>
+        </LinkBox>
       </SimpleGrid>
       <br />
       <Heading>

@@ -45,9 +45,9 @@ const Navbar = ({ handleClick, isLoggedIn, id }) => (
 
               <NavLink
                 to="/login"
-                className={isActive =>
-                  "nav-link" + (!isActive ? " unselected" : "")
-                }
+                style={isActive => ({
+                  color: isActive ? "green" : "blue"
+                })}
               >
                 <Tab>Login</Tab>
               </NavLink>
