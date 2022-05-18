@@ -43,7 +43,7 @@ const EditTask = (props) => {
   return (
     <div>
       <button
-        className={`addCollabButton${clicked ? " hidden" : ""}`}
+        className={`editTaskButton${clicked ? " hidden" : ""}`}
         onClick={handleClick}
       >
         Edit Task
