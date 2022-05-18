@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import InlineInput from "./InlineInput"
+import AddCollaborators from "./AddCollaborators"
+import EditTask from "./EditTask"
 import {
   fetchSingleProject,
   addSingleList,
@@ -8,6 +10,7 @@ import {
   editSingleTask,
   addSingleTask,
   deleteSingleTask,
+  updateTaskThunk,
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 
@@ -27,7 +30,6 @@ const SingleProject = (props) => {
   // const [lists, updateLists] = useState(project.lists)
   const [state, setState] = useState(project.lists)
   // const [storedText, setStoredText] = useState("Here's some more, edit away!")
-  // console.log(project)
   const [listTitle, setListTitle] = useState("")
   // list.columnName
   // ? useState(list.columnName)
@@ -39,6 +41,10 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [tasks, storedHeading])
 
+  useEffect(() => {
+    setState(project.lists)
+  }, [user, tasks])
+
   useEffect(() => {})
 
   const handleAddList = (e) => {
@@ -47,14 +53,6 @@ const SingleProject = (props) => {
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
   }
-  const handleOnDragEnd = (result) => {
-    if (!result.destination) return
-    let items = Array.from(lists)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-    updateLists(items)
-  }
-
   const handleDeleteList = (e, listId) => {
     e.preventDefault()
     const { id: projectId } = props.match.params
@@ -107,10 +105,9 @@ const SingleProject = (props) => {
     width: 250,
   })
   const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list)
+    const result = Array.from(list.tasks)
     const [removed] = result.splice(startIndex, 1)
     result.splice(endIndex, 0, removed)
-
     return result
   }
 
@@ -128,22 +125,34 @@ const SingleProject = (props) => {
       const items = reorder(state[sInd], source.index, destination.index)
       const newState = [...state]
       newState[sInd] = items
-      setState(newState)
+      let copy = JSON.parse(JSON.stringify(state))
+      copy.forEach((list, index) => {
+        if (Array.isArray(newState[index])) list.tasks = newState[index]
+        list.tasks.forEach((updateTask, index) => {
+          updateTask.index = index
+          dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+        })
+      })
+      setState(copy)
     } else {
       const result = move(state[sInd], state[dInd], source, destination)
       const newState = [...state]
 
       newState[sInd] = result[sInd]
       newState[dInd] = result[dInd]
-      console.log(newState, "new State")
+
       let copy = JSON.parse(JSON.stringify(state))
       copy.forEach((list, index) => {
         if (Array.isArray(newState[index])) list.tasks = newState[index]
+        list.tasks.forEach((updateTask, index) => {
+          updateTask.listId = list.id
+          updateTask.index = index
+          dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+        })
       })
       setState(copy)
     }
   }
-  console.log(state, "State after update")
   return (
     <div style={{ display: "flex" }}>
       <div className="container">
@@ -160,14 +169,14 @@ const SingleProject = (props) => {
               projectId={id}
               onSetText={(text) => setStoredHeading(text)}
             />
+            <AddCollaborators />
             <div className="allLists">
-              <div className="createTask" onClick={handleAddList}>
+              <div className="createList" onClick={handleAddList}>
                 +
               </div>
               <DragDropContext onDragEnd={onDragEnd}>
                 {state &&
                   state.map((x, index) => {
-                    console.log(x, "list")
                     return (
                       <Droppable key={index} droppableId={`${index}`}>
                         {(provided, snapshot) => (
@@ -177,6 +186,7 @@ const SingleProject = (props) => {
                             {...provided.droppableProps}
                           >
                             <InlineInput
+                              className="listTitle"
                               text={
                                 x.columnName
                                   ? x.columnName
@@ -213,8 +223,13 @@ const SingleProject = (props) => {
                                             provided.draggableProps.style
                                           )}
                                         >
-                                          <h3>{task.taskName}</h3>
-                                          <p>{task.notes}</p>
+                                          <p className="taskTitle">
+                                            {task.taskName}
+                                          </p>
+                                          <p className="taskNotes">
+                                            {task.notes}
+                                          </p>
+                                          <EditTask id={task.id} />
                                           <div
                                             className="deleteTask"
                                             onClick={(e) =>
@@ -225,7 +240,7 @@ const SingleProject = (props) => {
                                               )
                                             }
                                           >
-                                            X
+                                            X - Delete Task
                                           </div>
                                         </div>
                                       )}
@@ -237,7 +252,7 @@ const SingleProject = (props) => {
                               className="deleteList"
                               onClick={(e) => handleDeleteList(e, x.id)}
                             >
-                              X
+                              X - Delete List
                             </div>
                             {provided.placeholder}
                           </div>
