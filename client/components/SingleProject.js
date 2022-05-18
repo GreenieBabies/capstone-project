@@ -171,7 +171,7 @@ const SingleProject = (props) => {
             />
             <AddCollaborators />
             <div className="allLists">
-              <div className="createTask" onClick={handleAddList}>
+              <div className="createList" onClick={handleAddList}>
                 +
               </div>
               <DragDropContext onDragEnd={onDragEnd}>
@@ -186,6 +186,7 @@ const SingleProject = (props) => {
                             {...provided.droppableProps}
                           >
                             <InlineInput
+                              className="listTitle"
                               text={
                                 x.columnName
                                   ? x.columnName
@@ -222,8 +223,12 @@ const SingleProject = (props) => {
                                             provided.draggableProps.style
                                           )}
                                         >
-                                          <h3>{task.taskName}</h3>
-                                          <p>{task.notes}</p>
+                                          <p className="taskTitle">
+                                            {task.taskName}
+                                          </p>
+                                          <p className="taskNotes">
+                                            {task.notes}
+                                          </p>
                                           <EditTask id={task.id} />
                                           <div
                                             className="deleteTask"
@@ -235,7 +240,7 @@ const SingleProject = (props) => {
                                               )
                                             }
                                           >
-                                            X
+                                            X - Delete Task
                                           </div>
                                         </div>
                                       )}
@@ -246,7 +251,9 @@ const SingleProject = (props) => {
                             <div
                               className="deleteList"
                               onClick={(e) => handleDeleteList(e, x.id)}
-                            ></div>
+                            >
+                              X - Delete List
+                            </div>
                             {provided.placeholder}
                           </div>
                         )}
