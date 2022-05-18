@@ -41,6 +41,10 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [tasks, storedHeading])
 
+  useEffect(() => {
+    setState(project.lists)
+  }, [user, tasks])
+
   useEffect(() => {})
 
   const handleAddList = (e) => {
@@ -49,14 +53,6 @@ const SingleProject = (props) => {
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
   }
-  const handleOnDragEnd = (result) => {
-    if (!result.destination) return
-    let items = Array.from(lists)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-    updateLists(items)
-  }
-
   const handleDeleteList = (e, listId) => {
     e.preventDefault()
     const { id: projectId } = props.match.params
@@ -144,8 +140,9 @@ const SingleProject = (props) => {
       let copy = JSON.parse(JSON.stringify(state))
       copy.forEach((list, index) => {
         if (Array.isArray(newState[index])) list.tasks = newState[index]
-        list.tasks.forEach((updateTask) => {
+        list.tasks.forEach((updateTask, index) => {
           updateTask.listId = list.id
+          updateTask.index = index
           dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
         })
       })

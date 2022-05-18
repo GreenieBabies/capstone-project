@@ -119,8 +119,15 @@ router.put("/:userId/lists/:listId", async (req, res, next) => {
 
 router.put("/:userId/tasks/:taskId", async (req, res, next) => {
   try {
-    let { imageUrl, isComplete, listId, notes, requiresApproval, taskName } =
-      req.body
+    let {
+      imageUrl,
+      isComplete,
+      listId,
+      notes,
+      requiresApproval,
+      taskName,
+      index,
+    } = req.body
     let form = {
       imageUrl: `${imageUrl}`,
       isComplete: `${isComplete}`,
@@ -128,6 +135,7 @@ router.put("/:userId/tasks/:taskId", async (req, res, next) => {
       notes: `${notes}`,
       requiresApproval: `${requiresApproval}`,
       taskName: `${taskName}`,
+      index: `${index}`,
     }
     console.log(form, "form in API")
     const task = await Task.findByPk(req.params.taskId)
