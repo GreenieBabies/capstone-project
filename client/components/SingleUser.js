@@ -32,12 +32,12 @@ const SingleUser = props => {
   const handleAddProject = e => {
     e.preventDefault()
     const { id } = props.match.params
-    // try {
-    dispatch(createProject(id))
-    addToast()
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      dispatch(createProject(id))
+      addToast()
+    } catch (error) {
+      console.log(error)
+    }
     setProjects([...projects, {}])
   }
 
@@ -59,7 +59,10 @@ const SingleUser = props => {
   const toastIdRef = React.useRef()
 
   function addToast() {
-    toastIdRef.current = toast({ description: "Project successfully added!" })
+    toastIdRef.current = toast({
+      description: "Project successfully added!",
+      status: "success"
+    })
   }
 
   return (
