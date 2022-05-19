@@ -13,29 +13,46 @@ import {
   updateTaskThunk,
 } from "../store/singleProject"
 import { fetchAllUsers } from "../store/singleUser"
+import { useLocation } from "react-router-dom"
 // import { useToast } from '@chakra-ui/react'
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const SingleProject = (props) => {
   const dispatch = useDispatch()
+
+  const location = useLocation()
+  // const state = location.state
   const project = useSelector((state) => state.project)
-  // const projLists = useSelector((state) => state.project.lists)
   const user = useSelector((state) => state.user)
   const auth = useSelector((state) => state.auth)
   const { isAdmin } = auth
   const [tasks, setTasks] = useState([])
-  const [storedHeading, setStoredHeading] = project.boardName
-    ? useState(project.boardName)
-    : useState("")
-  // const projLists = useSelector((state) => state.project.lists)
+  const [storedHeading, setStoredHeading] = useState(() => {
+    let isExecuted = false
+    if (!isExecuted) {
+      isExecuted = true
+      return props.location.state.boardName
+    }
+    return project.boardName ? project.boardName : ""
+  })
+  const projLists = useSelector((state) => state.project.lists)
 
   const [state, setState] = useState(
-    useSelector((state) => state.project.lists)
+    () => {
+      let isExecuted = false
+      if (!isExecuted) {
+        isExecuted = true
+        return props.location.state.lists
+      }
+      return state.project.lists
+    }
+
+    // useSelector((state) => state.project.lists)
   )
   const [listTitle, setListTitle] = useState("")
 
-  const { id: projectId } = props.match.params
+  const { id: projectId } = props.location.state
   //have it when someone clicks on a project on the single user page, the projectId is returned
 
   // useEffect(() => {
@@ -45,19 +62,28 @@ const SingleProject = (props) => {
   // }, [])
 
   // FROM JEFF
+
+  useEffect(() => {
+    console.log("a")
+    dispatch(fetchSingleProject(projectId))
+  }, [])
+
   useEffect(() => {
     console.log("b")
-
-    const { id } = props.match.params
-    dispatch(fetchSingleProject(id))
+    dispatch(fetchSingleProject(projectId))
   }, [tasks, storedHeading])
 
   useEffect(() => {
     console.log("c")
     setState(project.lists)
-  }, [user, tasks, state])
+  }, [user, state, projLists])
 
-  useEffect(() => {})
+  useEffect(() => {
+    console.log("d")
+    setState(project.lists)
+  }, [tasks, projLists])
+
+  console.log(props)
 
   const handleAddList = (e) => {
     e.preventDefault()

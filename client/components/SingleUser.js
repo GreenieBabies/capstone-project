@@ -4,34 +4,49 @@ import { Link } from "react-router-dom"
 import {
   fetchSingleUser,
   createProject,
-  deleteProject
+  deleteProject,
 } from "../store/singleUser"
 import { useToast, CloseButton } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const SingleUser = props => {
+const SingleUser = (props) => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
-  const auth = useSelector(state => state.auth)
-  // let project = useSelector((state) => state.project)
+  const user = useSelector((state) => state.user)
+  const auth = useSelector((state) => state.auth)
+  const STATE = useSelector((state) => state)
+  // let project = useState(useSelector((state) => state.project.lists))
   // const proj = useSelector((state) => state.proj)
   const [projects, setProjects] = useState([])
-  const [Projects, updateProjects] = useState([])
+  const [Projects, updateProjects] = useState(
+    useSelector((state) => state.user.projects)
+  )
+
+  console.log(STATE)
 
   const { isAdmin } = auth
 
   useEffect(() => {
     const { id } = props.match.params
     dispatch(fetchSingleUser(id))
-    // project = {}
   }, [])
 
   useEffect(() => {
-    updateProjects(user.projects)
+    let copy
+    Projects && (copy = JSON.parse(JSON.stringify(Projects)))
+    // copy.forEach((list, index) => {
+    //   // if (Array.isArray(newState[index])) list.tasks = newState[index]
+    //   list.tasks.forEach((updateTask, index) => {
+    //     updateTask.index = index
+    //     dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+    //   })
+    // })
+    copy ? updateProjects(copy) : updateProjects(user.projects)
+    // updateProjects(user.projects)
   }, [user])
+  // console.log(Projects)
 
-  const handleAddProject = e => {
+  const handleAddProject = (e) => {
     e.preventDefault()
     const { id } = props.match.params
     // try {
@@ -49,7 +64,7 @@ const SingleUser = props => {
     dispatch(deleteProject(userId, itemId))
     setProjects([...projects, {}])
   }
-  const handleOnDragEnd = result => {
+  const handleOnDragEnd = (result) => {
     if (!result.destination) return
     let items = Array.from(Projects)
     const [reorderedItem] = items.splice(result.source.index, 1)
@@ -66,7 +81,7 @@ const SingleUser = props => {
   function addToast() {
     toastIdRef.current = toast({
       description: "Project successfully added!",
-      status: "success"
+      status: "success",
     })
   }
 
@@ -81,7 +96,7 @@ const SingleUser = props => {
             <p>Home page of {user.username}</p>
             <DragDropContext onDragEnd={handleOnDragEnd}>
               <Droppable droppableId="projects">
-                {provided => (
+                {(provided) => (
                   <ul
                     className="container"
                     {...provided.droppableProps}
@@ -101,10 +116,13 @@ const SingleUser = props => {
                             draggableId={x.id.toString()}
                             index={index}
                           >
-                            {provided => (
+                            {(provided) => (
                               <Link
                                 className="allProjectsBox"
-                                to={`/projects/${x.id}`}
+                                to={{
+                                  pathname: `/projects/${x.id}`,
+                                  state: x,
+                                }}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
                                 ref={provided.innerRef}
@@ -112,7 +130,7 @@ const SingleUser = props => {
                                 <h3>{x.boardName}</h3>
                                 <CloseButton
                                   className="deleteProject"
-                                  onClick={e => handleDeleteProject(e, x.id)}
+                                  onClick={(e) => handleDeleteProject(e, x.id)}
                                 />
                               </Link>
                             )}
