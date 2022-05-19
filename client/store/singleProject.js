@@ -182,9 +182,9 @@ export function deleteSingleTask(projectId, listId, taskId) {
 
 export function updateListThunk(userId, listId, list) {
   return async (dispatch) => {
-    console.log(userId, "userID")
-    console.log(listId, "listId")
-    console.log(list, "list4API")
+    // console.log(userId, "userID")
+    // console.log(listId, "listId")
+    // console.log(list, "list4API")
     try {
       const token = window.localStorage.getItem("token")
       const { data: newList } = await axios.put(
@@ -226,8 +226,7 @@ export default function singleProjectReducer(state = defaultState, action) {
 
   switch (action.type) {
     case GET_SINGLE_PROJECT:
-      console.log(action)
-      return { ...action.project, ...action.auth }
+      return { ...state, ...action.project, ...action.auth }
 
     case ADD_SINGLE_LIST:
       copiedList.push(action.list)
@@ -263,7 +262,11 @@ export default function singleProjectReducer(state = defaultState, action) {
       return { ...state, ...action.task }
 
     case UPDATE_SINGLE_LIST:
-      return { ...state, ...action.list }
+      allLists = copiedList.map((x) =>
+        x.id === action.list.id ? action.list : x
+      )
+      return { ...state, lists: allLists }
+    // return { ...state, ...action.list }
 
     default:
       return state

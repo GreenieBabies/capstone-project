@@ -199,10 +199,19 @@ export default function singleUserReducer(state = defaultState, action) {
   let copiedProjects, projects_
   state.projects &&
     (copiedProjects = JSON.parse(JSON.stringify(state.projects)))
+  let stateClone = JSON.parse(JSON.stringify(state))
 
   switch (action.type) {
     case GET_SINGLE_USER:
-      return { ...action.user, ...action.auth }
+      console.log(state)
+      stateClone.project = {}
+      stateClone.user = { ...action.user }
+      stateClone.auth = { ...action.auth }
+      return {
+        ...stateClone.user,
+        ...stateClone.auth,
+        project: { ...stateClone.project },
+      }
 
     case EDIT_SINGLE_USER:
       return action.user
@@ -218,17 +227,19 @@ export default function singleUserReducer(state = defaultState, action) {
     //   return { ...state, users: copiedUser }
 
     case CREATE_NEW_PROJECT:
-      state.projects.push(action.project)
-      return { ...state }
+      copiedProjects.push(action.project)
+      return { ...state, projects: copiedProjects }
 
     case DELETE_PROJECT:
       projects_ = copiedProjects.filter((x) => x.id !== action.project.id)
       return { ...state, projects: projects_ }
 
+    // obsolete?
     case UPDATE_PROJECT:
       return { ...state, ...action.project }
 
     case ADD_USER_TO_PROJECT:
+      console.log(action)
       return { ...state, ...action.project }
     default:
       return state
