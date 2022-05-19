@@ -13,65 +13,65 @@ const UPDATE_SINGLE_TASK = "UPDATE_SINGLE_TASK"
 function getProject(project) {
   return {
     type: GET_SINGLE_PROJECT,
-    project
+    project,
   }
 }
 
 function addList(list) {
   return {
     type: ADD_SINGLE_LIST,
-    list
+    list,
   }
 }
 
 function deleteList(list) {
   return {
     type: DELETE_SINGLE_LIST,
-    list
+    list,
   }
 }
 
 function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
-    project
+    project,
   }
 }
 
 function updateTask(task) {
   return {
     type: UPDATE_SINGLE_TASK,
-    task
+    task,
   }
 }
 
 function deleteTask(task) {
   return {
     type: DELETE_SINGLE_TASK,
-    task
+    task,
   }
 }
 
 function addTask(task) {
   return {
     type: ADD_SINGLE_TASK,
-    task
+    task,
   }
 }
 
 function updateList(list) {
   return {
     type: UPDATE_SINGLE_LIST,
-    list
+    list,
   }
 }
 
 export function fetchSingleProject(projectId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.get(`/api/projects/${projectId}`, {
-        headers: { authorization: token }
+        headers: { authorization: token },
       })
       dispatch(getProject(data))
     } catch (error) {
@@ -81,14 +81,14 @@ export function fetchSingleProject(projectId) {
 }
 
 export function addSingleList(id) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.post(
         `/api/projects/${id}`,
         {},
         {
-          headers: { authorization: token }
+          headers: { authorization: token },
         }
       )
       dispatch(addList(data))
@@ -99,13 +99,13 @@ export function addSingleList(id) {
 }
 
 export function deleteSingleList(projectId, listId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.delete(
         `/api/projects/${projectId}/lists/${listId}`,
         {
-          headers: { authorization: token }
+          headers: { authorization: token },
         }
       )
       dispatch(deleteList(data))
@@ -115,27 +115,13 @@ export function deleteSingleList(projectId, listId) {
   }
 }
 
-// export function editSingleTask(userId, projectId) {
-//   return async (dispatch) => {
-//     try {
-//       const payload = { boardName: newName }
-//       const { data } = await axios.put(
-//         `/api/users/${userId}/projects/${projectId}`
-//       )
-//       dispatch(editTask(data))
-//     } catch (error) {
-//       next(error)
-//     }
-//   }
-// }
-
 export function updateProject(projectId, newName) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
       const payload = { boardName: newName }
       const { data } = await axios.put(`/api/projects/${projectId}`, payload, {
-        headers: { authorization: token }
+        headers: { authorization: token },
       })
       dispatch(updateProj(data))
     } catch (error) {
@@ -145,17 +131,15 @@ export function updateProject(projectId, newName) {
 }
 
 export function addSingleTask(projectId, listId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
       const payload = {
         taskName: "--Add Task Name--",
         notes: "--Add Task Notes--",
-        imageUrl: ""
+        imageUrl: "",
       }
-      const {
-        data
-      } = await axios.post(
+      const { data } = await axios.post(
         `/api/projects/${projectId}/lists/${listId}`,
         payload,
         { headers: { authorization: token } }
@@ -168,12 +152,10 @@ export function addSingleTask(projectId, listId) {
 }
 
 export function deleteSingleTask(projectId, listId, taskId) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
-      const {
-        data
-      } = await axios.delete(
+      const { data } = await axios.delete(
         `/api/projects/${projectId}/lists/${listId}/tasks/${taskId}`,
         { headers: { authorization: token } }
       )
@@ -185,17 +167,19 @@ export function deleteSingleTask(projectId, listId, taskId) {
 }
 
 export function updateListThunk(userId, listId, list) {
-  return async dispatch => {
+  return async (dispatch) => {
     // console.log(userId, "userID")
     // console.log(listId, "listId")
     // console.log(list, "list4API")
     try {
       const token = window.localStorage.getItem("token")
-      const {
-        data: newList
-      } = await axios.put(`/api/projects/${userId}/lists/${listId}`, list, {
-        headers: { authorization: token }
-      })
+      const { data: newList } = await axios.put(
+        `/api/projects/${userId}/lists/${listId}`,
+        list,
+        {
+          headers: { authorization: token },
+        }
+      )
       dispatch(updateList(newList))
     } catch (error) {
       console.log(error)
@@ -204,16 +188,14 @@ export function updateListThunk(userId, listId, list) {
 }
 
 export function updateTaskThunk(projectId, taskId, task) {
-  return async dispatch => {
-    console.log(task, "task for update")
+  return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token")
-      const {
-        data: updatedtask
-      } = await axios.put(`/api/projects/${projectId}/tasks/${taskId}`, task, {
-        headers: { authorization: token }
-      })
-      console.log(updatedtask, "new Task")
+      const { data: updatedtask } = await axios.put(
+        `/api/projects/${projectId}/tasks/${taskId}`,
+        task,
+        { headers: { authorization: token } }
+      )
       dispatch(updateTask(updatedtask))
     } catch (error) {
       console.log(error)
@@ -237,21 +219,21 @@ export default function singleProjectReducer(state = defaultState, action) {
       return { ...state, lists: copiedList }
 
     case DELETE_SINGLE_LIST:
-      allLists = copiedList.filter(x => x.id !== action.list.id)
+      allLists = copiedList.filter((x) => x.id !== action.list.id)
       return { ...state, lists: allLists }
 
     case ADD_SINGLE_TASK:
-      list_ = copiedList.filter(x => x.id === action.task.listId)[0]
+      list_ = copiedList.filter((x) => x.id === action.task.listId)[0]
       !list_.tasks && (list_.tasks = [])
       list_.tasks.push(action.task)
-      allLists = copiedList.map(x => (x.id === list_.id ? list_ : x))
+      allLists = copiedList.map((x) => (x.id === list_.id ? list_ : x))
       return { ...state, lists: allLists }
 
     case DELETE_SINGLE_TASK:
       list_ = copiedList
-        .filter(x => x.id === action.task.listId)[0]
-        .tasks.filter(x => x.id !== action.task.id)
-      allLists = copiedList.map(x => {
+        .filter((x) => x.id === action.task.listId)[0]
+        .tasks.filter((x) => x.id !== action.task.id)
+      allLists = copiedList.map((x) => {
         if (x.id === action.task.listId) {
           x.tasks = list_
         }
@@ -263,10 +245,19 @@ export default function singleProjectReducer(state = defaultState, action) {
       return { ...state, ...action.project }
 
     case UPDATE_SINGLE_TASK:
-      return { ...state, ...action.task }
+      list_ = copiedList
+        .filter((x) => x.id === action.task.listId)[0]
+        .tasks.map((x) => (x.id === action.task.id ? action.task : x))
+      allLists = copiedList.map((x) => {
+        if (x.id === action.task.listId) {
+          x.tasks = list_
+        }
+        return x
+      })
+      return { ...state, lists: allLists }
 
     case UPDATE_SINGLE_LIST:
-      allLists = copiedList.map(x =>
+      allLists = copiedList.map((x) =>
         x.id === action.list.id ? action.list : x
       )
       return { ...state, lists: allLists }
