@@ -46,7 +46,7 @@ const EditTask = (props) => {
 
   return (
     <div>
-      {console.log(newLists)}
+      {/* {console.log(newLists)} */}
 
       <p className="taskTitle">{props.taskName}</p>
       <p className="taskNotes">{props.notes}</p>
