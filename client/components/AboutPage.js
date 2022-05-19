@@ -28,8 +28,7 @@ const AboutPage = () => {
     {
       firstName: "Ethan",
       lastName: "S",
-      imageUrl:
-        "https://ca.slack-edge.com/T024FPYBQ-U035FK30A72-2e5eaa9ef118-512",
+      imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 2,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/ethanschindel/",
@@ -38,8 +37,7 @@ const AboutPage = () => {
     {
       firstName: "Michael",
       lastName: "Mnatsakanian",
-      imageUrl:
-        "https://media-exp1.licdn.com/dms/image/C5603AQE8NmF-wTlEEA/profile-displayphoto-shrink_800_800/0/1652826749289?e=1658361600&v=beta&t=VvJcMSYGLixxmGjRUNiaw8XuESCVNHD9koWuJa4Tqb0",
+      imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 3,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/michaelmnat/",
@@ -48,8 +46,7 @@ const AboutPage = () => {
     {
       firstName: "Tony",
       lastName: "Li",
-      imageUrl:
-        "https://media-exp1.licdn.com/dms/image/C4E03AQG2GI-_OqFYCw/profile-displayphoto-shrink_800_800/0/1636849048317?e=1658361600&v=beta&t=A8rPf5iMnOceh3yDJQUdD60N5Q39ckcWSdJ5-l7lny8",
+      imageUrl: "https://images.app.goo.gl/CrvpSDFHgj92V8Xf9",
       id: 4,
       aboutMe: "",
       linkedin: "https://www.linkedin.com/in/tony-x-li/",
@@ -78,10 +75,16 @@ const AboutPage = () => {
       <br />
       <SimpleGrid columns={2} spacing={10}>
         {/* {team.map(member => ( */}
+        {/* <Circle key={member.id} bg="lightblue" width="150px" height="150px"> */}
+
         {/* <div className="member" key={member.id}> */}
+        {/* <div className="member"> */}
         <LinkBox>
-          <LinkOverlay href="/team/1" target="_blank">
-            <Circle key={member.id} width="200px" height="200px">
+          <LinkOverlay
+            href="https://www.linkedin.com/in/jeffrey-lupton/"
+            target="_blank"
+          >
+            <Circle width="200px" height="200px">
               <Image
                 src="https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA"
                 className="photo"
@@ -90,19 +93,33 @@ const AboutPage = () => {
             </Circle>
           </LinkOverlay>
         </LinkBox>
+        {/* <Wrap>
+                <WrapItem>
+                  <Avatar
+                    name="member"
+                    src="https://media-exp1.licdn.com/dms/image/C4E03AQHmFNXfqEBsYw/profile-displayphoto-shrink_800_800/0/1651769568993?e=1658361600&v=beta&t=_liN2Ttu4Fm7xiUAmh7r4Ju5rvb400MSfFA4DhfKAcA"
+                  />
+                </WrapItem>
+              </Wrap> */}
         {/* </div> */}
-        {/* ))} */}
-        <Heading>
-          <RouteLink
-            className="listingInfo"
-            to={{
-              pathname: `/team/${member.id}/`,
-              state: member
-            }}
-          ></RouteLink>
-        </Heading>
+        {/* <Heading> */}
+        {/* <RouteLink
+              className="listingInfo"
+              to={{
+                pathname: `/team/${member.id}/`,
+                state: member
+              }}
+            ></RouteLink>
+          </Heading> */}
+
+        {/* </Button>  */}
+
+        {/* )} */}
         <LinkBox>
-          <LinkOverlay href="/team/2" target="_blank">
+          <LinkOverlay
+            href="https://www.linkedin.com/in/michaelmnat/"
+            target="_blank"
+          >
             <Circle width="200px" height="200px">
               <Image
                 src="https://media-exp1.licdn.com/dms/image/C5603AQE8NmF-wTlEEA/profile-displayphoto-shrink_800_800/0/1652826749289?e=1658361600&v=beta&t=VvJcMSYGLixxmGjRUNiaw8XuESCVNHD9koWuJa4Tqb0"
@@ -128,8 +145,7 @@ const AboutPage = () => {
         </LinkBox>
         <LinkBox>
           <LinkOverlay
-            // href="https://www.linkedin.com/in/tony-x-li/"
-            href="/team/4"
+            href="https://www.linkedin.com/in/tony-x-li/"
             target="_blank"
           >
             <Circle width="200px" height="200px">

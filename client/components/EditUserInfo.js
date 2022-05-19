@@ -8,14 +8,14 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
+  Button
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { fetchSingleUser, updateSingleUser, getUser } from "../store/singleUser"
 
-const EditUserInfo = (props) => {
+const EditUserInfo = props => {
   const { register } = useForm()
   //how do we change this to the actual user info - might be the issue
   //Also, after changing info, doesn't seem to be making desired change
@@ -23,17 +23,17 @@ const EditUserInfo = (props) => {
     username: "",
     password: "",
     email: "",
-    address: "",
+    address: ""
   })
 
   const dispatch = useDispatch()
-  const handleChange = (event) => {
+  const handleChange = event => {
     setForm({
       ...form,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     })
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     try {
       // console.log(props)

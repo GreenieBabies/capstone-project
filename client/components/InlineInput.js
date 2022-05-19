@@ -9,7 +9,7 @@ function InlineInput(props) {
   const dispatch = useDispatch()
   const [isInputActive, setIsInputActive] = useState(false)
   const [inputValue, setInputValue] = useState(props.text)
-  const auth = useSelector((state) => state.auth)
+  const auth = useSelector(state => state.auth)
 
   const wrapperRef = useRef(null)
   const textRef = useRef(null)
@@ -20,7 +20,7 @@ function InlineInput(props) {
 
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
-    console.log(props)
+    // console.log(props)
     if (isInputActive) {
       if (inputValue.length) {
         if (props.isProject) {
@@ -30,7 +30,7 @@ function InlineInput(props) {
           props.onSetText(inputValue)
           dispatch(
             updateListThunk(auth.id, props.projectId, {
-              columnName: inputValue,
+              columnName: inputValue
             })
           )
         }
@@ -47,22 +47,16 @@ function InlineInput(props) {
           props.onSetText(inputValue)
           dispatch(updateProject(props.projectId, inputValue))
         } else {
-          props.onSetText(inputValue)
+          props.onSetText(inputValue) // here
           dispatch(
             updateListThunk(auth.id, props.projectId, {
-              columnName: inputValue,
+              columnName: inputValue
             })
           )
         }
       }
       setIsInputActive(false)
     }
-    //   if (inputValue.length) {
-    //     props.onSetText(inputValue)
-    //     dispatch(updateProject(props.projectId, inputValue))
-    //   }
-    //   setIsInputActive(false)
-    // }
   }, [enter, inputValue, props.onSetText])
 
   const onEsc = useCallback(() => {
@@ -89,7 +83,7 @@ function InlineInput(props) {
   }, [onEnter, onEsc, isInputActive]) // watch the Enter and Escape key presses
 
   const handleInputChange = useCallback(
-    (event) => {
+    event => {
       // sanitize the input a little
       setInputValue(DOMPurify.sanitize(event.target.value))
     },

@@ -69,7 +69,6 @@ export const Home = props => {
             <Circle bg="lightblue" width="150px" padding="20px">
               List Columns
             </Circle>
-
             <Circle bg="lightblue" width="150px" height="150px" padding="20px">
               List Tasks
             </Circle>

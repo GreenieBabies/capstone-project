@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, Project, List, Task },
+  models: { User, Project, List, Task }
 } = require("../db")
 module.exports = router
 
@@ -9,7 +9,7 @@ router.get("/:id", async (req, res, next) => {
     const project = await Project.findOne({
       attributes: ["id", "boardName"],
       where: {
-        id: req.params.id,
+        id: req.params.id
       },
       include: [
         {
@@ -18,18 +18,18 @@ router.get("/:id", async (req, res, next) => {
           //   attributes: ["id", "columnName", "projectId"],
           // },
           include: {
-            model: Task,
-          },
+            model: Task
+          }
         },
         {
           model: User,
 
           attributes: ["id", "username"],
           include: {
-            model: Project,
-          },
-        },
-      ],
+            model: Project
+          }
+        }
+      ]
     })
     res.send(project)
   } catch (error) {
@@ -126,7 +126,7 @@ router.put("/:userId/tasks/:taskId", async (req, res, next) => {
       notes,
       requiresApproval,
       taskName,
-      index,
+      index
     } = req.body
     let form = {
       imageUrl: `${imageUrl}`,
@@ -135,7 +135,7 @@ router.put("/:userId/tasks/:taskId", async (req, res, next) => {
       notes: `${notes}`,
       requiresApproval: `${requiresApproval}`,
       taskName: `${taskName}`,
-      index: `${index}`,
+      index: `${index}`
     }
     console.log(form, "form in API")
     const task = await Task.findByPk(req.params.taskId)
