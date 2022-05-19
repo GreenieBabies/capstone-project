@@ -20,7 +20,7 @@ function InlineInput(props) {
 
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
-    console.log(props)
+    // console.log(props)
     if (isInputActive) {
       if (inputValue.length) {
         if (props.isProject) {
@@ -47,7 +47,7 @@ function InlineInput(props) {
           props.onSetText(inputValue)
           dispatch(updateProject(props.projectId, inputValue))
         } else {
-          props.onSetText(inputValue)
+          props.onSetText(inputValue) // here
           dispatch(
             updateListThunk(auth.id, props.projectId, {
               columnName: inputValue,
@@ -57,12 +57,6 @@ function InlineInput(props) {
       }
       setIsInputActive(false)
     }
-    //   if (inputValue.length) {
-    //     props.onSetText(inputValue)
-    //     dispatch(updateProject(props.projectId, inputValue))
-    //   }
-    //   setIsInputActive(false)
-    // }
   }, [enter, inputValue, props.onSetText])
 
   const onEsc = useCallback(() => {

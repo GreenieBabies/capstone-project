@@ -90,9 +90,20 @@ const AddCollaborators = (props) => {
     }
   }
 
+  // update list when project changes
+  useEffect(() => {
+    let updatedCollaborators = []
+    project.users &&
+      (updatedCollaborators = project.users.reduce((acc, x) => {
+        return acc.concat(x.username)
+      }, []))
+    setCollaborators(updatedCollaborators)
+  }, [project])
+
+  // set list of users
   useEffect(() => {
     setAllUsers(user.users)
-    dispatch(fetchSingleProject(project.id))
+    // dispatch(fetchSingleProject(project.id))
     const usernames = project.users && project.users.map((x) => x.username)
     setCollaborators(usernames)
   }, [user])
