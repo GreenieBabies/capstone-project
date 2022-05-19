@@ -3,27 +3,27 @@ import { useSelector, useDispatch } from "react-redux"
 import { fetchAllUsers, addUserToProject } from "../store/singleUser"
 import { fetchSingleProject, updateTaskThunk } from "../store/singleProject"
 
-const EditTask = (props) => {
+const EditTask = props => {
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
-  const project = useSelector((state) => state.project)
+  const user = useSelector(state => state.user)
+  const project = useSelector(state => state.project)
   const [allUsers, setAllUsers] = useState([])
   const [userInput, setUserInput] = useState("")
   const [clicked, setClicked] = useState(false)
   const [enterPress, setEnterPress] = useState(false)
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault()
     setClicked(true)
   }
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const userInput = e.currentTarget.value
 
     setUserInput(userInput)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     const changedTask = e.target.value
     // console.log(props.id)

@@ -6,24 +6,24 @@ const Task = db.define("task", {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
-    },
+      notEmpty: true
+    }
   },
   notes: { type: Sequelize.TEXT },
   isComplete: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false,
+    defaultValue: false
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   requiresApproval: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false,
+    defaultValue: false
   },
   index: {
-    type: Sequelize.INTEGER,
-  },
+    type: Sequelize.INTEGER
+  }
 })
 
 module.exports = Task

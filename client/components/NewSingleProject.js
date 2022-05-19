@@ -7,16 +7,16 @@ import {
   deleteSingleList,
   editSingleTask,
   addSingleTask,
-  deleteSingleTask,
+  deleteSingleTask
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const SingleProject = (props) => {
+const SingleProject = props => {
   const dispatch = useDispatch()
-  const project = useSelector((state) => state.project)
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const project = useSelector(state => state.project)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   const [tasks, setTasks] = useState([])
   const { isAdmin } = auth
   const [storedHeading, setStoredHeading] = project.boardName
@@ -32,13 +32,13 @@ const SingleProject = (props) => {
     dispatch(fetchSingleProject(id))
   }, [tasks, storedHeading])
 
-  const handleAddList = (e) => {
+  const handleAddList = e => {
     e.preventDefault()
     const { id } = props.match.params
     dispatch(addSingleList(id))
     setTasks([...tasks, {}])
   }
-  const handleOnDragEnd = (result) => {
+  const handleOnDragEnd = result => {
     if (!result.destination) return
     let items = Array.from(lists)
     const [reorderedItem] = items.splice(result.source.index, 1)
@@ -92,12 +92,12 @@ const SingleProject = (props) => {
     background: isDragging ? "lightgreen" : "grey",
 
     // styles we need to apply on draggables
-    ...draggableStyle,
+    ...draggableStyle
   })
-  const getListStyle = (isDraggingOver) => ({
+  const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? "lightblue" : "lightgrey",
     padding: grid,
-    width: 250,
+    width: 250
   })
 
   function onDragEnd(result) {
@@ -121,7 +121,7 @@ const SingleProject = (props) => {
       newState[sInd] = result[sInd]
       newState[dInd] = result[dInd]
 
-      setState(newState.filter((group) => group.length))
+      setState(newState.filter(group => group.length))
     }
   }
 
@@ -138,7 +138,7 @@ const SingleProject = (props) => {
                 : ""
             }
             projectId={id}
-            onSetText={(text) => setStoredHeading(text)}
+            onSetText={text => setStoredHeading(text)}
           />
 
           <div className="allLists">
@@ -159,13 +159,13 @@ const SingleProject = (props) => {
                           <h3>{x.columnName}</h3>
                           <div
                             className="createTask"
-                            onClick={(e) => handleAddTask(e, x.id)}
+                            onClick={e => handleAddTask(e, x.id)}
                           >
                             +
                           </div>
                           <ul>
                             {x.tasks &&
-                              x.tasks.map((task) => {
+                              x.tasks.map(task => {
                                 return (
                                   <Draggable
                                     key={task.id}
@@ -186,7 +186,7 @@ const SingleProject = (props) => {
                                         <p>{task.notes}</p>
                                         <div
                                           className="deleteTask"
-                                          onClick={(e) =>
+                                          onClick={e =>
                                             handleDeleteTask(
                                               e,
                                               task.listId,
@@ -204,7 +204,7 @@ const SingleProject = (props) => {
                           </ul>
                           <div
                             className="deleteList"
-                            onClick={(e) => handleDeleteList(e, x.id)}
+                            onClick={e => handleDeleteList(e, x.id)}
                           >
                             X
                           </div>

@@ -8,14 +8,14 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
+  Button
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 
 /**
  * COMPONENT
  */
-const AuthForm = (props) => {
+const AuthForm = props => {
   const { register } = useForm()
   const { name, displayName, handleSubmit, error } = props
 
@@ -75,23 +75,23 @@ const AuthForm = (props) => {
  *   can stay DRY with interfaces that are very similar to each other!
  */
 
-const mapLogin = (state) => {
+const mapLogin = state => {
   return {
     name: "login",
     displayName: "Login",
-    error: state.auth.error,
+    error: state.auth.error
   }
 }
 
-const mapSignup = (state) => {
+const mapSignup = state => {
   return {
     name: "signup",
     displayName: "Sign Up",
-    error: state.auth.error,
+    error: state.auth.error
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       console.log(evt)
@@ -100,7 +100,7 @@ const mapDispatch = (dispatch) => {
       const username = evt.target.username.value
       const password = evt.target.password.value
       dispatch(authenticate(username, password, formName))
-    },
+    }
   }
 }
 

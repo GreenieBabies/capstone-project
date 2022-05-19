@@ -5,12 +5,12 @@ import {
   fetchSingleProject,
   editSingleTask,
   addSingleTask,
-  deleteSingleTask,
+  deleteSingleTask
 } from "../store/singleProject"
 // import { useToast } from '@chakra-ui/react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const TasksSingleProject = (props) => {
+const TasksSingleProject = props => {
   const dispatch = useDispatch()
   const tasks = props.state
   // console.log(tasks)
@@ -25,13 +25,13 @@ const TasksSingleProject = (props) => {
   return (
     <ul>
       {tasks &&
-        tasks.map((task) => (
+        tasks.map(task => (
           <div className="taskBox" key={task.id}>
             <h3>{task.taskName}</h3>
             <p>{task.notes}</p>
             <div
               className="deleteTask"
-              onClick={(e) => handleDeleteTask(e, task.listId, task.id)}
+              onClick={e => handleDeleteTask(e, task.listId, task.id)}
             >
               X
             </div>

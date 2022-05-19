@@ -136,7 +136,7 @@ const AboutPage = () => {
           >
             <Circle width="200px" height="200px">
               <Image
-                src="https://media-exp1.licdn.com/dms/image/D4E35AQG0hj5PF9yXqA/profile-framedphoto-shrink_800_800/0/1647104780261?e=1653465600&v=beta&t=T2QbIlGNiK-GwsHUQ3uAdmh09O1Rxk1MIEO01Elj5bM"
+                src="https://ca.slack-edge.com/T024FPYBQ-U035FK30A72-2e5eaa9ef118-512"
                 className="photo"
                 borderRadius="full"
               />

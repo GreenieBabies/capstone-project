@@ -25,8 +25,8 @@ describe("thunk creators", () => {
         getItem: () => {
           return "some-token"
         },
-        setItem: () => {},
-      },
+        setItem: () => {}
+      }
     }
     mockAxios = new MockAdapter(axios)
     store = mockStore(initialState)
@@ -46,8 +46,8 @@ describe("thunk creators", () => {
             getItem: () => {
               return "some-token"
             },
-            setItem: () => {},
-          },
+            setItem: () => {}
+          }
         }
       })
       it("eventually dispatches the SET_AUTH action", async () => {
@@ -65,8 +65,8 @@ describe("thunk creators", () => {
           localStorage: {
             removeItem: () => {},
             getItem: () => {},
-            setItem: () => {},
-          },
+            setItem: () => {}
+          }
         }
       })
       it("does not dispatch GET USER action", async () => {

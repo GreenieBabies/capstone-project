@@ -13,14 +13,14 @@ const ADD_USER_TO_PROJECT = "ADD_USER_TO_PROJECT"
 function getAllUsers(users) {
   return {
     type: GET_ALL_USERS,
-    users,
+    users
   }
 }
 
 function getUser(user) {
   return {
     type: GET_SINGLE_USER,
-    user,
+    user
   }
 }
 
@@ -34,35 +34,35 @@ function getUser(user) {
 function editSingleUser(user) {
   return {
     type: EDIT_SINGLE_USER,
-    user,
+    user
   }
 }
 
 function newProject(project) {
   return {
     type: CREATE_NEW_PROJECT,
-    project,
+    project
   }
 }
 
 function deleteProj(project) {
   return {
     type: DELETE_PROJECT,
-    project,
+    project
   }
 }
 
 function updateProj(project) {
   return {
     type: UPDATE_PROJECT,
-    project,
+    project
   }
 }
 
 function addCollaborator(project) {
   return {
     type: ADD_USER_TO_PROJECT,
-    project,
+    project
   }
 }
 
@@ -77,11 +77,11 @@ export function createUserThunk(form) {
 }
 
 export function fetchAllUsers() {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.get(`/api/users/`, {
-        headers: { authorization: token },
+        headers: { authorization: token }
       })
       dispatch(getAllUsers(data))
     } catch (error) {
@@ -91,11 +91,11 @@ export function fetchAllUsers() {
 }
 
 export function fetchSingleUser(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.get(`/api/users/${id}`, {
-        headers: { authorization: token },
+        headers: { authorization: token }
       })
       dispatch(getUser(data))
     } catch (error) {
@@ -105,11 +105,11 @@ export function fetchSingleUser(id) {
 }
 
 export function updateSingleUser(user, id) {
-  return async function (dispatch) {
+  return async function(dispatch) {
     try {
       const token = window.localStorage.getItem("token")
       let response = await axios.put(`/api/users/${id}`, user, {
-        headers: { authorization: token },
+        headers: { authorization: token }
       })
       let newUser = response.data
       dispatch(editSingleUser(newUser))
@@ -120,14 +120,14 @@ export function updateSingleUser(user, id) {
 }
 // This is a POST route bc we're creating a new row in the through table
 export function addUserToProject(userId, projectId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const token = window.localStorage.getItem("token")
       let { data } = await axios.post(
         `/api/users/${userId}/projects/${projectId}`,
         {},
         {
-          headers: { authorization: token },
+          headers: { authorization: token }
         }
       )
       dispatch(addCollaborator(data))
@@ -138,14 +138,14 @@ export function addUserToProject(userId, projectId) {
 }
 
 export function createProject(id) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.post(
         `/api/users/${id}`,
         {},
         {
-          headers: { authorization: token },
+          headers: { authorization: token }
         }
       )
       dispatch(newProject(data))
@@ -156,13 +156,13 @@ export function createProject(id) {
 }
 
 export function deleteProject(userId, projectId) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const token = window.localStorage.getItem("token")
       const { data } = await axios.delete(
         `/api/users/${userId}/projects/${projectId}`,
         {
-          headers: { authorization: token },
+          headers: { authorization: token }
         }
       )
       dispatch(deleteProj(data))
@@ -173,7 +173,7 @@ export function deleteProject(userId, projectId) {
 }
 
 export function updateProject(userId, projectId, newName) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const token = window.localStorage.getItem("token")
       const payload = { boardName: newName }
@@ -181,7 +181,7 @@ export function updateProject(userId, projectId, newName) {
         `/api/users/${userId}/projects/${projectId}`,
         payload,
         {
-          headers: { authorization: token },
+          headers: { authorization: token }
         }
       )
       dispatch(updateProj(data))
@@ -210,7 +210,7 @@ export default function singleUserReducer(state = defaultState, action) {
       return {
         ...stateClone.user,
         ...stateClone.auth,
-        project: { ...stateClone.project },
+        project: { ...stateClone.project }
       }
 
     case EDIT_SINGLE_USER:
@@ -231,7 +231,7 @@ export default function singleUserReducer(state = defaultState, action) {
       return { ...state, projects: copiedProjects }
 
     case DELETE_PROJECT:
-      projects_ = copiedProjects.filter((x) => x.id !== action.project.id)
+      projects_ = copiedProjects.filter(x => x.id !== action.project.id)
       return { ...state, projects: projects_ }
 
     // obsolete?

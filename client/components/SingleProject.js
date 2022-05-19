@@ -10,18 +10,18 @@ import {
   editSingleTask,
   addSingleTask,
   deleteSingleTask,
-  updateTaskThunk,
+  updateTaskThunk
 } from "../store/singleProject"
 import { fetchAllUsers } from "../store/singleUser"
 // import { useToast } from '@chakra-ui/react'
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const SingleProject = (props) => {
+const SingleProject = props => {
   const dispatch = useDispatch()
-  const project = useSelector((state) => state.project)
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const project = useSelector(state => state.project)
+  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   const { isAdmin } = auth
   const [tasks, setTasks] = useState([])
   const [storedHeading, setStoredHeading] = project.boardName
@@ -54,7 +54,7 @@ const SingleProject = (props) => {
 
   useEffect(() => {})
 
-  const handleAddList = (e) => {
+  const handleAddList = e => {
     e.preventDefault()
     dispatch(addSingleList(projectId))
     setTasks([...tasks, {}])
@@ -104,12 +104,12 @@ const SingleProject = (props) => {
     background: isDragging ? "lightgreen" : "grey",
 
     // styles we need to apply on draggables
-    ...draggableStyle,
+    ...draggableStyle
   })
-  const getListStyle = (isDraggingOver) => ({
+  const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? "lightblue" : "lightgrey",
     padding: grid,
-    width: 250,
+    width: 250
   })
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list.tasks)
@@ -176,7 +176,7 @@ const SingleProject = (props) => {
             }
             projectId={projectId}
             isProject={true}
-            onSetText={(text) => setStoredHeading(text)}
+            onSetText={text => setStoredHeading(text)}
           />
           <AddCollaborators />
           <div className="allLists">
@@ -205,11 +205,11 @@ const SingleProject = (props) => {
                             }
                             projectId={x.id}
                             isProject={false}
-                            onSetText={(text) => setListTitle(text)}
+                            onSetText={text => setListTitle(text)}
                           />
                           <div
                             className="createTask"
-                            onClick={(e) => handleAddTask(e, x.id)}
+                            onClick={e => handleAddTask(e, x.id)}
                           >
                             +
                           </div>
@@ -241,7 +241,7 @@ const SingleProject = (props) => {
                                         <EditTask id={task.id} />
                                         <div
                                           className="deleteTask"
-                                          onClick={(e) =>
+                                          onClick={e =>
                                             handleDeleteTask(
                                               e,
                                               task.listId,
@@ -259,7 +259,7 @@ const SingleProject = (props) => {
                           </ul>
                           <div
                             className="deleteList"
-                            onClick={(e) => handleDeleteList(e, x.id)}
+                            onClick={e => handleDeleteList(e, x.id)}
                           >
                             X - Delete List
                           </div>
