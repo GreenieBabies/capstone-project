@@ -9,7 +9,7 @@ function InlineInput(props) {
   const dispatch = useDispatch()
   const [isInputActive, setIsInputActive] = useState(false)
   const [inputValue, setInputValue] = useState(props.text)
-  const auth = useSelector(state => state.auth)
+  const auth = useSelector((state) => state.auth)
 
   const wrapperRef = useRef(null)
   const textRef = useRef(null)
@@ -30,7 +30,7 @@ function InlineInput(props) {
           props.onSetText(inputValue)
           dispatch(
             updateListThunk(auth.id, props.projectId, {
-              columnName: inputValue
+              columnName: inputValue,
             })
           )
         }
@@ -50,7 +50,7 @@ function InlineInput(props) {
           props.onSetText(inputValue) // here
           dispatch(
             updateListThunk(auth.id, props.projectId, {
-              columnName: inputValue
+              columnName: inputValue,
             })
           )
         }
@@ -83,7 +83,7 @@ function InlineInput(props) {
   }, [onEnter, onEsc, isInputActive]) // watch the Enter and Escape key presses
 
   const handleInputChange = useCallback(
-    event => {
+    (event) => {
       // sanitize the input a little
       setInputValue(DOMPurify.sanitize(event.target.value))
     },

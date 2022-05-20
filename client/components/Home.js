@@ -9,14 +9,14 @@ import {
   Box,
   Text,
   HStack,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react"
 import { Link as RouteLink } from "react-router-dom"
 import AuthForm from "./AuthForm"
 import { Button } from "@chakra-ui/button"
 
-export const Home = props => {
-  let auth = useSelector(store => store.auth)
+export const Home = (props) => {
+  let auth = useSelector((store) => store.auth)
   const { username, id } = auth
 
   return (
@@ -33,7 +33,6 @@ export const Home = props => {
           </Text>
         </Box>
       </div>
-      <br />
       <div id="loginUserButtons">
         {username ? (
           <RouteLink to={`/users/${id}`}>

@@ -93,7 +93,9 @@ const SingleUser = (props) => {
       <div>
         {user.username ? (
           <div>
-            <p>Home page of {user.username}</p>
+            <p className="allProjectBoard">
+              {user.username}'s All Project Page
+            </p>
             <DragDropContext onDragEnd={handleOnDragEnd}>
               <Droppable droppableId="projects">
                 {(provided) => (
@@ -102,41 +104,48 @@ const SingleUser = (props) => {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    <h2>Projects</h2>
+                    <br />
+                    <br />
+                    <p className="allProjectBoard">Projects</p>
                     <Button onClick={handleAddProject} type="button">
-                      <div className="createNewProject">+</div>
+                      <div className="createProject">+</div>
                     </Button>
-                    {Projects &&
-                      //need to sort by number other than id
-                      //.sort((a, b) => a.index - b.index)
-                      Projects.map((x, index) => {
-                        return (
-                          <Draggable
-                            key={x.id}
-                            draggableId={x.id.toString()}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <Link
-                                className="allProjectsBox"
-                                to={{
-                                  pathname: `/projects/${x.id}`,
-                                  state: x,
-                                }}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                ref={provided.innerRef}
-                              >
-                                <h3>{x.boardName}</h3>
-                                <CloseButton
-                                  className="deleteProject"
-                                  onClick={(e) => handleDeleteProject(e, x.id)}
-                                />
-                              </Link>
-                            )}
-                          </Draggable>
-                        )
-                      })}
+                    {Projects && Projects.length >= 1
+                      ? Projects &&
+                        //need to sort by number other than id
+                        //.sort((a, b) => a.index - b.index)
+                        Projects.map((x, index) => {
+                          return (
+                            <Draggable
+                              key={x.id}
+                              draggableId={x.id.toString()}
+                              index={index}
+                            >
+                              {(provided) => (
+                                <Link
+                                  className="allProjectsBox"
+                                  to={{
+                                    pathname: `/projects/${x.id}`,
+                                    state: x,
+                                  }}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  ref={provided.innerRef}
+                                >
+                                  <h3>{x.boardName}</h3>
+                                  <CloseButton
+                                    className="deleteProject"
+                                    onClick={(e) =>
+                                      handleDeleteProject(e, x.id)
+                                    }
+                                  />
+                                </Link>
+                              )}
+                            </Draggable>
+                          )
+                        })
+                      : "No Projects Yet - Click The + To Add Your First Project"}
+
                     {provided.placeholder}
                   </ul>
                 )}
