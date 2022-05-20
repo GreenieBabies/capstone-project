@@ -37,7 +37,9 @@ export const Home = props => {
       <div id="loginUserButtons">
         {username ? (
           <RouteLink to={`/users/${id}`}>
-            <Button>Let's Go To Your Projects!</Button>
+            <Button size="lg" colorScheme="green" mt="24px">
+              Let's Go To Your Projects!
+            </Button>
           </RouteLink>
         ) : (
           <RouteLink to="/signup">
@@ -101,16 +103,23 @@ export const Home = props => {
       <Center>
         <div className="exampleImages">
           <Image
-            src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/spirit/product/89d378b845766a8f0c48e955336266f8/board.png"
+            src="/TrelloPlus-project-board1.png"
             alt="Project with list and task example"
             width="400"
             height="300"
+            borderRadius="lg"
           />
+
+          <br />
+
           <Image
-            src="https://resources.dfuob.com/wp-content/uploads/2019/06/trello-boards-1280x960.jpg"
+            src="/TrelloPlus-project-board2.png"
             alt="Project with list and task example 2"
             width="400"
             height="300"
+            borderRadius="lg"
+            border="20px"
+            borderColor="blue"
           />
           <br />
           <br />
@@ -118,7 +127,9 @@ export const Home = props => {
       </Center>
       <div className="aboutTeam">
         <RouteLink to="/about">
-          <Button>Click Here to Learn More About Our Awesome Team!</Button>
+          <Button size="lg" colorScheme="green" mt="24px">
+            Click Here to Learn More About Our Awesome Team!
+          </Button>
         </RouteLink>
       </div>
     </div>
