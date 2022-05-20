@@ -8,7 +8,8 @@ import {
   SimpleGrid,
   LinkBox,
   LinkOverlay,
-  Circle
+  Circle,
+  Center
 } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 // import { Text } from "@chakra-ui/react"
@@ -73,7 +74,7 @@ const AboutPage = () => {
         <p>Meet the Team!</p>
       </Heading>
       <br />
-      <SimpleGrid columns={2} spacing={10}>
+      <SimpleGrid columns={2} spacing={30}>
         {/* {team.map(member => ( */}
         {/* <Circle key={member.id} bg="lightblue" width="150px" height="150px"> */}
 
@@ -92,6 +93,11 @@ const AboutPage = () => {
               />
             </Circle>
           </LinkOverlay>
+          <Container>
+            <Heading as="h5" size="lg">
+              Jeff Lupton
+            </Heading>
+          </Container>
         </LinkBox>
         {/* <Wrap>
                 <WrapItem>
@@ -128,6 +134,11 @@ const AboutPage = () => {
               />
             </Circle>
           </LinkOverlay>
+          <Container>
+            <Heading as="h5" size="lg">
+              Michael Mnatsakanian
+            </Heading>
+          </Container>
         </LinkBox>
         <LinkBox>
           <LinkOverlay
@@ -142,6 +153,11 @@ const AboutPage = () => {
               />
             </Circle>
           </LinkOverlay>
+          <Container>
+            <Heading as="h5" size="lg">
+              Ethan Schindel
+            </Heading>
+          </Container>
         </LinkBox>
         <LinkBox>
           <LinkOverlay
@@ -156,77 +172,85 @@ const AboutPage = () => {
               />
             </Circle>
           </LinkOverlay>
+          <Container>
+            <Heading as="h5" size="lg">
+              Tony Li
+            </Heading>
+          </Container>
         </LinkBox>
       </SimpleGrid>
+      <br />
+      <br />
       <br />
       <Heading>
         <p>Tools</p>
       </Heading>
-      <SimpleGrid columns={2} spacing={2}>
+      <br />
+      <SimpleGrid columns={2} spacing={10} justify="center">
         {/* <ul> */}
 
         <Box
           bg="lightblue"
-          height="30px"
-          width="50px"
+          height="150px"
+          width="150px"
+          padding="20px"
           fontWeight="semibold"
-          borderRadius="md"
+          borderRadius="20"
         >
           <div>React</div>
         </Box>
         <Box
           bg="lightblue"
-          height="30px"
-          width="100px"
+          height="150px"
+          width="150px"
+          padding="20px"
           fontWeight="semibold"
-          borderRadius="md"
+          borderRadius="20"
         >
           <div>React Hooks</div>
         </Box>
         <Box
           bg="lightblue"
-          height="30px"
-          width="50px"
+          height="150px"
+          width="150px"
+          padding="20px"
           fontWeight="semibold"
-          borderRadius="md"
+          borderRadius="20"
         >
           <div>d3</div>
         </Box>
+
         <Box
           bg="lightblue"
-          height="30px"
-          width="70px"
+          height="150px"
+          width="150px"
+          padding="20px"
           fontWeight="semibold"
-          borderRadius="md"
-        >
-          <div>NextJS</div>
-        </Box>
-        <Box
-          bg="lightblue"
-          height="30px"
-          width="100px"
-          fontWeight="semibold"
-          borderRadius="md"
+          borderRadius="20"
         >
           <div>TensorFlow</div>
         </Box>
         <Box
           bg="lightblue"
-          height="30px"
-          width="70px"
+          height="150px"
+          width="150px"
+          padding="20px"
           fontWeight="semibold"
-          borderRadius="md"
+          borderRadius="20"
         >
           <div>GraphQL</div>
         </Box>
         <Box
           bg="lightblue"
-          height="30px"
-          width="70px"
+          height="150px"
+          width="150px"
+          padding="20px"
           fontWeight="semibold"
-          borderRadius="md"
+          borderRadius="20"
         >
-          <div>socket.io</div>
+          <Center>
+            <div>socket.io</div>
+          </Center>
         </Box>
 
         {/* </ul> */}
