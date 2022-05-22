@@ -44,25 +44,6 @@ form div {
   z-index: 10;
 }
 
-/* .createNewProject {
-  width: 150px;
-  height: 150px;
-  background: #bbb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4em;
-  border-radius: 20px;
-  cursor: pointer;
-  margin: 10px;
-  transition: 0.2s;
-  opacity: 0.75;
-} */
-
-.createNewProject:hover {
-  opacity: 1;
-}
-
 .deleteProject {
   width: 30px;
   height: 30px;
@@ -115,6 +96,23 @@ ul {
   margin: 5px;
 }
 
+/* .createProject {
+  height: 50px;
+  width: 200px;
+  background: #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+} */
+
+/* .createProject:hover {
+  opacity: 1;
+} */
+
 #homePage {
   text-align: center;
 }
@@ -154,7 +152,6 @@ h4 {
 .inline-text_input--active {
   font: inherit;
   font-size: larger;
-  color: inherit;
   font-weight: bold;
   text-align: center;
   text-align: inherit;
@@ -205,14 +202,13 @@ h4 {
   text-align: center;
 }
 
-.submitTaskChanges{
+.submitTaskChanges {
   width: 200px;
   height: 25px;
   margin: 3px;
   background: rgb(120, 250, 120);
   border-radius: 10px;
   text-align: center;
-
 }
 
 .submitCollabButton {
@@ -234,6 +230,7 @@ h4 {
 
 .collabInput {
   border: 1px solid #666666;
+  color: black;
 }
 
 .no-suggestions {
@@ -281,6 +278,7 @@ h4 {
   text-align: center;
   text-decoration: underline;
   font-weight: bold;
+  color: black;
 }
 .taskNotes {
   text-align: center;
@@ -322,4 +320,7 @@ h4 {
 
 .leftMargin{
   margin-left: 25px;
+}
+.error {
+  color: red;
 }

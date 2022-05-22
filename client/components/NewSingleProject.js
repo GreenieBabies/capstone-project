@@ -58,6 +58,7 @@ const SingleProject = props => {
     e.preventDefault()
     const { id: projectId } = props.match.params
     dispatch(addSingleTask(projectId, listId))
+    addToast()
     setTasks([...tasks, {}])
   }
 
@@ -123,6 +124,16 @@ const SingleProject = props => {
 
       setState(newState.filter(group => group.length))
     }
+  }
+
+  const toast = useToast()
+  const toastIdRef = React.useRef()
+
+  function addToast() {
+    toastIdRef.current = toast({
+      description: "Project successfully added!",
+      status: "success"
+    })
   }
 
   return (

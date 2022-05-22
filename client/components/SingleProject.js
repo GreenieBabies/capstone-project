@@ -15,6 +15,7 @@ import {
 import { fetchAllUsers } from "../store/singleUser"
 import { useLocation } from "react-router-dom"
 // import { useToast } from '@chakra-ui/react'
+import { Text } from "@chakra-ui/react"
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
