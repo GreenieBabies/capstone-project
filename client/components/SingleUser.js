@@ -9,6 +9,7 @@ import {
 import { useToast, CloseButton } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import AudioRecorder from "./AudioRecorder"
 
 const SingleUser = (props) => {
   const dispatch = useDispatch()
@@ -93,9 +94,8 @@ const SingleUser = (props) => {
       <div>
         {user.username ? (
           <div>
-            <p className="allProjectBoard">
-              {user.username}'s All Project Page
-            </p>
+            <p>Home page of {user.username}</p>
+            <AudioRecorder />
             <DragDropContext onDragEnd={handleOnDragEnd}>
               <Droppable droppableId="projects">
                 {(provided) => (
