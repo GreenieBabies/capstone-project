@@ -2,6 +2,7 @@ const router = require("express").Router()
 const User = require("../db/models/User")
 module.exports = router
 
+router.use("/speech", require("./speech"))
 router.use(async (req, res, next) => {
   try {
     // extract token, get user
