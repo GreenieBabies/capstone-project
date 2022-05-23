@@ -130,10 +130,6 @@ h4 {
   font-size: larger;
 }
 
-.bottom-two {
-  margin-left: 70%;
-}
-
 .deleteList {
   width: 200px;
   height: 25px;
@@ -295,18 +291,18 @@ h4 {
   font-size: larger;
 }
 
-.recordingStuff{
+.recordingStuff {
   border: 2px solid greenyellow;
   display: flex;
   align-items: center;
 }
 
-.microphone{
+.microphone {
   width: 60px;
   height: 60px;
   border-radius: 30px;
   margin-right: 25px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -326,7 +322,7 @@ h4 {
   align-items: center;
 }
 
-.leftMargin{
+.leftMargin {
   margin-left: 25px;
 }
 .error {
