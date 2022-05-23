@@ -10,13 +10,17 @@ function recognizeCommand(transcription, user) {
     //Delete Project (in singleProject, invoke deleteProject() method)
   } else if (transcription.split(" ")[0] === "delete") {
     // return delete command and the project to be deleted
-    const deleteProject = ["Delete", transcription.split(" ")[1]]
-    return deleteProject
+    user.projects.map((project) => {
+      if (project.name === transcription.split(" ")[1]) {
+        const deleteProject = ["Delete", project.id]
+        return deleteProject
+      }
+    })
     //View project
   } else if (transciption.split(" ")[0] === "view") {
     user.projects.map((project) => {
       if (project.name === transcription.split(" ")[1]) {
-        const viewProject = ["View", project.name]
+        const viewProject = ["View", project.id]
         return viewProject
         //dispatch API find by pk (project.name) redirect to url for project
       }
@@ -25,7 +29,7 @@ function recognizeCommand(transcription, user) {
     user.projects.map((project) => {
       if (project.name === transcription.split(" ")[1]) {
         const updatedName = { boardName: transcription.split(" ")[2] }
-        return ["rename", project.name, updatedName]
+        return ["rename", project.id, updatedName]
         //return updateName then =>
         //dispatch PUT project.update(updatedName)
         // or dispatch directly
