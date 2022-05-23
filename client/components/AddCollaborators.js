@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { fetchAllUsers, addUserToProject } from "../store/singleUser"
 import { fetchSingleProject } from "../store/singleProject"
 
-const AddCollaborators = props => {
+const AddCollaborators = (props) => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
-  const project = useSelector(state => state.project)
+  const user = useSelector((state) => state.user)
+  const project = useSelector((state) => state.project)
   const [allUsers, setAllUsers] = useState([])
   const [activeSuggestion, setActiveSuggestion] = useState(0)
   const [filteredSuggestions, setFilteredSuggestions] = useState([])
@@ -16,30 +16,30 @@ const AddCollaborators = props => {
   const [clicked, setClicked] = useState(false)
   const [enterPress, setEnterPress] = useState(false)
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.preventDefault()
     dispatch(fetchAllUsers())
     setClicked(true)
   }
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const userInput = e.currentTarget.value
     const filteredSuggestions = allUsers
       .filter(
-        x => x.username.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        (x) => x.username.toLowerCase().indexOf(userInput.toLowerCase()) > -1
       )
       .reduce((acc, x) => {
         return acc.concat(x.username)
       }, [])
-      .filter(x => !collaborators.includes(x)) // remove already added collaborators
-      .filter(x => x !== user.username) // remove user
+      .filter((x) => !collaborators.includes(x)) // remove already added collaborators
+      .filter((x) => x !== user.username) // remove user
     setActiveSuggestion(0)
     setFilteredSuggestions(filteredSuggestions)
     setShowSuggestions(true)
     setUserInput(userInput)
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setClicked(false)
     setActiveSuggestion(0)
@@ -62,13 +62,13 @@ const AddCollaborators = props => {
       : innerTextVal !== ""
       ? (newCollab = [...collaborators, innerTextVal])
       : (newCollab = [...collaborators])
-    setCollaborators(newCollab)
     // add new user to project
-    const newUser = allUsers.filter(x => x.username === innerTextVal)[0]
+    const newUser = allUsers.filter((x) => x.username === innerTextVal)[0]
     newUser && dispatch(addUserToProject(newUser.id, project.id))
+    setCollaborators(newCollab)
   }
 
-  const onKeyDown = e => {
+  const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       // on Enter
       setEnterPress(true)
@@ -104,7 +104,7 @@ const AddCollaborators = props => {
   useEffect(() => {
     setAllUsers(user.users)
     // dispatch(fetchSingleProject(project.id))
-    const usernames = project.users && project.users.map(x => x.username)
+    const usernames = project.users && project.users.map((x) => x.username)
     setCollaborators(usernames)
   }, [user])
 

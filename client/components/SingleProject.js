@@ -7,12 +7,10 @@ import {
   fetchSingleProject,
   addSingleList,
   deleteSingleList,
-  editSingleTask,
   addSingleTask,
   deleteSingleTask,
   updateTaskThunk,
 } from "../store/singleProject"
-import { fetchAllUsers } from "../store/singleUser"
 import { useLocation } from "react-router-dom"
 // import { useToast } from '@chakra-ui/react'
 import { Text } from "@chakra-ui/react"
@@ -21,13 +19,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const SingleProject = (props) => {
   const dispatch = useDispatch()
-
-  const location = useLocation()
-  // const state = location.state
+  // const location = useLocation()
   const project = useSelector((state) => state.project)
   const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
-  const { isAdmin } = auth
   const [tasks, setTasks] = useState([])
   const [storedHeading, setStoredHeading] = useState(() => {
     let isExecuted = false
@@ -196,116 +190,111 @@ const SingleProject = (props) => {
   return (
     <div style={{ display: "flex" }}>
       <div className="container">
-        {/* {isAdmin || user.id === auth.id ? ( */}
-        <div>
-          <InlineInput
-            text={
-              storedHeading
-                ? storedHeading
-                : project.boardName
-                ? project.boardName
-                : ""
-            }
-            projectId={projectId}
-            isProject={true}
-            onSetText={(text) => setStoredHeading(text)}
-          />
-          <AddCollaborators />
-          <div className="allLists">
-            <div className="createTask" onClick={handleAddList}>
-              +
-            </div>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {state &&
-                state.map((x, index) => {
-                  // console.log(x, "list")
-                  return (
-                    <Droppable key={index} droppableId={`${index}`}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          style={getListStyle(snapshot.isDraggingOver)}
-                          {...provided.droppableProps}
-                        >
-                          <InlineInput
-                            text={
-                              x.columnName
-                                ? x.columnName
-                                : listTitle
-                                ? listTitle
-                                : ""
-                            }
-                            projectId={x.id}
-                            isProject={false}
-                            onSetText={(text) => setListTitle(text)}
-                          />
-                          <div
-                            className="createTask"
-                            onClick={(e) => handleAddTask(e, x.id)}
-                          >
-                            +
-                          </div>
-                          <ul>
-                            {x.tasks &&
-                              x.tasks.map((task, index) => {
-                                return (
-                                  <Draggable
-                                    key={task.id}
-                                    draggableId={`${task.id}`}
-                                    index={index}
-                                  >
-                                    {(provided, snapshot) => (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                          snapshot.isDragging,
-                                          provided.draggableProps.style
-                                        )}
-                                      >
-                                        <EditTask
-                                          id={task.id}
-                                          taskName={task.taskName}
-                                          notes={task.notes}
-                                        />
-                                        <div
-                                          className="deleteTask"
-                                          onClick={(e) =>
-                                            handleDeleteTask(
-                                              e,
-                                              task.listId,
-                                              task.id
-                                            )
-                                          }
-                                        >
-                                          X - Delete Task
-                                        </div>
-                                      </div>
-                                    )}
-                                  </Draggable>
-                                )
-                              })}
-                          </ul>
-                          <div
-                            className="deleteList"
-                            onClick={(e) => handleDeleteList(e, x.id)}
-                          >
-                            X - Delete List
-                          </div>
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-                  )
-                })}
-            </DragDropContext>
+        <InlineInput
+          text={
+            storedHeading
+              ? storedHeading
+              : project.boardName
+              ? project.boardName
+              : ""
+          }
+          projectId={projectId}
+          isProject={true}
+          onSetText={(text) => setStoredHeading(text)}
+        />
+        <AddCollaborators />
+        <br />
+        <div className="allLists">
+          <div className="createTask" onClick={handleAddList}>
+            +
           </div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {state &&
+              state.map((x, index) => {
+                // console.log(x, "list")
+                return (
+                  <Droppable key={index} droppableId={`${index}`}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        style={getListStyle(snapshot.isDraggingOver)}
+                        {...provided.droppableProps}
+                      >
+                        <InlineInput
+                          text={
+                            x.columnName
+                              ? x.columnName
+                              : listTitle
+                              ? listTitle
+                              : ""
+                          }
+                          projectId={x.id}
+                          isProject={false}
+                          onSetText={(text) => setListTitle(text)}
+                        />
+                        <div
+                          className="createTask"
+                          onClick={(e) => handleAddTask(e, x.id)}
+                        >
+                          +
+                        </div>
+                        <ul>
+                          {x.tasks &&
+                            x.tasks.map((task, index) => {
+                              return (
+                                <Draggable
+                                  key={task.id}
+                                  draggableId={`${task.id}`}
+                                  index={index}
+                                >
+                                  {(provided, snapshot) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={getItemStyle(
+                                        snapshot.isDragging,
+                                        provided.draggableProps.style
+                                      )}
+                                    >
+                                      <EditTask
+                                        id={task.id}
+                                        taskName={task.taskName}
+                                        notes={task.notes}
+                                      />
+                                      <div
+                                        className="deleteTask"
+                                        onClick={(e) =>
+                                          handleDeleteTask(
+                                            e,
+                                            task.listId,
+                                            task.id
+                                          )
+                                        }
+                                      >
+                                        X - Delete Task
+                                      </div>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              )
+                            })}
+                        </ul>
+                        <div
+                          className="deleteList"
+                          onClick={(e) => handleDeleteList(e, x.id)}
+                        >
+                          X - Delete List
+                        </div>
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                )
+              })}
+          </DragDropContext>
         </div>
       </div>
-      {/* ) : (
-          <p>Unauthorized</p>
-        )} */}
     </div>
   )
 }
