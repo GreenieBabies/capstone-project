@@ -59,10 +59,10 @@ function updateProj(project) {
   }
 }
 
-function addCollaborator(project) {
+function addCollaborator(user) {
   return {
     type: ADD_USER_TO_PROJECT,
-    project,
+    user,
   }
 }
 
@@ -253,8 +253,9 @@ export default function singleUserReducer(state = defaultState, action) {
       return { ...state, ...action.project }
 
     case ADD_USER_TO_PROJECT:
-      console.log(action)
-      return { ...state, ...action.project }
+      // console.log(state)
+      return { ...state, ...action.user }
+
     default:
       return state
   }

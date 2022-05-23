@@ -32,18 +32,25 @@ const SingleUser = (props) => {
   }, [])
 
   useEffect(() => {
+    updateProjects(user.projects)
+    console.log("Changed user")
+  }, [user.id])
+
+  useEffect(() => {
     let copy
     Projects && (copy = JSON.parse(JSON.stringify(Projects)))
-    // copy.forEach((list, index) => {
-    //   // if (Array.isArray(newState[index])) list.tasks = newState[index]
-    //   list.tasks.forEach((updateTask, index) => {
-    //     updateTask.index = index
-    //     dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+    // copy &&
+    //   copy.forEach((list, index) => {
+    //     // if (Array.isArray(newState[index])) list.tasks = newState[index]
+    //     list.tasks.forEach((updateTask, index) => {
+    //       updateTask.index = index
+    //       dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
+    //     })
     //   })
-    // })
     copy ? updateProjects(copy) : updateProjects(user.projects)
-    // updateProjects(user.projects)
-  }, [user])
+    updateProjects(user.projects)
+    console.log("Updated projects")
+  }, [user.projects])
 
   const handleAddProject = (e) => {
     e.preventDefault()
@@ -55,7 +62,7 @@ const SingleUser = (props) => {
 
   const handleDeleteProject = (e, itemId) => {
     e.preventDefault()
-    const { userId } = props.match.params
+    const { id: userId } = props.match.params
     dispatch(deleteProject(userId, itemId))
     setProjects([...projects, {}])
   }
