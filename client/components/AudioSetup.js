@@ -413,7 +413,7 @@ export default class AudioSetup extends React.Component {
             this.props.firstClick ? "" : "hidden"
           }`}
         ></canvas>
-        <p className="leftMargin">{this.state.transcript}</p>
+        <p className="leftMargin">{this.state.transcript} </p>
       </div>
     )
   }
