@@ -335,37 +335,6 @@ const AboutPage = () => {
         {/* </ul> */}
       </SimpleGrid>
       <br />
-      <br />
-      <Heading>
-        <p>APIs</p>
-      </Heading>
-      <br />
-      <SimpleGrid columns={3} spacing={10} justify="center">
-        <Box
-          bg="lightblue"
-          height="150px"
-          width="150px"
-          padding="20px"
-          fontWeight="semibold"
-          borderRadius="20"
-        >
-          <Center>
-            <div>Twitter API</div>
-          </Center>
-        </Box>
-        <Box
-          bg="lightblue"
-          height="150px"
-          width="150px"
-          padding="20px"
-          fontWeight="semibold"
-          borderRadius="20"
-        >
-          <Center>
-            <div>HTML Drag and Drop API</div>
-          </Center>
-        </Box>
-      </SimpleGrid>
     </div>
   )
 }
