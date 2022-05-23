@@ -18,6 +18,7 @@ export default class AudioSetup extends React.Component {
     this.canvasRef = React.createRef()
     this.state = {
       transcript: "",
+      loader: false,
     }
   }
 
@@ -291,10 +292,15 @@ export default class AudioSetup extends React.Component {
 
     blobToBase64(blob).then(
       (x) => {
+        this.setState({
+          transcript: "",
+          loader: true,
+        })
         getWords(x).then(
           (y) => {
             this.setState({
               transcript: y,
+              loader: false,
             })
           },
           () => console.log("Error getting transcript")
@@ -413,6 +419,13 @@ export default class AudioSetup extends React.Component {
             this.props.firstClick ? "" : "hidden"
           }`}
         ></canvas>
+
+        <div className={`${this.state.loader ? "leftMargin" : "hidden"}`}>
+          <div className="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
         <p className="leftMargin">{this.state.transcript}</p>
       </div>
     )

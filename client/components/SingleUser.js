@@ -17,15 +17,14 @@ const SingleUser = (props) => {
   const auth = useSelector((state) => state.auth)
   const STATE = useSelector((state) => state)
   // let project = useState(useSelector((state) => state.project.lists))
-  // const proj = useSelector((state) => state.proj)
   const [projects, setProjects] = useState([])
   const [Projects, updateProjects] = useState(
     useSelector((state) => state.user.projects)
   )
+  const toast = useToast()
+  const toastIdRef = React.useRef()
 
   console.log(STATE)
-
-  const { isAdmin } = auth
 
   useEffect(() => {
     const { id } = props.match.params
@@ -45,17 +44,12 @@ const SingleUser = (props) => {
     copy ? updateProjects(copy) : updateProjects(user.projects)
     // updateProjects(user.projects)
   }, [user])
-  // console.log(Projects)
 
   const handleAddProject = (e) => {
     e.preventDefault()
     const { id } = props.match.params
-    // try {
     dispatch(createProject(id))
     addToast()
-    // } catch (error) {
-    //   console.log(error)
-    // }
     setProjects([...projects, {}])
   }
 
@@ -65,6 +59,7 @@ const SingleUser = (props) => {
     dispatch(deleteProject(userId, itemId))
     setProjects([...projects, {}])
   }
+
   const handleOnDragEnd = (result) => {
     if (!result.destination) return
     let items = Array.from(Projects)
@@ -76,9 +71,6 @@ const SingleUser = (props) => {
     // sort below
   }
 
-  const toast = useToast()
-  const toastIdRef = React.useRef()
-
   function addToast() {
     toastIdRef.current = toast({
       description: "Project successfully added!",
@@ -88,77 +80,66 @@ const SingleUser = (props) => {
 
   return (
     <div className="container">
-      {/* {console.log("1", project)} */}
+      {user.username ? (
+        <div>
+          <p>Home page of {user.username}</p>
+          <AudioRecorder />
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="projects">
+              {(provided) => (
+                <ul
+                  className="container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <br />
+                  <p className="allProjectBoard">Projects</p>
+                  <Button onClick={handleAddProject} type="button">
+                    <div className="createProject">+</div>
+                  </Button>
+                  {Projects && Projects.length >= 1
+                    ? Projects &&
+                      //need to sort by number other than id
+                      //.sort((a, b) => a.index - b.index)
+                      Projects.map((x, index) => {
+                        return (
+                          <Draggable
+                            key={x.id}
+                            draggableId={x.id.toString()}
+                            index={index}
+                          >
+                            {(provided) => (
+                              <Link
+                                className="allProjectsBox"
+                                to={{
+                                  pathname: `/projects/${x.id}`,
+                                  state: x,
+                                }}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                ref={provided.innerRef}
+                              >
+                                <h3>{x.boardName}</h3>
+                                <CloseButton
+                                  className="deleteProject"
+                                  onClick={(e) => handleDeleteProject(e, x.id)}
+                                />
+                              </Link>
+                            )}
+                          </Draggable>
+                        )
+                      })
+                    : "No Projects Yet - Click The + To Add Your First Project"}
 
-      {/* {isAdmin || user.id === auth.id ? ( */}
-      <div>
-        {user.username ? (
-          <div>
-            <p>Home page of {user.username}</p>
-            <AudioRecorder />
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-              <Droppable droppableId="projects">
-                {(provided) => (
-                  <ul
-                    className="container"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    <br />
-                    <br />
-                    <p className="allProjectBoard">Projects</p>
-                    <Button onClick={handleAddProject} type="button">
-                      <div className="createProject">+</div>
-                    </Button>
-                    {Projects && Projects.length >= 1
-                      ? Projects &&
-                        //need to sort by number other than id
-                        //.sort((a, b) => a.index - b.index)
-                        Projects.map((x, index) => {
-                          return (
-                            <Draggable
-                              key={x.id}
-                              draggableId={x.id.toString()}
-                              index={index}
-                            >
-                              {(provided) => (
-                                <Link
-                                  className="allProjectsBox"
-                                  to={{
-                                    pathname: `/projects/${x.id}`,
-                                    state: x,
-                                  }}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  ref={provided.innerRef}
-                                >
-                                  <h3>{x.boardName}</h3>
-                                  <CloseButton
-                                    className="deleteProject"
-                                    onClick={(e) =>
-                                      handleDeleteProject(e, x.id)
-                                    }
-                                  />
-                                </Link>
-                              )}
-                            </Draggable>
-                          )
-                        })
-                      : "No Projects Yet - Click The + To Add Your First Project"}
-
-                    {provided.placeholder}
-                  </ul>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </div>
-        ) : (
-          <p>No user.</p>
-        )}
-      </div>
-      {/* ) : (
-        <p>Unauthorized</p>
-      )} */}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
+      ) : (
+        <p>No user.</p>
+      )}
     </div>
   )
 }
