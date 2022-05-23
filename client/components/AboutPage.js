@@ -62,9 +62,9 @@ const AboutPage = () => {
       </Heading>
       <Container>
         TrelloPlus is an interactive project management platform that allows for
-        a visually pleasant experience and smooth collaboration between users.
-        This app includes a drag and drop functionality and speech-to-text
-        feature to add projects. Happy planning!
+        a visually pleasant experience for planning and smooth collaboration
+        between users. This app includes a drag and drop functionality and
+        speech-to-text feature to add projects. Happy planning!
       </Container>
       <br />
       <Heading>
@@ -183,7 +183,7 @@ const AboutPage = () => {
         <p>Tools</p>
       </Heading>
       <br />
-      <SimpleGrid columns={2} spacing={10} justify="center">
+      <SimpleGrid columns={3} spacing={10} justify="center">
         {/* <ul> */}
 
         <Box
@@ -194,48 +194,9 @@ const AboutPage = () => {
           fontWeight="semibold"
           borderRadius="20"
         >
-          <div>React</div>
-        </Box>
-        <Box
-          bg="lightblue"
-          height="150px"
-          width="150px"
-          padding="20px"
-          fontWeight="semibold"
-          borderRadius="20"
-        >
-          <div>React Hooks</div>
-        </Box>
-        <Box
-          bg="lightblue"
-          height="150px"
-          width="150px"
-          padding="20px"
-          fontWeight="semibold"
-          borderRadius="20"
-        >
-          <div>d3</div>
-        </Box>
-
-        <Box
-          bg="lightblue"
-          height="150px"
-          width="150px"
-          padding="20px"
-          fontWeight="semibold"
-          borderRadius="20"
-        >
-          <div>TensorFlow</div>
-        </Box>
-        <Box
-          bg="lightblue"
-          height="150px"
-          width="150px"
-          padding="20px"
-          fontWeight="semibold"
-          borderRadius="20"
-        >
-          <div>GraphQL</div>
+          <Center>
+            <div>React</div>
+          </Center>
         </Box>
         <Box
           bg="lightblue"
@@ -246,20 +207,165 @@ const AboutPage = () => {
           borderRadius="20"
         >
           <Center>
-            <div>socket.io</div>
+            <div>Node.js</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>React Hooks</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Express</div>
+          </Center>
+        </Box>
+
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>PostgreSQL</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Sequelize</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Redux</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Chakra UI</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Google Speech-to-Text</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Toastify</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Buffer</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>DOMPurify</div>
           </Center>
         </Box>
 
         {/* </ul> */}
       </SimpleGrid>
       <br />
+      <br />
       <Heading>
         <p>APIs</p>
       </Heading>
-      <ul>
-        <li>Twitter API</li>
-        <li>HTML Drag and Drop API</li>
-      </ul>
+      <br />
+      <SimpleGrid columns={3} spacing={10} justify="center">
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>Twitter API</div>
+          </Center>
+        </Box>
+        <Box
+          bg="lightblue"
+          height="150px"
+          width="150px"
+          padding="20px"
+          fontWeight="semibold"
+          borderRadius="20"
+        >
+          <Center>
+            <div>HTML Drag and Drop API</div>
+          </Center>
+        </Box>
+      </SimpleGrid>
     </div>
   )
 }
