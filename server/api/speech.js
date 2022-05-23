@@ -16,7 +16,7 @@ router.post("/", async (req, res, next) => {
 
     const config = {
       encoding: "LINEAR16",
-      // sampleRateHertz: 48000, // optional? might need to be removed
+      // sampleRateHertz: 44100, // optional? might need to be removed
       languageCode: "en-US",
       audioChannelCount: 2, // accepting stereo input; change to 1 for mono
       enableWordConfidence: true,
