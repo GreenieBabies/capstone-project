@@ -307,18 +307,18 @@ h4 {
   align-items: center;
 }
 
-.microphone-off{
+.microphone-off {
   border: 1px solid rgb(76, 186, 255);
   background: rgb(76, 186, 255);
 }
 
-.microphone-on{
+.microphone-on {
   border: 1px solid rgb(220, 220, 0);
   background: rgb(220, 220, 0);
 }
 
-.flexed{
-  display:flex;
+.flexed {
+  display: flex;
   align-items: center;
 }
 
@@ -382,7 +382,15 @@ h4 {
 }
 /* END waiting-for-transcript loader */
 
-.taskNotes{
+.taskNotes {
   text-align: left;
   white-space: pre-wrap;
+  color: black;
+}
+
+.projectBoardTitle {
+  text-align: center;
+  text-decoration: underline;
+  font-size: larger;
+  font-weight: bold;
 }

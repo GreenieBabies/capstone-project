@@ -89,7 +89,8 @@ const SingleUser = (props) => {
     <div className="container">
       {user.username ? (
         <div>
-          <p>Home page of {user.username}</p>
+          <p className="projectBoardTitle">{user.username}'s Project Boards!</p>
+          <br />
           <AudioRecorder />
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="projects">
