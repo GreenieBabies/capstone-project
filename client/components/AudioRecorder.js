@@ -26,18 +26,27 @@ const AudioRecorder = (props) => {
 
   return (
     <div className="recordingStuff">
-      <button onClick={start} className={recording ? "hidden" : "microphone"}>
-        <FaMicrophone size={40} />
-      </button>
-      <button onClick={stop} className={!recording ? "hidden" : "microphone"}>
+      <button
+        onClick={start}
+        className={recording ? "hidden" : "microphone microphone-off"}
+      >
         <FaMicrophoneSlash size={40} />
       </button>
+
       <AudioSetup
         state={recordState}
         onStop={onStop}
         user={props.user}
         firstClick={firstClick}
       />
+
+      <button
+        onClick={stop}
+        className={!recording ? "hidden" : "microphone microphone-on"}
+      >
+        <FaMicrophone size={40} />
+      </button>
+
     </div>
   )
 }

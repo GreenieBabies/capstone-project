@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, Project, List, Task }
+  models: { User, Project, List, Task },
 } = require("../db")
 module.exports = router
 
@@ -10,12 +10,12 @@ router.get("/:id", async (req, res, next) => {
     const user = await User.findOne({
       attributes: ["id", "username", "email", "address", "isAdmin"],
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
       // attributes?
       include: {
-        model: Project
-      }
+        model: Project,
+      },
     })
 
     res.send(user)
@@ -29,7 +29,7 @@ router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields
-      attributes: ["id", "username"]
+      attributes: ["id", "username"],
     })
     res.json(users)
   } catch (err) {
@@ -88,7 +88,7 @@ router.post("/:userId/projects/:projectId", async (req, res, next) => {
     const user = await User.findByPk(req.params.userId)
     const newProject = await Project.findByPk(req.params.projectId)
     await newProject.addUser(user)
-    res.send(newProject)
+    res.send(user)
   } catch (error) {
     next(error)
   }

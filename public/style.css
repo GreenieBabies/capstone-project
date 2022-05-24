@@ -130,10 +130,6 @@ h4 {
   font-size: larger;
 }
 
-.bottom-two {
-  margin-left: 70%;
-}
-
 .deleteList {
   width: 200px;
   height: 25px;
@@ -295,22 +291,30 @@ h4 {
   font-size: larger;
 }
 
-.recordingStuff{
+.recordingStuff {
   border: 2px solid greenyellow;
   display: flex;
   align-items: center;
 }
 
-.microphone{
+.microphone {
   width: 60px;
   height: 60px;
-  background: rgb(76, 186, 255);
-  border: 1px solid rgb(76, 186, 255);
   border-radius: 30px;
   margin-right: 25px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.microphone-off{
+  border: 1px solid rgb(76, 186, 255);
+  background: rgb(76, 186, 255);
+}
+
+.microphone-on{
+  border: 1px solid rgb(220, 220, 0);
+  background: rgb(220, 220, 0);
 }
 
 .flexed{
@@ -318,14 +322,14 @@ h4 {
   align-items: center;
 }
 
-.leftMargin{
+.leftMargin {
   margin-left: 25px;
 }
 .error {
   color: red;
 }
 
-/* loader */
+/* waiting-for-transcript loader */
 .lds-ripple,
 .lds-ripple div {
   box-sizing: border-box;
@@ -375,4 +379,10 @@ h4 {
     height: 40px;
     opacity: 0;
   }
+}
+/* END waiting-for-transcript loader */
+
+.taskNotes{
+  text-align: left;
+  white-space: pre-wrap;
 }
