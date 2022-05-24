@@ -56,7 +56,22 @@ const SingleProject = (props) => {
   //   dispatch(fetchSingleProject(id))
   // }, [])
 
-  // FROM JEFF
+  // // FROM JEFF
+  // useEffect(() => {
+  //   console.log("a")
+  //   dispatch(fetchSingleProject(projectId))
+  // }, [])
+
+  // useEffect(() => {
+  //   console.log("b")
+  //   dispatch(fetchSingleProject(projectId))
+  // }, [storedHeading, state])
+
+  // useEffect(() => {
+  //   console.log("c")
+  //   setState(project.lists)
+  // }, [user, state, projLists])
+  // // END FROM JEFF
 
   useEffect(() => {
     console.log("a")
