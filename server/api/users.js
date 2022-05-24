@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const {
-  models: { User, Project, List, Task },
+  models: { User, Project, UserProjects, List, Task },
 } = require("../db")
 module.exports = router
 
@@ -93,3 +93,28 @@ router.post("/:userId/projects/:projectId", async (req, res, next) => {
     next(error)
   }
 })
+
+// XXXXX DELETE a row in the through table (remove a user from a project)
+// actually going to update I think? idk
+router.delete(
+  "/remove/:userName/projects/:projectId",
+  async (req, res, next) => {
+    try {
+      const user = await User.findOne({
+        where: {
+          username: req.params.userName,
+        },
+      })
+      const userProj = await UserProjects.findOne({
+        where: {
+          userId: user.dataValues.id,
+          projectId: Number(req.params.projectId),
+        },
+      })
+      await userProj.destroy()
+      res.send(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+)

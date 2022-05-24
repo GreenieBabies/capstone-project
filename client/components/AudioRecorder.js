@@ -33,13 +33,6 @@ const AudioRecorder = (props) => {
         <FaMicrophoneSlash size={40} />
       </button>
 
-      <AudioSetup
-        state={recordState}
-        onStop={onStop}
-        user={props.user}
-        firstClick={firstClick}
-      />
-
       <button
         onClick={stop}
         className={!recording ? "hidden" : "microphone microphone-on"}
@@ -47,6 +40,12 @@ const AudioRecorder = (props) => {
         <FaMicrophone size={40} />
       </button>
 
+      <AudioSetup
+        state={recordState}
+        onStop={onStop}
+        user={props.user}
+        firstClick={firstClick}
+      />
     </div>
   )
 }

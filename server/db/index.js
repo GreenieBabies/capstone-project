@@ -6,9 +6,10 @@ const User = require("./models/User")
 const List = require("./models/List")
 const Project = require("./models/Project")
 const Task = require("./models/Task")
+const UserProjects = require("./models/UserProjects")
 
-User.belongsToMany(Project, { through: "UserProjects" })
-Project.belongsToMany(User, { through: "UserProjects" })
+User.belongsToMany(Project, { through: UserProjects })
+Project.belongsToMany(User, { through: UserProjects })
 
 Project.hasMany(List)
 List.belongsTo(Project)
@@ -23,5 +24,6 @@ module.exports = {
     List,
     Project,
     Task,
+    UserProjects,
   },
 }

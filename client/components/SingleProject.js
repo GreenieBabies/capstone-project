@@ -56,8 +56,7 @@ const SingleProject = (props) => {
   //   dispatch(fetchSingleProject(id))
   // }, [])
 
-  // FROM JEFF
-
+  // // FROM JEFF : for video demo
   useEffect(() => {
     console.log("a")
     dispatch(fetchSingleProject(projectId))
@@ -66,17 +65,35 @@ const SingleProject = (props) => {
   useEffect(() => {
     console.log("b")
     dispatch(fetchSingleProject(projectId))
-  }, [tasks, storedHeading])
+  }, [storedHeading, state])
 
   useEffect(() => {
     console.log("c")
     setState(project.lists)
   }, [user, state, projLists])
+  // // END FROM JEFF
 
-  useEffect(() => {
-    console.log("d")
-    setState(project.lists)
-  }, [tasks, projLists])
+  // FROM ETHAN : for deploying
+  // useEffect(() => {
+  //   console.log("a")
+  //   dispatch(fetchSingleProject(projectId))
+  // }, [])
+
+  // useEffect(() => {
+  //   console.log("b")
+  //   dispatch(fetchSingleProject(projectId))
+  // }, [tasks, storedHeading])
+
+  // useEffect(() => {
+  //   console.log("c")
+  //   setState(project.lists)
+  // }, [user, state, projLists])
+
+  // useEffect(() => {
+  //   console.log("d")
+  //   setState(project.lists)
+  // }, [tasks, projLists])
+  // END FROM ETHAN
 
   console.log(props)
 

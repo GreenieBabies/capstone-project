@@ -2,13 +2,12 @@ import axios from "axios"
 
 const GET_ALL_USERS = "GET_ALL_USERS"
 const GET_SINGLE_USER = "GET_SINGLE_USER"
-// const CREATE_NEW_USER = "CREATE_NEW_USER"
-const CREATE_NEW_USER = "CREATE_NEW_USER"
 const EDIT_SINGLE_USER = "EDIT_SINGLE_USER"
 const CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT"
 const DELETE_PROJECT = "DELETE_PROJECT"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
 const ADD_USER_TO_PROJECT = "ADD_USER_TO_PROJECT"
+const REMOVE_USER_FROM_PROJECT = "REMOVE_USER_FROM_PROJECT"
 
 function getAllUsers(users) {
   return {
@@ -23,13 +22,6 @@ function getUser(user) {
     user,
   }
 }
-
-// function createNewUser(user) {
-//   return {
-//     type: CREATE_NEW_USER,
-//     user,
-//   }
-// }
 
 function editSingleUser(user) {
   return {
@@ -62,6 +54,13 @@ function updateProj(project) {
 function addCollaborator(user) {
   return {
     type: ADD_USER_TO_PROJECT,
+    user,
+  }
+}
+
+function removeCollaborator(user) {
+  return {
+    type: REMOVE_USER_FROM_PROJECT,
     user,
   }
 }
@@ -131,6 +130,23 @@ export function addUserToProject(userId, projectId) {
         }
       )
       dispatch(addCollaborator(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export function removeUserFromProject(userName, projectId) {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem("token")
+      let { data } = await axios.delete(
+        `/api/users/remove/${userName}/projects/${projectId}`,
+        {
+          headers: { authorization: token },
+        }
+      )
+      dispatch(removeCollaborator(data))
     } catch (err) {
       console.log(err)
     }
@@ -254,6 +270,9 @@ export default function singleUserReducer(state = defaultState, action) {
 
     case ADD_USER_TO_PROJECT:
       // console.log(state)
+      return { ...state, ...action.user }
+
+    case REMOVE_USER_FROM_PROJECT:
       return { ...state, ...action.user }
 
     default:
