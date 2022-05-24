@@ -13,7 +13,7 @@ export const RecordState = Object.freeze({
   NONE: "none",
 })
 
-export default class AudioSetup extends React.Component {
+class AudioSetup extends React.Component {
   //0 - constructor
   constructor(props) {
     super(props)
@@ -71,28 +71,36 @@ export default class AudioSetup extends React.Component {
     const { id } = user
     //Create Project (in singleProject, invoke addProject() method)
     if (lowerTranscription === "create new project") {
-      this.props.addProject()
-      addToast(id)
+      this.props.addProject(id)
+      addToast()
       //Delete Project (in singleProject, invoke deleteProject() method)
     } else if (lowerTranscription.split(" ")[0] === "delete") {
       // return delete command and the project to be deleted
       user.projects.map((project) => {
-        if (project.name === lowerTranscription.split(" ")[1]) {
+        if (
+          project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
+        ) {
           this.props.deleteProj(id, project.id)
         }
       })
       //View project
     } else if (lowerTranscription.split(" ")[0] === "view") {
       user.projects.map((project) => {
-        if (project.name === lowerTranscription.split(" ")[1]) {
+        if (
+          project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
+        ) {
           location.replace(`http://localhost:8080/projects/${project.id}`)
         }
       })
     } else if (lowerTranscription.split(" ")[0] === "rename") {
+      console.log("we are in")
       user.projects.map((project) => {
-        if (project.name === lowerTranscription.split(" ")[1]) {
+        if (
+          project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
+        ) {
           const updatedName = lowerTranscription.split(" ")[2]
-          updateProj(project.id, updatedName)
+          updatedName[0].toUpperCase()
+          this.props.updateProj(project.id, updatedName)
         }
       })
     }
@@ -486,4 +494,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-connect(null, mapDispatchToProps)(AudioSetup)
+export default connect(null, mapDispatchToProps)(AudioSetup)
