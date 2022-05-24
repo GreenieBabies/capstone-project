@@ -2,6 +2,9 @@ import React from "react"
 // import Buffer from "buffer"
 import PropTypes from "prop-types" // ES6
 import { getTranscription } from "../store/singleUser"
+import { createProject, deleteProject } from "../store/singleUser"
+import { updateProject } from "../store/singleProject"
+import { connect } from "react-redux"
 
 export const RecordState = Object.freeze({
   START: "start",
@@ -10,16 +13,18 @@ export const RecordState = Object.freeze({
   NONE: "none",
 })
 
-export default class AudioSetup extends React.Component {
+class AudioSetup extends React.Component {
   //0 - constructor
   constructor(props) {
     super(props)
+    console.log(props)
 
     this.canvasRef = React.createRef()
     this.state = {
       transcript: "",
       loader: false,
     }
+    this.recognizeCommand = this.recognizeCommand.bind(this)
   }
 
   //TODO: add the props definitions
@@ -52,6 +57,53 @@ export default class AudioSetup extends React.Component {
     const { state } = this.props
 
     this.checkState(prevProps.state, state)
+  }
+
+  addToast() {
+    toastIdRef.current = toast({
+      description: "Project successfully added!",
+      status: "success",
+    })
+  }
+
+  recognizeCommand = (transcription, user) => {
+    let lowerTranscription = transcription.toLowerCase()
+    const { id } = user
+    //Create Project (in singleProject, invoke addProject() method)
+    if (lowerTranscription === "create new project") {
+      this.props.addProject(id)
+      addToast()
+      //Delete Project (in singleProject, invoke deleteProject() method)
+    } else if (lowerTranscription.split(" ")[0] === "delete") {
+      // return delete command and the project to be deleted
+      user.projects.map((project) => {
+        if (
+          project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
+        ) {
+          this.props.deleteProj(id, project.id)
+        }
+      })
+      //View project
+    } else if (lowerTranscription.split(" ")[0] === "view") {
+      user.projects.map((project) => {
+        if (
+          project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
+        ) {
+          location.replace(`http://localhost:8080/projects/${project.id}`)
+        }
+      })
+    } else if (lowerTranscription.split(" ")[0] === "rename") {
+      console.log("we are in")
+      user.projects.map((project) => {
+        if (
+          project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
+        ) {
+          const updatedName = lowerTranscription.split(" ")[2]
+          updatedName[0].toUpperCase()
+          this.props.updateProj(project.id, updatedName)
+        }
+      })
+    }
   }
 
   checkState(previousState) {
@@ -302,6 +354,7 @@ export default class AudioSetup extends React.Component {
               transcript: y,
               loader: false,
             })
+            this.recognizeCommand(y, this.props.user)
           },
           () => console.log("Error getting transcript")
         )
@@ -431,3 +484,14 @@ export default class AudioSetup extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProject: (id) => dispatch(createProject(id)),
+    deleteProj: (id, projId) => dispatch(deleteProject(id, projId)),
+    updateProj: (projId, updatedName) =>
+      dispatch(updateProject(projId, updatedName)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AudioSetup)
