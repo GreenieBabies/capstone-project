@@ -1,41 +1,46 @@
+import React from "react"
 import { useRadio } from "@chakra-ui/react"
+import { createProject } from "../store/singleUser"
+import { useDispatch } from "react-redux"
+import { updateProject } from "../store/singleProject"
 
-const transcription = "view Capstone"
 //pass props: TRANSCRIPTION, User (from redux state)
-function recognizeCommand(transcription, user) {
-  const transcription = transcription.toLowerCase()
+function addToast() {
+  toastIdRef.current = toast({
+    description: "Project successfully added!",
+    status: "success",
+  })
+}
+
+const recognizeCommand = (transcription, user) => {
+  const dispatch = useDispatch()
+  let lowerTranscription = transcription.toLowerCase()
+  const { id } = user
   //Create Project (in singleProject, invoke addProject() method)
-  if (transcription === "create new project") {
-    return "Create"
+  if (lowerTranscription === "create new project") {
+    dispatch(createProject(id))
+    addToast()
     //Delete Project (in singleProject, invoke deleteProject() method)
-  } else if (transcription.split(" ")[0] === "delete") {
+  } else if (lowerTranscription.split(" ")[0] === "delete") {
     // return delete command and the project to be deleted
     user.projects.map((project) => {
-      if (project.name === transcription.split(" ")[1]) {
-        const deleteProject = ["Delete", project.id]
-        return deleteProject
+      if (project.name === lowerTranscription.split(" ")[1]) {
+        dispatch(deleteProject(id, project.id))
       }
     })
     //View project
-  } else if (transciption.split(" ")[0] === "view") {
+  } else if (lowerTranscription.split(" ")[0] === "view") {
     user.projects.map((project) => {
-      if (project.name === transcription.split(" ")[1]) {
-        const viewProject = ["View", project.id]
-        return viewProject
-        //dispatch API find by pk (project.name) redirect to url for project
+      if (project.name === lowerTranscription.split(" ")[1]) {
+        location.replace(`http://localhost:8080/projects/${project.id}`)
       }
     })
-  } else if (transcription.split(" ")[0] === "rename") {
+  } else if (lowerTranscription.split(" ")[0] === "rename") {
     user.projects.map((project) => {
-      if (project.name === transcription.split(" ")[1]) {
-        const updatedName = { boardName: transcription.split(" ")[2] }
-        return ["rename", project.id, updatedName]
-        //return updateName then =>
-        //dispatch PUT project.update(updatedName)
-        // or dispatch directly
+      if (project.name === lowerTranscription.split(" ")[1]) {
+        const updatedName = lowerTranscription.split(" ")[2]
+        dispatch(updateProject(project.id, updatedName))
       }
     })
   }
 }
-
-recognizeCommand(transcription)

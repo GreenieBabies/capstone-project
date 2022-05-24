@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchAllUsers, addUserToProject } from "../store/singleUser"
-import { fetchSingleProject } from "../store/singleProject"
+import { CloseButton } from "@chakra-ui/react"
+import { removeUserFromProject } from "../store/singleUser"
 
 const AddCollaborators = (props) => {
   const dispatch = useDispatch()
@@ -20,6 +21,14 @@ const AddCollaborators = (props) => {
     e.preventDefault()
     dispatch(fetchAllUsers())
     setClicked(true)
+  }
+
+  const handleRemoveCollaborator = (e, userName) => {
+    e.preventDefault()
+    console.log(project)
+    const { id: projectId } = project
+    dispatch(removeUserFromProject(userName, projectId))
+    // setCollaborators([...projects, {}])
   }
 
   const handleInputChange = (e) => {
@@ -138,12 +147,17 @@ const AddCollaborators = (props) => {
   return (
     <div>
       <br />
-      {/* {console.log(project)} */}
       <p>Current collaborators</p>
       {collaborators && collaborators.length !== 0 && (
         <ul>
           {collaborators.map((x, i) => (
-            <li key={i}>{x}</li>
+            <li key={i} className="flexed">
+              {x}
+              <CloseButton
+                className="removeCollab"
+                onClick={(e) => handleRemoveCollaborator(e, x)}
+              />
+            </li>
           ))}
         </ul>
       )}
