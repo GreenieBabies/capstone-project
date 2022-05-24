@@ -9,6 +9,7 @@
     "seed": "node script/seed.js",
     "start": "node server",
     "start:dev": "export GOOGLE_APPLICATION_CREDENTIALS=/Users/jeffrey/Personal-Projects/capstone-project/script/robotic-parsec-252900-cd782202f5a5.json & npm run build:dev & npm run start-server",
+    "start:dev:mike": "export GOOGLE_APPLICATION_CREDENTIALS=/Users/michaelmnat/FSA/capstone-project/script/robotic-parsec-252900-cd782202f5a5.json & npm run build:dev & npm run start-server",
     "start:dev:Ethan": "export GOOGLE_APPLICATION_CREDENTIALS=/home/erschindel/capstone-project/script/robotic-parsec-252900-cd782202f5a5.json & npm run build:dev & npm run start-server",
     "start:dev:tony": "export GOOGLE_APPLICATION_CREDENTIALS=/Users/lij/capstone-project/script/robotic-parsec-252900-cd782202f5a5.json & npm run build:dev & npm run start-server",
     "start:dev:logger": "LOGGING=true npm run start:dev",
