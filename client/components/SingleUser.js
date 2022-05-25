@@ -24,8 +24,6 @@ const SingleUser = (props) => {
   const toast = useToast()
   const toastIdRef = React.useRef()
 
-  console.log(STATE)
-
   useEffect(() => {
     const { id } = props.match.params
     dispatch(fetchSingleUser(id))
@@ -33,7 +31,7 @@ const SingleUser = (props) => {
 
   useEffect(() => {
     updateProjects(user.projects)
-    console.log("Changed user")
+    // console.log("Changed user")
   }, [user.id])
 
   useEffect(() => {
@@ -49,7 +47,7 @@ const SingleUser = (props) => {
     //   })
     copy ? updateProjects(copy) : updateProjects(user.projects)
     updateProjects(user.projects)
-    console.log("Updated projects")
+    // console.log("Updated projects")
   }, [user.projects])
 
   const handleAddProject = (e) => {
@@ -91,8 +89,6 @@ const SingleUser = (props) => {
         <div>
           <p className="projectBoardTitle">{user.username}'s Project Boards!</p>
           <br />
-          <AudioRecorder />
-          <p>Home page of {user.username}</p>
           <AudioRecorder user={user} />
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="projects">
