@@ -11,15 +11,11 @@ import {
   deleteSingleTask,
   updateTaskThunk,
 } from "../store/singleProject"
-import { useLocation } from "react-router-dom"
-// import { useToast } from '@chakra-ui/react'
-import { Text } from "@chakra-ui/react"
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const SingleProject = (props) => {
   const dispatch = useDispatch()
-  // const location = useLocation()
   const project = useSelector((state) => state.project)
   const user = useSelector((state) => state.user)
   const [tasks, setTasks] = useState([])
@@ -32,70 +28,35 @@ const SingleProject = (props) => {
     return project.boardName ? project.boardName : ""
   })
   const projLists = useSelector((state) => state.project.lists)
+  const [priorState, setPriorState] = useState([])
 
-  const [state, setState] = useState(
-    () => {
-      let isExecuted = false
-      if (!isExecuted) {
-        isExecuted = true
-        return props.location.state.lists
-      }
-      return state.project.lists
+  const [state, setState] = useState(() => {
+    let isExecuted = false
+    if (!isExecuted) {
+      isExecuted = true
+      return props.location.state.lists
     }
-
-    // useSelector((state) => state.project.lists)
-  )
+    return state.project.lists
+  })
   const [listTitle, setListTitle] = useState("")
-
   const { id: projectId } = props.location.state
-  //have it when someone clicks on a project on the single user page, the projectId is returned
-
-  // useEffect(() => {
-  //   console.log("a")
-  //   const { id } = props.match.params
-  //   dispatch(fetchSingleProject(id))
-  // }, [])
 
   // // FROM JEFF : for video demo
   useEffect(() => {
-    console.log("a")
+    // console.log("a")
     dispatch(fetchSingleProject(projectId))
   }, [])
 
   useEffect(() => {
-    console.log("b")
-    dispatch(fetchSingleProject(projectId))
-  }, [storedHeading, state])
-
-  useEffect(() => {
-    console.log("c")
+    // console.log("b")
     setState(project.lists)
-  }, [user, state, projLists])
-  // // END FROM JEFF
-
-  // FROM ETHAN : for deploying
-  // useEffect(() => {
-  //   console.log("a")
-  //   dispatch(fetchSingleProject(projectId))
-  // }, [])
-
-  // useEffect(() => {
-  //   console.log("b")
-  //   dispatch(fetchSingleProject(projectId))
-  // }, [tasks, storedHeading])
-
-  // useEffect(() => {
-  //   console.log("c")
-  //   setState(project.lists)
-  // }, [user, state, projLists])
-
-  // useEffect(() => {
-  //   console.log("d")
-  //   setState(project.lists)
-  // }, [tasks, projLists])
-  // END FROM ETHAN
-
-  console.log(props)
+    const deepCloneState = JSON.stringify(state)
+    const deepClonePrior = JSON.stringify(priorState)
+    if (deepCloneState !== deepClonePrior) {
+      dispatch(fetchSingleProject(projectId))
+    }
+    setPriorState(state)
+  }, [user, state, projLists, storedHeading])
 
   const handleAddList = (e) => {
     e.preventDefault()
@@ -121,10 +82,8 @@ const SingleProject = (props) => {
 
   const move = (source, destination, droppableSource, droppableDestination) => {
     const sourceClone = Array.from(source.tasks)
-    console.log("here")
-    console.log("source", source)
-    console.log("destination", destination)
-    // console.log("here")
+    // console.log("source", source)
+    // console.log("destination", destination)
 
     const destClone = Array.from(destination.tasks)
     const [removed] = sourceClone.splice(droppableSource.index, 1)
@@ -170,12 +129,12 @@ const SingleProject = (props) => {
     }
     const sInd = +source.droppableId
     const dInd = +destination.droppableId
+    const newState = [...state]
+    let copy = JSON.parse(JSON.stringify(state))
 
     if (sInd === dInd) {
       const items = reorder(state[sInd], source.index, destination.index)
-      const newState = [...state]
       newState[sInd] = items
-      let copy = JSON.parse(JSON.stringify(state))
       copy.forEach((list, index) => {
         if (Array.isArray(newState[index])) list.tasks = newState[index]
         list.tasks.forEach((updateTask, index) => {
@@ -183,15 +142,10 @@ const SingleProject = (props) => {
           dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
         })
       })
-      setState(copy)
     } else {
       const result = move(state[sInd], state[dInd], source, destination)
-      const newState = [...state]
-
       newState[sInd] = result[sInd]
       newState[dInd] = result[dInd]
-
-      let copy = JSON.parse(JSON.stringify(state))
       copy.forEach((list, index) => {
         if (Array.isArray(newState[index])) list.tasks = newState[index]
         list.tasks.forEach((updateTask, index) => {
@@ -200,10 +154,10 @@ const SingleProject = (props) => {
           dispatch(updateTaskThunk(user.id, updateTask.id, updateTask))
         })
       })
-      setState(copy)
     }
+    setState(copy)
   }
-  // console.log(state, "State after update")
+
   return (
     <div style={{ display: "flex" }}>
       <div className="container">
