@@ -233,7 +233,7 @@ export default function singleUserReducer(state = defaultState, action) {
 
   switch (action.type) {
     case GET_SINGLE_USER:
-      console.log(state)
+      // console.log(state)
       stateClone.project = {}
       stateClone.user = { ...action.user }
       stateClone.auth = { ...action.auth }

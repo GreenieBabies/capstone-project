@@ -17,7 +17,6 @@ class AudioSetup extends React.Component {
   //0 - constructor
   constructor(props) {
     super(props)
-    console.log(props)
 
     this.canvasRef = React.createRef()
     this.state = {
@@ -93,7 +92,7 @@ class AudioSetup extends React.Component {
         }
       })
     } else if (lowerTranscription.split(" ")[0] === "rename") {
-      console.log("we are in")
+      // console.log("we are in")
       user.projects.map((project) => {
         if (
           project.boardName.toLowerCase() === lowerTranscription.split(" ")[1]
