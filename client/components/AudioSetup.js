@@ -71,7 +71,7 @@ class AudioSetup extends React.Component {
     //Create Project (in singleProject, invoke addProject() method)
     if (lowerTranscription === "create new project") {
       this.props.addProject(id)
-      addToast()
+      // this.addToast()
       //Delete Project (in singleProject, invoke deleteProject() method)
     } else if (lowerTranscription.split(" ")[0] === "delete") {
       // return delete command and the project to be deleted
@@ -325,6 +325,12 @@ class AudioSetup extends React.Component {
   }
 
   setTranscript = (blob) => {
+    if (blob.size > 2000000) {
+      this.setState({
+        transcript: "Input audio too long. Sorry, try again!",
+      })
+      return false
+    }
     // convert blob into string that we can send to backend
     function blobToBase64(blob) {
       return new Promise((resolve, _) => {
