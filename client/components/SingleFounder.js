@@ -6,7 +6,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa"
 const SingleFounder = () => {
   const location = useLocation()
   const state = location.state
-  console.log(state)
+  // console.log(state)
 
   return (
     <div className="SingleFounder">

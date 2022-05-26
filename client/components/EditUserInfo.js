@@ -36,7 +36,6 @@ const EditUserInfo = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      // console.log(props)
       dispatch(updateSingleUser(form, props.match.params.id))
     } catch (err) {}
     props.history.push("/users")

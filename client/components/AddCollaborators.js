@@ -25,7 +25,6 @@ const AddCollaborators = (props) => {
 
   const handleRemoveCollaborator = (e, userName) => {
     e.preventDefault()
-    console.log(project)
     const { id: projectId } = project
     dispatch(removeUserFromProject(userName, projectId))
     // setCollaborators([...projects, {}])
